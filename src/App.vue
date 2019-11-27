@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header></Header>
+    <Header v-if="this.$route.path !== '/cardform'"></Header>
     <router-view/>
   </div>
 </template>
@@ -9,6 +9,9 @@
   import Header from '@/components/header/header';
   export default {
     name: "App",
+    created () {
+      console.log(this.$route);
+    },
     components: {
       Header
     }

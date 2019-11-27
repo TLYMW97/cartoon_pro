@@ -1,16 +1,6 @@
 <template>
     <div class="index-p">
-        <div class="search-bar">
-            <div class="bar-input">
-                <a-input-search
-                        placeholder="搜索漫画"
-                        @search="onSearch"
-                        enterButton
-                        size="large"
-                >
-                </a-input-search>
-            </div>
-        </div>
+        <search-bar></search-bar>
         <div class="recommend">
             <div class="re-l">
                 <my-swiper :imgs="imgs">
@@ -147,6 +137,7 @@
     import Cartoon from '../../components/cartoon/cartoon';
     import SectionTitle from './components/section-title/section-title';
     import MySwiper from '../../components/my-swiper/my-swiper';
+    import SearchBar from '../../components/search-bar/search-bar';
     export default {
         name: "index",
         filters: {
@@ -158,6 +149,7 @@
         data () {
             return {
                 testNum: 4,
+                stars: 4,
                 imgs: [
                     { src: 'http://by98tel.cdndm5.com/86/2019/11/19/477d4d2c679b4e3c.jpg', id: 1},
                     { src: 'http://by98tel.cdndm5.com/86/2019/11/19/9a8fd6bc8a4b46ea.jpg', id: 2},
@@ -169,7 +161,8 @@
             RecommendImg,
             Cartoon,
             SectionTitle,
-            MySwiper
+            MySwiper,
+            SearchBar
         },
         methods: {
             onSearch () {

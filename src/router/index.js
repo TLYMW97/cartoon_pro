@@ -13,6 +13,11 @@ const routes = [
     path: '/detail',
     name: 'detail',
     component: () => import('../views/cartoon-detail/cartoon-detail')
+  },
+  {
+    path: '/cardform',
+    name: 'cardform',
+    component: () => import('../views/card-form/card-form')
   }
   // {
   //   path: '/about',

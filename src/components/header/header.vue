@@ -15,7 +15,7 @@
                 <li-icon v-for="(li,index) of lis" :name="li.name" :key="index" :icon="li.icon"></li-icon>
             </ul>
             <div class="user">
-                <img src="../../assets/logo.png" alt="">
+                <a-avatar size="large" icon="user"/>
             </div>
         </div>
     </div>
@@ -48,6 +48,7 @@
         width: $w_1200;
         max-height: 70px;
         display: flex;
+        padding: 2% 0;
         margin: 0 auto;
         justify-content: space-between;
         background: #fff;
@@ -64,27 +65,19 @@
         width: 40%;
     }
     .header-left .l-ul, .header-right .r-ul {
-        width: 70%;
+        width: 100%;
         display: flex;
         font-size: $middle-font
     }
-    .l-ul li, .r-ul li {
+    .l-ul li {
         width: 100%;
-        position: relative;
-        margin-left: 1vw;
     }
     .r-ul {
         align-items: flex-end;
     }
     .user {
         width: $avatar-size;
-        margin-left: 3vw;
-        height: $avatar-size;
-        border-radius: 50%;
         overflow: hidden;
-    }
-    .user img {
-        width: 100%;
     }
     .r-ul:nth-last-child(1) {
         margin-right: 1vw;

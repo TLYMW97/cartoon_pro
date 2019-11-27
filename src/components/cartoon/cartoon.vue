@@ -5,7 +5,9 @@
         </div>
         <div class="c-right">
             <p class="item-title">山海逆战</p>
-            <div class="item-star"></div>
+            <div class="item-star">
+                <a-rate style="font-size:14px" allow-half v-model="stars"/>
+            </div>
             <div class="item-new">最新 <span class="red-span">第462回 刀锋单间论</span></div>
             <div class="item-des">山海世界，人与异兽谁胜谁负</div>
             <div class="item-tags">
@@ -37,6 +39,11 @@
                 type:Array,
                 default: null
             }
+        },
+        data () {
+            return {
+                stars: 4
+            };
         }
     };
 </script>
@@ -47,6 +54,12 @@
         margin-top: 20px;
         width: 400px;
         display: flex;
+    }
+    .item-star {
+        width: 100%;
+    }
+    .item-star {
+        margin-top: 10px;
     }
     .c-item .c-right {
         width: 50%;
