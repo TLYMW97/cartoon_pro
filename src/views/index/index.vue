@@ -1,6 +1,16 @@
 <template>
     <div class="index-p">
-        <search-bar></search-bar>
+        <div class="search-bar">
+            <div class="bar-input">
+                <a-input-search
+                        placeholder="搜索漫画"
+                        @search="onSearch"
+                        enterButton
+                        size="large"
+                >
+                </a-input-search>
+            </div>
+        </div>
         <div class="recommend">
             <div class="re-l">
                 <my-swiper :imgs="imgs">
