@@ -147,7 +147,7 @@
     import Cartoon from '../../components/cartoon/cartoon';
     import SectionTitle from './components/section-title/section-title';
     import MySwiper from '../../components/my-swiper/my-swiper';
-    import SearchBar from '../../components/search-bar/search-bar';
+    // import SearchBar from '../../components/search-bar/search-bar';
     export default {
         name: "index",
         filters: {
@@ -171,8 +171,7 @@
             RecommendImg,
             Cartoon,
             SectionTitle,
-            MySwiper,
-            SearchBar
+            MySwiper
         },
         methods: {
             onSearch () {
