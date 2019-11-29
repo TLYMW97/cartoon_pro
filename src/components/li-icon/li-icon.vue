@@ -26,12 +26,12 @@
 <style scoped lang="scss">
     @import "../../assets/sass/index";
     .operate-item {
+        margin-left: 20px;
     }
     .operate-item a {
         margin: 0 auto;
     }
     .operate-item p {
-        width: 60px;
         font-size: $small-font;
         text-align: center;
     }

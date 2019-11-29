@@ -1,15 +1,23 @@
 <template>
     <div class="index-p">
-        <div class="search-bar">
-            <div class="bar-input">
-                <a-input-search
-                        placeholder="搜索漫画"
-                        @search="onSearch"
-                        enterButton
-                        size="large"
-                >
-                </a-input-search>
-            </div>
+        <search-bar></search-bar>
+        <div class="classify">
+            <ul class="classify-ul">
+                <li><router-link to="#">原创</router-link></li>
+                <li><router-link to="#">热血</router-link></li>
+                <li><router-link to="#">冒险</router-link></li>
+                <li><router-link to="#">魔法</router-link></li>
+                <li><router-link to="#">科幻</router-link></li>
+                <li><router-link to="#">奇幻</router-link></li>
+                <li><router-link to="#">运动</router-link></li>
+                <li><router-link to="#">历史</router-link></li>
+                <li><router-link to="#">战争</router-link></li>
+                <li><router-link to="#">恋爱</router-link></li>
+                <li><router-link to="#">后宫</router-link></li>
+                <li><router-link to="#">校园</router-link></li>
+                <li><router-link to="#">悬疑</router-link></li>
+                <li><router-link to="#">搞笑</router-link></li>
+            </ul>
         </div>
         <div class="recommend">
             <div class="re-l">
@@ -44,21 +52,56 @@
                 <Cartoon/>
                 <Cartoon/>
                 <Cartoon/>
-                <Cartoon/>
             </div>
         </div>
         <div class="ranks">
             <div class="ranking-list">
                 <div class="ranking-title">
                     <h3>国漫热门排行</h3>
-                    <span>更多 <a-icon type="right" /></span>
+                    <span class="more">更多 <a-icon type="right" /></span>
                 </div>
                 <div class="rank">
                     <div class="rank-img">
                         <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt="">
                     </div>
-                    <div class="rank-des">
-                        <div class="rank-num">1</div>
+                    <div class="rank-detail">
+                        <div class="rank-num">
+                            <div class="ball-icon">
+                                1
+                            </div>
+                        </div>
+                        <div class="rank-des">
+                            <p class="title">英雄再临</p>
+                            <p class="introduce">伴随着各种各样的危机与绝望而来</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="rank">
+                    <div class="rank-img">
+                        <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt="">
+                    </div>
+                    <div class="rank-detail">
+                        <div class="rank-num">
+                            <div class="ball-icon">
+                                1
+                            </div>
+                        </div>
+                        <div class="rank-des">
+                            <p class="title">英雄再临</p>
+                            <p class="introduce">伴随着各种各样的危机与绝望而来</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="rank">
+                    <div class="rank-img">
+                        <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt="">
+                    </div>
+                    <div class="rank-detail">
+                        <div class="rank-num">
+                            <div class="ball-icon">
+                                1
+                            </div>
+                        </div>
                         <div class="rank-des">
                             <p class="title">英雄再临</p>
                             <p class="introduce">伴随着各种各样的危机与绝望而来</p>
@@ -69,14 +112,50 @@
             <div class="ranking-list">
                 <div class="ranking-title">
                     <h3>国漫热门排行</h3>
-                    <span>更多 <a-icon type="right" /></span>
+                    <span class="more">更多 <a-icon type="right" /></span>
                 </div>
                 <div class="rank">
                     <div class="rank-img">
                         <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt="">
                     </div>
-                    <div class="rank-des">
-                        <div class="rank-num">1</div>
+                    <div class="rank-detail">
+                        <div class="rank-num">
+                            <div class="ball-icon">
+                                1
+                            </div>
+                        </div>
+                        <div class="rank-des">
+                            <p class="title">英雄再临</p>
+                            <p class="introduce">伴随着各种各样的危机与绝望而来</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="rank">
+                    <div class="rank-img">
+                        <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt="">
+                    </div>
+                    <div class="rank-detail">
+                        <div class="rank-num">
+                            <div class="ball-icon">
+                                1
+                            </div>
+                        </div>
+                        <div class="rank-des">
+                            <p class="title">英雄再临</p>
+                            <p class="introduce">伴随着各种各样的危机与绝望而来</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="rank">
+                    <div class="rank-img">
+                        <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt="">
+                    </div>
+                    <div class="rank-detail">
+                        <div class="rank-num">
+                            <div class="ball-icon">
+                                1
+                            </div>
+                        </div>
                         <div class="rank-des">
                             <p class="title">英雄再临</p>
                             <p class="introduce">伴随着各种各样的危机与绝望而来</p>
@@ -86,7 +165,7 @@
             </div>
             <div class="ranking-list">
                 <div class="ranking-title">
-                    <h3>国漫热门排行{{testNum | formatNum}}</h3>
+                    <h3>国漫热门排行</h3>
                     <span class="more">更多 <a-icon type="right" /></span>
                 </div>
                 <div class="rank">
@@ -147,23 +226,17 @@
     import Cartoon from '../../components/cartoon/cartoon';
     import SectionTitle from './components/section-title/section-title';
     import MySwiper from '../../components/my-swiper/my-swiper';
-    // import SearchBar from '../../components/search-bar/search-bar';
+    import SearchBar from '../../components/search-bar/search-bar';
     export default {
         name: "index",
-        filters: {
-          formatNum (num) {
-              if (!num) return '';
-              return num + 5;
-          }
-        },
         data () {
             return {
                 testNum: 4,
                 stars: 4,
                 imgs: [
                     { src: 'http://by98tel.cdndm5.com/86/2019/11/19/477d4d2c679b4e3c.jpg', id: 1},
-                    { src: 'http://by98tel.cdndm5.com/86/2019/11/19/9a8fd6bc8a4b46ea.jpg', id: 2},
-                    { src: 'http://by98tel.cdndm5.com/86/2019/11/19/477d4d2c679b4e3c.jpg', id: 3},
+                    { src: 'http://by98tel.cdndm5.com/86/2019/11/19/3f1f0df0d75b48af.jpg', id: 2},
+                    { src: 'http://by98tel.cdndm5.com/86/2019/11/19/a23724ac2efe4e78.jpg', id: 3},
                 ]
             };
         },
@@ -171,7 +244,8 @@
             RecommendImg,
             Cartoon,
             SectionTitle,
-            MySwiper
+            MySwiper,
+            SearchBar
         },
         methods: {
             onSearch () {
@@ -186,18 +260,20 @@
     .index-p {
         width: 100%;
     }
-    .search-bar {
-        width: 100%;
-        min-width: $w_1200;
-        height: 100px;
-        margin: 0 auto;
-        text-align: center;
-        background: url("http://css99tel.cdndm5.com/v201910292122/blue/images/search-bg.jpg") no-repeat;
+    .classify {
+        width: $w_1200;
+        margin: 5px auto;
     }
-    .bar-input{
-        display: inline-block;
-        width: 40%;
-        margin: 30px auto;
+    .classify .classify-ul {
+        display: flex;
+        font-size: 14px;
+    }
+    .classify-ul li {
+        margin-right: 10px;
+        border-bottom: 1px solid transparent;
+    }
+    .classify-ul li:hover {
+        border-color: $index-color;
     }
     .recommend {
         width: $w_1200;

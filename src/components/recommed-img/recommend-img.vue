@@ -8,7 +8,6 @@
     export default {
         name: "recommend-img",
         created () {
-            console.log(this.src);
         },
         props: {
             img_src: {

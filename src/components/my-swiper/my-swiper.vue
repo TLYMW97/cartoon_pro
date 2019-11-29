@@ -4,7 +4,7 @@
             <swiper-slide v-for="item of imgs" :key="item.id">
                 <recommend-img :img_src="item.src" :id="item.id"></recommend-img>
             </swiper-slide>
-            <div class="swiper-pagination" slot="pagination"></div>
+            <div class="swiper-pagination"  slot="pagination"></div>
         </swiper>
     </div>
 </template>
@@ -32,15 +32,14 @@
                         stopOnLastSlide: false,
                         disableOnInteraction: false
                     },
-                    pagination: {
-                        el: '.swiper-pagination',
-                        clickable: true,
-                        type: 'bullets'
-                    },
-                    slidesPerView: 'auto',
-                    centeredSlides: true,
-                    paginationClickable: true,
-                    spaceBetween: 30
+                    pagination: '.swiper-pagination',
+                    paginationType : 'fraction',
+                    grabCursor : true,
+                    parallax : true,
+                    effect : 'cube'
+                    // slidesPerView: 'auto',
+                    // centeredSlides: true,
+                    // spaceBetween: 30
                 }
             };
         }
@@ -56,4 +55,5 @@
         width: 100%;
         height: 100%;
     }
+
 </style>

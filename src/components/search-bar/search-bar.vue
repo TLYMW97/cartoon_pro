@@ -6,6 +6,7 @@
                     @search="onSearch"
                     enterButton
                     size="large"
+                    v-model="searchContent"
             >
             </a-input-search>
         </div>
@@ -14,7 +15,17 @@
 
 <script>
     export default {
-        name: "search-bar"
+        name: "search-bar",
+        data () {
+          return {
+            searchContent: ''
+          };
+        },
+        methods: {
+            onSearch () {
+                this.$emit('search', this.searchContent);
+            }
+        }
     };
 </script>
 
