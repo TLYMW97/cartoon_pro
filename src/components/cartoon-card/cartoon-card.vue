@@ -4,7 +4,7 @@
             <img src='http://mhfm9tel.cdndm5.com/34/33991/20191025105411_180x240_23.jpg' alt="">
         </div>
         <div class="title-text">
-            <router-link to="" class="title">山海逆战山海逆战山海逆战山海逆战山海逆战</router-link>
+            <router-link to="" class="title">山海逆战</router-link>
         </div>
         <div class="star">
             <p>评分:</p>
@@ -14,12 +14,17 @@
             <p>最新:</p>
             <router-link to="" class="new">第462回 刀锋单间论第462回 刀锋单间论</router-link>
         </div>
+        <cartoonAnimated></cartoonAnimated>
     </div>
 </template>
 
 <script>
+import cartoonAnimated from '../cartoon-animated/cartoon-animated';
 export default {
     name: "cartoon-card",
+    components: {
+        cartoonAnimated
+    },
     data () {
         return{
           stars: 4.5
@@ -32,6 +37,7 @@ export default {
     .card{
         width: 167px;
         height: 287px;
+        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
