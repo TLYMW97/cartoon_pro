@@ -58,50 +58,14 @@
             <div class="ranking-list">
                 <div class="ranking-title">
                     <h3>国漫热门排行</h3>
-                    <span class="more">更多 <a-icon type="right" /></span>
+                    <span>更多 <a-icon type="right" /></span>
                 </div>
                 <div class="rank">
                     <div class="rank-img">
                         <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt="">
                     </div>
-                    <div class="rank-detail">
-                        <div class="rank-num">
-                            <div class="ball-icon">
-                                1
-                            </div>
-                        </div>
-                        <div class="rank-des">
-                            <p class="title">英雄再临</p>
-                            <p class="introduce">伴随着各种各样的危机与绝望而来</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="rank">
-                    <div class="rank-img">
-                        <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt="">
-                    </div>
-                    <div class="rank-detail">
-                        <div class="rank-num">
-                            <div class="ball-icon">
-                                1
-                            </div>
-                        </div>
-                        <div class="rank-des">
-                            <p class="title">英雄再临</p>
-                            <p class="introduce">伴随着各种各样的危机与绝望而来</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="rank">
-                    <div class="rank-img">
-                        <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt="">
-                    </div>
-                    <div class="rank-detail">
-                        <div class="rank-num">
-                            <div class="ball-icon">
-                                1
-                            </div>
-                        </div>
+                    <div class="rank-des">
+                        <div class="rank-num">1</div>
                         <div class="rank-des">
                             <p class="title">英雄再临</p>
                             <p class="introduce">伴随着各种各样的危机与绝望而来</p>
@@ -218,6 +182,22 @@
                 </div>
             </div>
         </div>
+        <div class="renew">
+            <cartoonCard class="renew-card"></cartoonCard>
+            <cartoonCard class="renew-card"></cartoonCard>
+            <cartoonCard class="renew-card"></cartoonCard>
+            <cartoonCard class="renew-card"></cartoonCard>
+            <cartoonCard class="renew-card"></cartoonCard>
+            <cartoonCard class="renew-card"></cartoonCard>
+            <cartoonCard class="renew-card"></cartoonCard>
+            <cartoonCard class="renew-card"></cartoonCard>
+            <cartoonCard class="renew-card"></cartoonCard>
+            <cartoonCard class="renew-card"></cartoonCard>
+            <cartoonCard class="renew-card"></cartoonCard>
+            <cartoonCard class="renew-card"></cartoonCard>
+            <cartoonCard class="renew-card"></cartoonCard>
+            <cartoonCard class="renew-card"></cartoonCard>
+        </div>
     </div>
 </template>
 
@@ -227,6 +207,7 @@
     import SectionTitle from './components/section-title/section-title';
     import MySwiper from '../../components/my-swiper/my-swiper';
     import SearchBar from '../../components/search-bar/search-bar';
+    import cartoonCard from '../../components/cartoon-card/cartoon-card';
     export default {
         name: "index",
         data () {
@@ -245,7 +226,8 @@
             Cartoon,
             SectionTitle,
             MySwiper,
-            SearchBar
+            SearchBar,
+            cartoonCard
         },
         methods: {
             onSearch () {
@@ -375,5 +357,15 @@
         text-overflow: ellipsis;  /* ellipsis:显示省略符号来代表被修剪的文本  string:使用给定的字符串来代表被修剪的文本*/
         white-space: nowrap;   /* nowrap:规定段落中的文本不进行换行   */
         overflow: hidden; /*超出部分隐藏*/
+    }
+    .renew{
+        width: $w_1200;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 30px auto;
+    }
+    .renew .renew-card{
+        margin-bottom: 20px;
     }
 </style>

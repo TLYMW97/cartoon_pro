@@ -1,0 +1,91 @@
+<template>
+    <div class="card">
+        <div class="image-card">
+            <img src='http://mhfm9tel.cdndm5.com/34/33991/20191025105411_180x240_23.jpg' alt="">
+        </div>
+        <div class="title-text">
+            <router-link to="" class="title">山海逆战山海逆战山海逆战山海逆战山海逆战</router-link>
+        </div>
+        <div class="star">
+            <p>评分:</p>
+            <a-rate class="rate" allow-half v-model="stars" disabled/>
+        </div>
+        <div class="renew">
+            <p>最新:</p>
+            <router-link to="" class="new">第462回 刀锋单间论第462回 刀锋单间论</router-link>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    name: "cartoon-card",
+    data () {
+        return{
+          stars: 4.5
+        };
+    }
+};
+</script>
+
+<style scoped>
+    .card{
+        width: 167px;
+        height: 287px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .card .image-card{
+        width: 100%;
+        height: 220px;
+    }
+    .image-card img{
+        width: 100%;
+        height: 100%;
+    }
+    .card .title-text{
+        width: 100%;
+    }
+    .title-text .title{
+        font-size: 14px;
+        font-weight: bold;
+        color: #252525;
+        display: block;
+        margin: 8px 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .card .star{
+        width: 100%;
+        display: flex;
+    }
+    .star p{
+        font-size: 12px;
+        color: #666666;
+    }
+    .star .rate{
+        font-size:10px;
+        line-height: 14px;
+        margin-left: 10px;
+    }
+    .card .renew{
+        width: 100%;
+        display: flex;
+    }
+    .renew p{
+        flex-shrink: 0;
+        font-size: 12px;
+        color: #252525;
+    }
+    .renew .new{
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 12px;
+        color: #fd113a;
+        margin-left: 10px;
+    }
+</style>
