@@ -6,7 +6,7 @@
         <div class="c-right">
             <p class="item-title">山海逆战</p>
             <div class="item-star">
-                <a-rate style="font-size:14px" allow-half v-model="stars"/>
+                <a-rate style="font-size:12px;color:#ffc73f" allow-half v-model="stars"/>
             </div>
             <div class="item-new">最新 <span class="red-span">第462回 刀锋单间论</span></div>
             <div class="item-des">山海世界，人与异兽谁胜谁负</div>
@@ -57,9 +57,6 @@
     }
     .item-star {
         width: 100%;
-    }
-    .item-star {
-        margin-top: 10px;
     }
     .c-item .c-right {
         width: 50%;

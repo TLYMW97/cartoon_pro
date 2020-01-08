@@ -10,7 +10,6 @@
   export default {
     name: "App",
     created () {
-      console.log(this.$route);
     },
     components: {
       Header
