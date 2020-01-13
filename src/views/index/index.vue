@@ -419,6 +419,7 @@
             <cartoonCard class="renew-card"></cartoonCard>
         </div>
     </div>
+    </div>
 </template>
 
 <script>
@@ -428,6 +429,9 @@
     import MySwiper from '../../components/my-swiper/my-swiper';
     import SearchBar from '../../components/search-bar/search-bar';
     import cartoonCard from '../../components/cartoon-card/cartoon-card';
+
+    import api from "../../api/api";
+
     export default {
         name: "index",
         data () {
@@ -453,6 +457,11 @@
             onSearch () {
                 alert('d');
             }
+        },
+        mounted () {
+            api.findAllManga().then(res =>{
+                console.log(res);
+            });
         }
     };
 </script>
