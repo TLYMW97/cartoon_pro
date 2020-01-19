@@ -1,0 +1,28 @@
+import Vue from 'vue';
+import {
+  Input,
+  Icon,
+  Tag,
+  Form,
+  Select,
+  Button,
+  Rate,
+  Avatar,
+  Modal,
+  message
+} from 'ant-design-vue';
+
+Vue.component(Input.name, Input);
+Vue.component(Icon.name, Icon);
+Vue.component(Tag.name, Tag);
+Vue.component(Input.Search.name, Input.Search);
+Vue.component(Input.Password.name, Input.Password);
+Vue.component(Form.name, Form);
+Vue.component(Form.Item.name, Form.Item);
+Vue.component(Select.name, Select);
+Vue.component(Select.Option.name, Select.Option);
+Vue.component(Button.name, Button);
+Vue.component(Avatar.name, Avatar);
+Vue.component(Rate.name, Rate);
+Vue.component(Modal.name, Modal);
+Vue.prototype.$message = message;

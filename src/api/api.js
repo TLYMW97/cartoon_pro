@@ -1,11 +1,14 @@
-import {get} from './http';
+import service from './http';
 
-const api = {};
-
-//获取所有漫画
-api.findAllManga = () => {
-    return get('/api/findAllManga');
+export const allManga = () => {
+  return service.get('/findAllManaga');
 };
-
-
-export default api;
+export const code = () => {
+  return service.get('/getCode');
+};
+export const login = reqBody => {
+  return service.post('/login', reqBody);
+};
+export const register = reqBody => {
+  return service.post('/register', reqBody);
+};

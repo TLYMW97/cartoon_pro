@@ -1,37 +1,165 @@
 <template>
   <div id="app">
     <Header v-if="this.$route.path !== '/cardform'"></Header>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
-  import Header from '@/components/header/header';
-  export default {
-    name: "App",
-    created () {
-    },
-    components: {
-      Header
-    }
-  };
+import Header from '@/components/header/header';
+export default {
+  name: 'App',
+  created() {},
+  components: {
+    Header
+  }
+};
 </script>
 
 <style lang="scss">
-  @import "assets/sass/index";
-  body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-  }
-  h1, h2, h3, h4, h5, h6{ font-size:100%; }
-  address, cite, dfn, em, var { font-style:normal; }
-  code, kbd, pre, samp { font-family:couriernew, courier, monospace; }
-  small{ font-size:12px; }
-  ul, ol { list-style:none; }
-  a { text-decoration:none; color: #000}
-  a:hover { text-decoration:none; color: $index-color}
-  sup { vertical-align:text-top; }
-  sub{ vertical-align:text-bottom; }
-  legend { color:#000; }
-  fieldset, img { border:0; }
-  button, input, select, textarea { font-size:100%; }
-  p {color: #666666}
+@import 'assets/sass/index';
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  outline: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+html {
+  height: 101%;
+}
+body {
+  font-size: 62.5%;
+  line-height: 1;
+  font-family: Arial, Tahoma, sans-serif;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+strong {
+  font-weight: bold;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+img {
+  border: 0;
+  max-width: 100%;
+}
+p {
+  font-size: 1.2em;
+  line-height: 1em;
+  color: #666666;
+}
 </style>
