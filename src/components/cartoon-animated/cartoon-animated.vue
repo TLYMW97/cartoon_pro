@@ -2,11 +2,12 @@
     <div class="animated">
         <div class="animated-tip">
             <router-link to="" title="山海逆战">
-                <img src="http://mhfm4tel.cdndm5.com/34/33991/20191025105450_480x369_74.jpg" alt="">
+                <img :src='mangaData.episode[0].episodeHref' alt="">
             </router-link>
             <div class="animated-detail">
                 <div class="title">
-                    <router-link to="" title="山海逆战">山海逆战</router-link>
+                    <router-link to="" :title='mangaData.mangaName'>{{mangaData.mangaName}}</router-link>
+                    <p>评分:{{mangaData.mangaScore}}</p>
                     <a-rate class="rate" allow-half v-model="stars" disabled></a-rate>
                 </div>
             </div>
@@ -34,6 +35,9 @@
 <script>
 export default {
     name: "cartoon-animated",
+    props:[
+        'mangaData'
+    ],
     data(){
         return{
             stars: 4.5
@@ -71,6 +75,9 @@ export default {
     }
     .animated-tip img{
         width: 100%;
+        height: 50%;
+        display: block;
+        object-fit: cover;
     }
     .animated-tip .animated-detail{
         padding: 10px;
@@ -92,6 +99,11 @@ export default {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+    .title p{
+        font-size: 12px;
+        display: block;
+        margin-right: 2px;
     }
     .animated-detail .rate{
         line-height: 18px;

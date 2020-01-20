@@ -1,20 +1,20 @@
 <template>
     <div class="card">
         <div class="image-card">
-            <img src='http://mhfm9tel.cdndm5.com/34/33991/20191025105411_180x240_23.jpg' alt="">
+            <img :src='mangaData.episode[0].episodeHref' alt="">
         </div>
         <div class="title-text">
-            <router-link to="" class="title">山海逆战</router-link>
+            <router-link to="" class="title">{{mangaData.mangaName}}</router-link>
         </div>
         <div class="star">
-            <p>评分:</p>
-            <a-rate class="rate" allow-half v-model="stars" disabled/>
+            <p>评分:{{mangaData.mangaScore}}</p>
+            <a-rate class="rate" allow-half v-model="mangaData.mangaScore" disabled/>
         </div>
         <div class="renew">
             <p>最新:</p>
             <router-link to="" class="new">第462回 刀锋单间论第462回 刀锋单间论</router-link>
         </div>
-        <cartoonAnimated></cartoonAnimated>
+        <cartoonAnimated :mangaData="mangaData"></cartoonAnimated>
     </div>
 </template>
 
@@ -25,10 +25,15 @@ export default {
     components: {
         cartoonAnimated
     },
+    props:[
+        'mangaData'
+    ],
     data () {
         return{
           stars: 4.5
         };
+    },
+    mounted() {
     }
 };
 </script>
