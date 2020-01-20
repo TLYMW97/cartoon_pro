@@ -17,6 +17,8 @@ const toLogin = () => {
   });
 };
 
+console.log(toLogin());
+
 const service = axios.create({
   baseURL,
   headers: {
@@ -103,4 +105,6 @@ service.interceptors.response.use(
 const notify = (type, msg, duration = 3) => {
   message[type](msg, duration);
 };
+
+console.log(notify);
 export default service;

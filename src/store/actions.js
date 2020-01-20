@@ -8,6 +8,7 @@ export const userInfo = async ({ commit, state }, reqBody) => {
   const {
     data: { code, data, msg }
   } = res;
+  console.log(state);
   console.log(res);
   if (code === 200) {
     commit(types.SET_USER_INFO, data);

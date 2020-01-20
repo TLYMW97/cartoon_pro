@@ -1,7 +1,7 @@
 import service from './http';
 
 export const allManga = () => {
-  return service.get('/findAllManaga');
+  return service.get('/findAllManga');
 };
 export const code = () => {
   return service.get('/getCode');

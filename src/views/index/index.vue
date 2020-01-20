@@ -235,7 +235,6 @@
     import SearchBar from '../../components/search-bar/search-bar';
     import cartoonCard from '../../components/cartoon-card/cartoon-card';
 
-    import api from "../../api/api";
 
     export default {
         name: "index",
@@ -266,8 +265,8 @@
             }
         },
         mounted () {
-            api.findAllManga().then(res =>{
-                this.allManga = res.data;
+            this.$api.allManga().then(res =>{
+                this.allManga = res.data.data;
                 console.log(this.allManga);
             });
         }

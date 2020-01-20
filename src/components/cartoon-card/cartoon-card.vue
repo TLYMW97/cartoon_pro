@@ -78,7 +78,7 @@ export default {
     }
     .star .rate{
         font-size:10px;
-        line-height: 14px;
+        line-height: 12px;
         margin-left: 10px;
     }
     .card .renew{
@@ -92,6 +92,7 @@ export default {
     }
     .renew .new{
         display: block;
+        line-height: 12px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;

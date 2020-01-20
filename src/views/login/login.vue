@@ -65,7 +65,8 @@ export default {
       this.code = code;
     },
     validateCode(rule, value, callback) {
-      const { loginForm, code } = this;
+      const {loginForm, code} = this;
+      console.log(loginForm);
       if (value && value !== code) {
         callback('验证码错误');
       } else {

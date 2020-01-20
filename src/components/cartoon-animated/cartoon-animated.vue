@@ -80,12 +80,12 @@ export default {
         object-fit: cover;
     }
     .animated-tip .animated-detail{
-        padding: 10px;
+        padding: 10px 10px 0px 10px;
     }
     .animated-detail .title{
         display: flex;
-        font-size: 18px;
-        line-height: 21px;
+        font-size: 16px;
+        line-height: 16px;
         font-weight: 700;
         margin-bottom: 8px;
         overflow: hidden;
@@ -101,12 +101,13 @@ export default {
         text-overflow: ellipsis;
     }
     .title p{
-        font-size: 12px;
+        font-size: 14px;
         display: block;
-        margin-right: 2px;
+        line-height: 17px;
+        margin-right: 4px;
     }
     .animated-detail .rate{
-        line-height: 18px;
+        line-height: 14px;
         font-size: 12px;
     }
     .rate>>>.ant-rate-star{
@@ -120,15 +121,25 @@ export default {
         display: flex;
         padding: 0 10px;
     }
+    .author p{
+        font-size: 14px;
+    }
     .author a{
+        float: left;
+        display: block;
+        line-height: 14px;
         padding-left: 3px;
+        font-size: 14px;
     }
     .animated-tip .chapter{
-        line-height: 18px;
+        height: 24px;
+        line-height: 14px;
         display: flex;
         padding: 0 10px;
     }
     .chapter p{
+        width: 40px;
+        font-size: 14px;
         color: #252525;
     }
     .chapter a{
@@ -142,10 +153,11 @@ export default {
         vertical-align: top;
     }
     .animated-tip .desc{
+        height: 14px;
         padding: 0 10px;
-        font-size: 13px;
+        font-size: 12px;
         color: #666;
-        line-height: 1.5em;
+        line-height: 12px;
         margin-top: 3px;
         overflow: hidden;
         text-overflow: ellipsis;
