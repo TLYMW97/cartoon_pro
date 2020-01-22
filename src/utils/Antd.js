@@ -9,12 +9,14 @@ import {
   Rate,
   Avatar,
   Modal,
+  Tabs,
   message
 } from 'ant-design-vue';
-
 Vue.component(Input.name, Input);
 Vue.component(Icon.name, Icon);
 Vue.component(Tag.name, Tag);
+Vue.component(Tabs.name, Tabs);
+Vue.component(Tabs.TabPane.name, Tabs.TabPane);
 Vue.component(Input.Search.name, Input.Search);
 Vue.component(Input.Password.name, Input.Password);
 Vue.component(Form.name, Form);

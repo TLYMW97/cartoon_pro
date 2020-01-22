@@ -4,34 +4,27 @@
       <img src="http://css99tel.cdndm5.com/v202001161319/blue/images/login.png" alt />
     </div>
     <div class="form-r">
-      <h3>登录</h3>
-      <a-form :form="loginForm">
-        <a-form-item>
-          <a-input placeholder="输入用户名/邮箱" v-decorator="['userName', config.username]"></a-input>
-        </a-form-item>
-        <a-form-item>
-          <a-input-password v-decorator="['userPwd', config.password]" placeholder="输入密码"></a-input-password>
-        </a-form-item>
-        <a-form-item>
-          <verify :code="code"></verify>
-          <a-input placeholder="输入验证码" v-decorator="['code', config.code]"></a-input>
-        </a-form-item>
-        <a-form-item>
-          <a-button type="primary" style="width:100%;" @click="login">立即登录</a-button>
-        </a-form-item>
-      </a-form>
+      <a-tabs defaultActiveKey="1">
+        <a-tab-pane tab="登录" key="1">
+          <login-form @login="login" :code="code"></login-form>
+        </a-tab-pane>
+        <a-tab-pane tab="注册" key="2">
+          <register-form @register="register"></register-form>
+        </a-tab-pane>
+      </a-tabs>
     </div>
   </div>
 </template>
 
 <script>
-import Verify from '@/components/verify/verify';
+import LoginForm from './components/login-form/login-form';
+import RegisterForm from './components/register-form/register-form';
 import { mapActions } from 'vuex';
 export default {
   name: 'Login',
   data() {
     return {
-      code: '',
+      code: '1',
       loginForm: this.$form.createForm(this),
       config: {
         username: {
@@ -50,7 +43,8 @@ export default {
     };
   },
   components: {
-    Verify
+    LoginForm,
+    RegisterForm
   },
   created() {
     this.getCode();
@@ -58,40 +52,25 @@ export default {
   methods: {
     getCode: async function() {
       let res = await this.$api.code();
-      console.log('res', res);
       const {
         data: { data: code }
       } = res;
       this.code = code;
     },
-    validateCode(rule, value, callback) {
-      const {loginForm, code} = this;
-      console.log(loginForm);
-      if (value && value !== code) {
-        callback('验证码错误');
-      } else {
-        callback();
+    login(val) {
+      this.userLogin(val);
+    },
+    register: async function(val) {
+      let res = await this.$api.register(val);
+      const {
+        data: { code }
+      } = res;
+      console.log('res', res);
+      if (code === 200) {
+        this.$message.success('注册成功', 2);
       }
     },
-    login() {
-      const {
-        loginForm: { validateFields }
-      } = this;
-      validateFields(async (err, val) => {
-        if (!err) {
-          // let res = await this.$api.login(val);
-          // console.log('res', res);
-          // const {
-          //   data: { code, data, msg }
-          // } = res;
-          // if (code === 200) {
-          //   this.$message.success('登录成功', 2);
-          // }
-          this.userInfo(val);
-        }
-      });
-    },
-    ...mapActions(['userInfo'])
+    ...mapActions(['userLogin'])
   }
 };
 </script>
@@ -115,7 +94,7 @@ export default {
     font-weight: 500;
   }
   .ant-form {
-    margin-top: 60px;
+    margin-top: 20px;
   }
 }
 </style>

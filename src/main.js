@@ -4,7 +4,6 @@ import router from './router';
 import store from './store';
 import './utils/Antd';
 import * as api from '@/api/api';
-
 Vue.prototype.$api = api;
 Vue.config.productionTip = false;
 new Vue({
