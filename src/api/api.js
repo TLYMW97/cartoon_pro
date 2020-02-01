@@ -1,9 +1,4 @@
 import service from './http';
-
-// 获取所有漫画
-export const allManga = () => {
-  return service.get('/findAllManga');
-};
 // 获取验证码
 export const code = () => {
   return service.get('/getCode');
@@ -21,4 +16,15 @@ export const checkName = userName => {
   return service.post('/chkUserName', {
     userName
   });
+};
+
+// 获取所有漫画
+export const allManga = () => {
+  return service.get('/findAllManga');
+};
+export const getChapter = mangaId => {
+  return service.post('/findChapter', { mangaId });
+};
+export const getEpisode = chapterId => {
+  return service.post('/findEpisode', { chapterId });
 };

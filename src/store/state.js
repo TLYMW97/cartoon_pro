@@ -1,7 +1,9 @@
 const sessionData = {
-  user: JSON.parse(sessionStorage.getItem('user'))
+  user: JSON.parse(sessionStorage.getItem('user')),
+  currentManga: JSON.parse(sessionStorage.getItem('curManga'))
 };
 const state = {
-  user: sessionData.user || {}
+  user: sessionData.user || {},
+  currentManga: sessionData.currentManga || {}
 };
 export default state;

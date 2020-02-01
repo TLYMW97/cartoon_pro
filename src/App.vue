@@ -18,148 +18,96 @@ export default {
 
 <style lang="scss">
 @import 'assets/sass/index';
-html,
 body,
-div,
-span,
-applet,
-object,
-iframe,
 h1,
 h2,
 h3,
 h4,
 h5,
 h6,
+hr,
 p,
 blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
 dl,
 dt,
 dd,
-ol,
 ul,
+ol,
 li,
-fieldset,
+pre,
 form,
-label,
+fieldset,
 legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
+button,
+input,
+textarea,
 th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
+td {
   margin: 0;
   padding: 0;
-  border: 0;
+}
+body,
+button,
+input,
+select,
+textarea {
+  font: 12px/1.5tahoma, arial, \5b8b\4f53;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-  outline: none;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
-html {
-  height: 101%;
+address,
+cite,
+dfn,
+em,
+var {
+  font-style: normal;
 }
-body {
-  font-size: 62.5%;
-  line-height: 1;
-  font-family: Arial, Tahoma, sans-serif;
+code,
+kbd,
+pre,
+samp {
+  font-family: couriernew, courier, monospace;
 }
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
+small {
+  font-size: 12px;
 }
-ol,
-ul {
+ul,
+ol {
   list-style: none;
 }
-blockquote,
-q {
-  quotes: none;
+a {
+  text-decoration: none;
 }
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: '';
-  content: none;
+a:hover {
+  text-decoration: underline;
 }
-strong {
-  font-weight: bold;
+sup {
+  vertical-align: text-top;
+}
+sub {
+  vertical-align: text-bottom;
+}
+legend {
+  color: #000;
+}
+fieldset,
+img {
+  border: 0;
+}
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
 }
 table {
   border-collapse: collapse;
   border-spacing: 0;
-}
-img {
-  border: 0;
-  max-width: 100%;
-}
-p {
-  font-size: 1.2em;
-  line-height: 1em;
-  color: #666666;
 }
 </style>

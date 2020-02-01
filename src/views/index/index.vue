@@ -245,6 +245,7 @@
       <div class="renew">
         <cartoonCard
           class="renew-card"
+          @toDetail="getDetail"
           v-for="data in allManga"
           :key="data.mangaId"
           :mangaData="data"
@@ -315,7 +316,9 @@ export default {
       this.recommand.swipers = data.slice(0, 3);
       this.recommand.top = data.slice(3, 5);
       this.recommand.bottom = data.slice(5, 8);
-      console.log('this.recommand', this.recommand);
+    },
+    getDetail(mangaId) {
+      this.$router.push({ path: '/detail', query: { mangaId } });
     }
   }
 };
@@ -451,11 +454,12 @@ export default {
   width: $w_1200;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   margin: 30px auto;
 }
 .renew .renew-card {
   margin-bottom: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 .login-mask {
   width: 100%;

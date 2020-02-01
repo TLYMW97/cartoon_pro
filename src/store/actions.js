@@ -1,7 +1,14 @@
 import * as api from '@/api/api';
 import * as types from './mutation-types';
-export const sayHi = () => {
-  console.log('hi');
+export const setCurManga = ({ commit, state }, mangaData) => {
+  const {
+    currentManga: { mangaId: curMangaId }
+  } = state;
+  const { mangaId } = mangaData;
+  if (curMangaId === mangaId) {
+    return;
+  }
+  commit(types.SET_CURRENT_MANGA, mangaData);
 };
 export const userLogin = async ({ commit, state }, reqBody) => {
   const res = await api.login(reqBody);

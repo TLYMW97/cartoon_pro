@@ -1,41 +1,56 @@
 <template>
-    <div class="section">
-        <img src="http://mhfm3218us.cdndm5.com/chaptercover/41/40683/578500/20180613090154_25.jpg" alt="">
-        <div class="section-des">
-            <p class="title">第一回 周家升龙(上) (10P)</p>
-            <p class="time">2018-02-06</p>
-        </div>
+  <div class="section">
+    <div class="section-des">
+      <p class="title">{{section.chapterTitle}}</p>
+      <p class="time">{{section.chapterUpdatetime|dataFormat}}</p>
     </div>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "section"
-    };
+export default {
+  name: 'section',
+  props: {
+    section: {
+      type: Object,
+      default: () => {}
+    }
+  },
+  filters: {
+    dataFormat(val) {
+      return val.substr(0, val.indexOf('T'));
+    }
+  }
+};
 </script>
 
-<style scoped>
-    .section {
-        display: flex;
-
-        margin-top: 10px;
-        background: #f6f6f6;
-        width: 100%;
-        height: 110px;
-    }
-    .section img {
-        height: 100%;
-    }
-    .section .section-des {
-        margin-left: 3%;
-    }
-    .section-des p {
-        margin-top: 15px;
-        font-size: 16px;
-        color:#252525;
-    }
-    .section-des .time {
-        font-size: 13px;
-        color:#999
-    }
+<style scoped lang="scss">
+@import '~@/assets/sass/index';
+p {
+  margin: 0;
+}
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f6f6f6;
+  width: 20%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.section img {
+  height: 100%;
+}
+.section-des p {
+  width: 100%;
+  font-size: 16px;
+  color: #252525;
+  text-align: center;
+  @include ellipsis();
+}
+.section-des .time {
+  width: 100%;
+  text-align: center;
+  font-size: 13px;
+  color: #999;
+}
 </style>

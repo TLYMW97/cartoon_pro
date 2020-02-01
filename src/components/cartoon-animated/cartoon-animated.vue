@@ -25,14 +25,15 @@
       <div class="desc">
         <p>山海世界，人与异兽谁胜谁负</p>
       </div>
-      <p class="read">
-        <router-link class="btn" to>开始阅读</router-link>
-      </p>
+      <div class="read">
+        <div class="btn" @click="toDetail">开始阅读</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   name: 'cartoon-animated',
   props: ['mangaData'],
@@ -40,6 +41,13 @@ export default {
     return {
       stars: 4.5
     };
+  },
+  methods: {
+    toDetail() {
+      this.setCurManga(this.mangaData);
+      this.$emit('toDetail');
+    },
+    ...mapActions(['setCurManga'])
   }
 };
 </script>
