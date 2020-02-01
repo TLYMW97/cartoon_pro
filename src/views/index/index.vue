@@ -249,6 +249,7 @@
           :key="data.mangaId"
           :mangaData="data"
         ></cartoonCard>
+        <div class="hide-card" v-for="item in hideCard" :key="item"></div>
       </div>
     </div>
 </template>
@@ -270,6 +271,9 @@ export default {
     return {
       // 所有漫画数据
       allManga: null,
+      // 处理flex布局填充
+      hideCard: null,
+      ifHideCard: false,
       loginVisible: true,
       recommand: {
         swipers: [],
@@ -311,6 +315,10 @@ export default {
         data: { data }
       } = res;
       this.allManga = data;
+      if(this.allManga.length%7 !== 0) {
+        this.ifHideCard = true;
+        this.hideCard = 7-this.allManga.length%7;
+      }
       this.recommand.swipers = data.slice(0, 3);
       this.recommand.top = data.slice(3, 5);
       this.recommand.bottom = data.slice(5, 8);
@@ -458,6 +466,11 @@ export default {
 .renew .renew-card {
   margin-bottom: 20px;
 }
+.renew .hide-card{
+  width: 167px;
+  height: 287px;
+}
+
 .login-mask {
   width: 100%;
   height: 100%;

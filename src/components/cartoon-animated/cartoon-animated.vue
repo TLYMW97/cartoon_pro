@@ -48,6 +48,8 @@ export default {
       this.$emit('toDetail');
     },
     ...mapActions(['setCurManga'])
+  },
+  mounted() {
   }
 };
 </script>
