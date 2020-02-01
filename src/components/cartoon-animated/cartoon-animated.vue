@@ -93,7 +93,6 @@ export default {
   font-size: 16px;
   line-height: 16px;
   font-weight: 700;
-  margin-bottom: 8px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -133,7 +132,6 @@ export default {
 .author a {
   float: left;
   display: block;
-  line-height: 14px;
   padding-left: 3px;
   font-size: 14px;
 }
@@ -171,7 +169,6 @@ export default {
 }
 .animated-tip .read {
   font-size: 12px;
-  line-height: 18px;
   padding: 0 10px 10px 10px;
 }
 .read .btn {

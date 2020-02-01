@@ -241,7 +241,6 @@
         </div>
       </div>
     </div>
-    <div class="index-p">
       <div class="renew">
         <cartoonCard
           class="renew-card"
@@ -252,7 +251,6 @@
         ></cartoonCard>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -454,12 +452,11 @@ export default {
   width: $w_1200;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   margin: 30px auto;
 }
 .renew .renew-card {
   margin-bottom: 20px;
-  margin-right: 10px;
-  margin-left: 10px;
 }
 .login-mask {
   width: 100%;
