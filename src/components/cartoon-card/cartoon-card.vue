@@ -8,7 +8,7 @@
     </div>
     <div class="star">
       <p>评分:{{mangaData.mangaScore}}</p>
-      <a-rate class="rate" allow-half v-model="mangaData.mangaScore" disabled />
+      <a-rate class="rate" allow-half v-model="this.stars" disabled />
     </div>
     <div class="renew">
       <p>最新:</p>
@@ -28,7 +28,7 @@ export default {
   props: ['mangaData'],
   data() {
     return {
-      stars: 4.5
+      stars: this.mangaData.mangaScore
     };
   },
   methods: {
@@ -36,7 +36,12 @@ export default {
       this.$emit('toDetail', this.mangaData.mangaId);
     }
   },
-  mounted() {}
+  mounted() {
+    this.stars = this.stars/2;
+    if(this.stars%1 !== 0) {
+      this.stars = parseInt(this.stars)+0.5;
+    }
+  }
 };
 </script>
 
