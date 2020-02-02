@@ -101,6 +101,7 @@ export default {
 }
 .title a {
   display: inline-block;
+  font-size: 14px;
   width: 120px;
   color: #252525;
   white-space: nowrap;
@@ -110,7 +111,6 @@ export default {
 .title p {
   font-size: 14px;
   display: block;
-  line-height: 17px;
   margin-right: 4px;
 }
 .animated-detail .rate {
@@ -184,6 +184,7 @@ export default {
   text-align: center;
   font-size: 14px;
   border-radius: 4px;
+  cursor: pointer;
 }
 .btn a {
   color: #fff;
