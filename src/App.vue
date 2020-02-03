@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header v-if="this.$route.path !== '/cardform'"></Header>
+    <Header v-if="this.$route.path !== '/cartoonview'"></Header>
     <router-view />
   </div>
 </template>

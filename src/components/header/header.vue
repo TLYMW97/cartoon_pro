@@ -6,7 +6,7 @@
       </h1>
       <ul class="l-ul">
         <li>
-          <router-link to>首页</router-link>
+          <router-link to="/">首页</router-link>
         </li>
         <li>
           <router-link to>更新</router-link>
@@ -80,6 +80,9 @@ export default {
   justify-content: space-between;
   background: #fff;
   border-bottom: 1px solid #eaeaea;
+  a {
+    color: red;
+  }
   .header-left,
   .header-right {
     height: 100%;

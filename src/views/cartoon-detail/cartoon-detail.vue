@@ -31,22 +31,27 @@
             <p>{{currentManga.mangaDetail}}</p>
           </div>
           <div class="operate">
-            <a-button size="large" type="danger">收藏</a-button>
-            <a-button size="large" type="primary">开始阅读</a-button>
+            <a-button size="large" type="danger" @click="collect">收藏</a-button>
+            <a-button size="large" type="primary" @click="readStart">开始阅读</a-button>
           </div>
         </div>
       </div>
     </div>
     <div class="cartoon-main">
       <div class="sections">
-        <Section :key="section.chapterId" v-for="section of sections" :section="section"></Section>
+        <Section
+          @readManga="readManga"
+          :key="section.chapterId"
+          v-for="section of sections"
+          :section="section"
+        ></Section>
       </div>
       <div class="main-right">
         <div class="author">
           <div class="avator">
             <img src="http://css122us.cdndm5.com/v201910292122/blue/images/header-partner.png" alt />
           </div>
-          <div class="author-name">天蚕土豆</div>
+          <div class="author-name">{{currentManga.mangaAuthor}}</div>
           <div class="works">
             作品数:
             <span class="red">1</span>
@@ -60,7 +65,7 @@
 <script>
 import SerachBar from '../../components/search-bar/search-bar';
 import Section from './components/section/section';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'cartoon-detail',
   data() {
@@ -77,10 +82,7 @@ export default {
   created() {
     this.getDetail();
   },
-  mounted() {
-    console.log('object', this.$refs.glassBg);
-    console.log('this.currentManga', this.currentManga);
-  },
+  mounted() {},
   methods: {
     getDetail: async function() {
       const { mangaId } = this.$route.query;
@@ -90,9 +92,21 @@ export default {
       } = res;
       if (code === 200) {
         this.sections = data;
+        this.setSections(data);
       }
-      console.log('res', res);
-    }
+    },
+    readStart() {
+      const { chapterId, chapterTitle: chapterName } = this.sections[0];
+      this.readManga({ chapterId, chapterName });
+    },
+    readManga({ chapterId, chapterName }) {
+      this.$router.push({
+        path: '/cartoonview',
+        query: { chapterId, chapterName }
+      });
+      this.setCurSection({ chapterId, chapterName });
+    },
+    ...mapActions(['setSections', 'setCurSection'])
   },
   components: {
     SerachBar,

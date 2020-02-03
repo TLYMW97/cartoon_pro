@@ -51,6 +51,9 @@ export default {
 @import '../../assets/sass/index';
 .operate-item {
   margin-left: 30px !important;
+  a {
+    color: #999;
+  }
 }
 p {
   margin-top: 5px;

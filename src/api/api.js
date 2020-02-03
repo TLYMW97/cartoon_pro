@@ -22,9 +22,23 @@ export const checkName = userName => {
 export const allManga = () => {
   return service.get('/findAllManga');
 };
+// 获取漫画详情
 export const getChapter = mangaId => {
   return service.post('/findChapter', { mangaId });
 };
+// 获取漫画图
 export const getEpisode = chapterId => {
   return service.post('/findEpisode', { chapterId });
+};
+// 获取免费排行榜
+export const freePop = () => {
+  return service.get('/findFreePop');
+};
+// 获取付费排行榜
+export const payPop = () => {
+  return service.get('/findPayPop');
+};
+// 获取人气排行榜
+export const mostPop = () => {
+  return service.get('/findMostPop');
 };

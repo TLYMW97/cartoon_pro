@@ -1,5 +1,5 @@
 <template>
-  <div class="section">
+  <div class="section" @click="readManga">
     <div class="section-des">
       <p class="title">{{section.chapterTitle}}</p>
       <p class="time">{{section.chapterUpdatetime|dataFormat}}</p>
@@ -14,6 +14,12 @@ export default {
     section: {
       type: Object,
       default: () => {}
+    }
+  },
+  methods: {
+    readManga() {
+      const { chapterId, chapterTitle: chapterName } = this.section;
+      this.$emit('readManga', { chapterId, chapterName });
     }
   },
   filters: {
@@ -42,7 +48,7 @@ p {
 }
 .section-des p {
   width: 100%;
-  font-size: 16px;
+  font-size: 0.95em;
   color: #252525;
   text-align: center;
   @include ellipsis();

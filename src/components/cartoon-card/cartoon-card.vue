@@ -43,7 +43,6 @@ export default {
 <style scoped>
 .card {
   width: 167px;
-  height: 287px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -51,11 +50,9 @@ export default {
 }
 .card .image-card {
   width: 100%;
-  height: 220px;
 }
 .image-card img {
   width: 100%;
-  height: 100%;
 }
 .card .title-text {
   width: 100%;

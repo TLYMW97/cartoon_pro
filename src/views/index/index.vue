@@ -87,171 +87,21 @@
       </div>
     </div>
     <div class="ranks">
-      <div class="ranking-list">
-        <div class="ranking-title">
-          <h3>国漫热门排行</h3>
-          <span class="more">
-            更多
-            <a-icon type="right" />
-          </span>
-        </div>
-        <div class="rank">
-          <div class="rank-img">
-            <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt />
-          </div>
-          <div class="rank-detail">
-            <div class="rank-num">
-              <div class="ball-icon">1</div>
-            </div>
-            <div class="rank-des">
-              <p class="title">英雄再临</p>
-              <p class="introduce">伴随着各种各样的危机与绝望而来</p>
-            </div>
-          </div>
-        </div>
-        <div class="rank">
-          <div class="rank-img">
-            <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt />
-          </div>
-          <div class="rank-detail">
-            <div class="rank-num">
-              <div class="ball-icon">1</div>
-            </div>
-            <div class="rank-des">
-              <p class="title">英雄再临</p>
-              <p class="introduce">伴随着各种各样的危机与绝望而来</p>
-            </div>
-          </div>
-        </div>
-        <div class="rank">
-          <div class="rank-img">
-            <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt />
-          </div>
-          <div class="rank-detail">
-            <div class="rank-num">
-              <div class="ball-icon">1</div>
-            </div>
-            <div class="rank-des">
-              <p class="title">英雄再临</p>
-              <p class="introduce">伴随着各种各样的危机与绝望而来</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="ranking-list">
-        <div class="ranking-title">
-          <h3>国漫热门排行</h3>
-          <span class="more">
-            更多
-            <a-icon type="right" />
-          </span>
-        </div>
-        <div class="rank">
-          <div class="rank-img">
-            <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt />
-          </div>
-          <div class="rank-detail">
-            <div class="rank-num">
-              <div class="ball-icon">1</div>
-            </div>
-            <div class="rank-des">
-              <p class="title">英雄再临</p>
-              <p class="introduce">伴随着各种各样的危机与绝望而来</p>
-            </div>
-          </div>
-        </div>
-        <div class="rank">
-          <div class="rank-img">
-            <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt />
-          </div>
-          <div class="rank-detail">
-            <div class="rank-num">
-              <div class="ball-icon">1</div>
-            </div>
-            <div class="rank-des">
-              <p class="title">英雄再临</p>
-              <p class="introduce">伴随着各种各样的危机与绝望而来</p>
-            </div>
-          </div>
-        </div>
-        <div class="rank">
-          <div class="rank-img">
-            <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt />
-          </div>
-          <div class="rank-detail">
-            <div class="rank-num">
-              <div class="ball-icon">1</div>
-            </div>
-            <div class="rank-des">
-              <p class="title">英雄再临</p>
-              <p class="introduce">伴随着各种各样的危机与绝望而来</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="ranking-list">
-        <div class="ranking-title">
-          <h3>国漫热门排行</h3>
-          <span class="more">
-            更多
-            <a-icon type="right" />
-          </span>
-        </div>
-        <div class="rank">
-          <div class="rank-img">
-            <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt />
-          </div>
-          <div class="rank-detail">
-            <div class="rank-num">
-              <div class="ball-icon">1</div>
-            </div>
-            <div class="rank-des">
-              <p class="title">英雄再临</p>
-              <p class="introduce">伴随着各种各样的危机与绝望而来</p>
-            </div>
-          </div>
-        </div>
-        <div class="rank">
-          <div class="rank-img">
-            <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt />
-          </div>
-          <div class="rank-detail">
-            <div class="rank-num">
-              <div class="ball-icon">1</div>
-            </div>
-            <div class="rank-des">
-              <p class="title">英雄再临</p>
-              <p class="introduce">伴随着各种各样的危机与绝望而来</p>
-            </div>
-          </div>
-        </div>
-        <div class="rank">
-          <div class="rank-img">
-            <img src="http://mhfm9tel.cdndm5.com/35/34637/20180213101457_320x246_33.jpg" alt />
-          </div>
-          <div class="rank-detail">
-            <div class="rank-num">
-              <div class="ball-icon">1</div>
-            </div>
-            <div class="rank-des">
-              <p class="title">英雄再临</p>
-              <p class="introduce">伴随着各种各样的危机与绝望而来</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <rank-list title="人气" :rankList="mostPop"></rank-list>
+      <rank-list title="免费" :rankList="freePop"></rank-list>
+      <rank-list title="付费" :rankList="payPop"></rank-list>
     </div>
-      <div class="renew">
-        <cartoonCard
-          class="renew-card"
-          @toDetail="getDetail"
-          v-for="data in allManga"
-          :key="data.mangaId"
-          :mangaData="data"
-        ></cartoonCard>
-        <div class="hide-card" v-for="item in hideCard" :key="item"></div>
-      </div>
+    <div class="renew">
+      <cartoonCard
+        class="renew-card"
+        @toDetail="getDetail"
+        v-for="data in allManga"
+        :key="data.mangaId"
+        :mangaData="data"
+      ></cartoonCard>
+      <div class="hide-card" v-for="item in hideCard" :key="item"></div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -261,7 +111,7 @@ import SectionTitle from './components/section-title/section-title';
 import MySwiper from '../../components/my-swiper/my-swiper';
 import SearchBar from '../../components/search-bar/search-bar';
 import cartoonCard from '../../components/cartoon-card/cartoon-card';
-
+import RankList from '@/components/rank-list/rank-list';
 export default {
   name: 'index',
   created() {
@@ -274,6 +124,10 @@ export default {
       // 处理flex布局填充
       hideCard: null,
       ifHideCard: false,
+      // 排行榜数据
+      freePop: [],
+      payPop: [],
+      mostPop: [],
       loginVisible: true,
       recommand: {
         swipers: [],
@@ -303,7 +157,8 @@ export default {
     SectionTitle,
     MySwiper,
     SearchBar,
-    cartoonCard
+    cartoonCard,
+    RankList
   },
   methods: {
     onSearch() {
@@ -311,17 +166,33 @@ export default {
     },
     indexInit: async function() {
       let res = await this.$api.allManga();
+      let freeRes = await this.$api.freePop();
+      let payRes = await this.$api.payPop();
+      let mostRes = await this.$api.mostPop();
+      const {
+        data: { data: frees }
+      } = freeRes;
+      const {
+        data: { data: pays }
+      } = payRes;
+      const {
+        data: { data: mosts }
+      } = mostRes;
       const {
         data: { data }
       } = res;
       this.allManga = data;
-      if(this.allManga.length%7 !== 0) {
+      if (this.allManga.length % 7 !== 0) {
         this.ifHideCard = true;
-        this.hideCard = 7-this.allManga.length%7;
+        this.hideCard = 7 - (this.allManga.length % 7);
       }
-      this.recommand.swipers = data.slice(0, 3);
-      this.recommand.top = data.slice(3, 5);
-      this.recommand.bottom = data.slice(5, 8);
+      this.payPop = pays;
+      this.freePop = frees;
+      this.mostPop = mosts;
+      console.log('pays', pays);
+      this.recommand.swipers = mosts.mangaList.slice(0, 3);
+      this.recommand.top = mosts.mangaList.slice(3, 5);
+      this.recommand.bottom = mosts.mangaList.slice(5, 8);
     },
     getDetail(mangaId) {
       this.$router.push({ path: '/detail', query: { mangaId } });
@@ -344,10 +215,14 @@ export default {
 .classify .classify-ul {
   display: flex;
   font-size: 14px;
+  margin-bottom: 0;
 }
 .classify-ul li {
   margin-right: 10px;
   border-bottom: 1px solid transparent;
+  a {
+    color: rgba(0, 0, 0, 0.85);
+  }
 }
 .classify-ul li:hover {
   border-color: $index-color;
@@ -404,58 +279,6 @@ export default {
   display: flex;
   margin: 30px auto;
 }
-.ranking-list {
-  width: 400px;
-  padding-right: 20px;
-}
-.ranking-list .ranking-title {
-  display: flex;
-  justify-content: space-between;
-}
-.ranking-title h3 {
-  font-size: 20px;
-  font-weight: 600;
-}
-.ranking-title .more {
-  display: inline-block;
-  font-weight: 600;
-}
-.rank {
-  margin-top: 10px;
-  display: flex;
-  border-bottom: 1px solid #eaeaea;
-  padding-bottom: 5px;
-}
-.rank .rank-img {
-  width: 100px;
-}
-.rank-img img {
-  width: 100%;
-}
-.rank .rank-detail {
-  display: flex;
-}
-.rank-detail .rank-num {
-  height: 100%;
-  margin: 5px 10px;
-}
-.ball-icon {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: orange;
-  text-align: center;
-  color: #fff;
-}
-.rank-des .title {
-  font-weight: 600;
-}
-.rank-des .introduce {
-  width: 200px;
-  text-overflow: ellipsis; /* ellipsis:显示省略符号来代表被修剪的文本  string:使用给定的字符串来代表被修剪的文本*/
-  white-space: nowrap; /* nowrap:规定段落中的文本不进行换行   */
-  overflow: hidden; /*超出部分隐藏*/
-}
 .renew {
   width: $w_1200;
   display: flex;
@@ -466,7 +289,7 @@ export default {
 .renew .renew-card {
   margin-bottom: 20px;
 }
-.renew .hide-card{
+.renew .hide-card {
   width: 167px;
   height: 287px;
 }

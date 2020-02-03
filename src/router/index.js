@@ -23,6 +23,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: () => import('../views/login/login.vue')
+  },
+  {
+    path: '/cartoonview',
+    name: 'CartoonView',
+    component: () => import('../views/cartoon-view/cartoon-view')
   }
   // {
   //   path: '/about',

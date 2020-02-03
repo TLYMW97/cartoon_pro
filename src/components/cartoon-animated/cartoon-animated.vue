@@ -49,8 +49,7 @@ export default {
     },
     ...mapActions(['setCurManga'])
   },
-  mounted() {
-  }
+  mounted() {}
 };
 </script>
 
@@ -171,6 +170,7 @@ export default {
 }
 .animated-tip .read {
   font-size: 12px;
+  cursor: pointer;
   padding: 0 10px 10px 10px;
 }
 .read .btn {
