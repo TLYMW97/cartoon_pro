@@ -182,6 +182,7 @@ export default {
         data: { data }
       } = res;
       this.allManga = data;
+      console.log(this.allManga);
       if (this.allManga.length % 7 !== 0) {
         this.ifHideCard = true;
         this.hideCard = 7 - (this.allManga.length % 7);

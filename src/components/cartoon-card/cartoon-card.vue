@@ -12,7 +12,7 @@
     </div>
     <div class="renew">
       <p>最新:</p>
-      <router-link to class="new">第462回 刀锋单间论第462回 刀锋单间论</router-link>
+      <router-link to class="new">{{mangaData.chapterNew.chapterTitle}}</router-link>
     </div>
     <cartoonAnimated @toDetail="toDetail" :mangaData="mangaData"></cartoonAnimated>
   </div>
@@ -96,12 +96,11 @@ export default {
 }
 .renew .new {
   display: block;
-  line-height: 12px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 12px;
   color: #fd113a;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 </style>
