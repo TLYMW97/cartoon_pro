@@ -8,7 +8,7 @@
         <div class="title">
           <router-link to :title="mangaData.mangaName">{{mangaData.mangaName}}</router-link>
           <p>评分:{{mangaData.mangaScore}}</p>
-          <a-rate class="rate" allow-half v-model="stars" disabled></a-rate>
+          <a-rate class="rate" allow-half v-model="this.stars" disabled></a-rate>
         </div>
       </div>
       <div class="author">
@@ -39,7 +39,7 @@ export default {
   props: ['mangaData'],
   data() {
     return {
-      stars: 4.5
+      stars: this.mangaData.mangaScore
     };
   },
   methods: {
@@ -49,7 +49,12 @@ export default {
     },
     ...mapActions(['setCurManga'])
   },
-  mounted() {}
+  mounted() {
+    this.stars = this.stars / 2;
+    if (this.stars % 1 !== 0) {
+      this.stars = parseInt(this.stars) + 0.5;
+    }
+  }
 };
 </script>
 
@@ -100,6 +105,7 @@ export default {
 }
 .title a {
   display: inline-block;
+  font-size: 14px;
   width: 120px;
   color: #252525;
   white-space: nowrap;
@@ -109,7 +115,6 @@ export default {
 .title p {
   font-size: 14px;
   display: block;
-  line-height: 17px;
   margin-right: 4px;
 }
 .animated-detail .rate {
@@ -184,6 +189,7 @@ export default {
   text-align: center;
   font-size: 14px;
   border-radius: 4px;
+  cursor: pointer;
 }
 .btn a {
   color: #fff;
