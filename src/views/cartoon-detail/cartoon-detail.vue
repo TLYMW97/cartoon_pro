@@ -84,6 +84,9 @@ export default {
   },
   mounted() {},
   methods: {
+    changeBg(){
+      document.styleSheets[0].addRule('.glass-bg::before', 'background:url(' + this.mangaEpisode + ')');
+    },
     getDetail: async function() {
       const { mangaId } = this.$route.query;
       const res = await this.$api.getChapter(mangaId);
@@ -92,6 +95,7 @@ export default {
       } = res;
       if (code === 200) {
         this.sections = data;
+        this.changeBg();
         this.setSections(data);
       }
     },
@@ -132,10 +136,6 @@ p {
   filter: blur(11px) contrast(0.6);
   background-color: rgba(0, 0, 0, 0.8);
   z-index: -99;
-}
-.glass-bg::before {
-  background: url('http://mhfm1tel.cdndm5.com/41/40683/20180917092252_360x480_77.jpg')
-    0 / cover fixed;
 }
 .cartoon-info {
   box-sizing: border-box;

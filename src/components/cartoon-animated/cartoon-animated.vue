@@ -20,10 +20,10 @@
       </div>
       <div class="chapter">
         <p>最新:</p>
-        <router-link to>第468回 炫火破鼎封（下）第468回 炫火破鼎封（下）</router-link>
+        <router-link to>{{mangaData.chapterNew.chapterTitle}}</router-link>
       </div>
       <div class="desc">
-        <p>山海世界，人与异兽谁胜谁负</p>
+        <p>{{mangaData.mangaDetail}}</p>
       </div>
       <div class="read">
         <div class="btn" @click="toDetail">开始阅读</div>
@@ -167,7 +167,7 @@ export default {
   padding: 0 10px;
   font-size: 12px;
   color: #666;
-  line-height: 12px;
+  line-height: 14px;
   margin-top: 3px;
   overflow: hidden;
   text-overflow: ellipsis;
