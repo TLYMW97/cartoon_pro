@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'section',
+  name: 'carton-section',
   props: {
     section: {
       type: Object,

@@ -27,7 +27,7 @@
         <li-icon v-for="(li,index) of lis" :name="li.name" :key="index" :icon="li.icon"></li-icon>
       </ul>
       <div class="user">
-        <a-avatar size="large" icon="user" />
+        <a-avatar @click="toPersonal" size="large" icon="user" :src="userAvatar" />
       </div>
     </div>
   </div>
@@ -35,8 +35,12 @@
 
 <script>
 import LiIcon from '../li-icon/li-icon';
+import { mapGetters } from 'vuex';
 export default {
   name: 'indexHeader',
+  created() {
+    console.log(this.userInfo);
+  },
   data() {
     return {
       lis: [
@@ -63,8 +67,25 @@ export default {
       ]
     };
   },
+  computed: {
+    ...mapGetters(['userInfo']),
+    userAvatar() {
+      return this.userInfo.user.attach.attachUrl;
+    }
+  },
   components: { LiIcon },
-  methods: {}
+  methods: {
+    toPersonal() {
+      const {
+        user: { userId }
+      } = this.userInfo;
+      if (!userId) {
+        this.$router.push('/login');
+        return;
+      }
+      this.$message.success('已登录');
+    }
+  }
 };
 </script>
 

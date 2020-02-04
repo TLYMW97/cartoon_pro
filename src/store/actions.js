@@ -35,7 +35,7 @@ export const getNextSection = ({ commit, state }) => {
   }
 };
 // 用户登录
-export const userLogin = async ({ commit, state }, reqBody) => {
+export const userLogin = async ({ commit }, reqBody) => {
   const res = await api.login(reqBody);
   const {
     data: { code, data, msg }

@@ -8,18 +8,18 @@
       </span>
     </div>
     <div class="rank" v-for="(rank,index) of rankList.mangaList" :key="rank.mangaId">
-      <div class="rank-img">
+      <div class="rank-img" @click="toDetail(rank)">
         <img :src="rank.episode[0].episodeHref" alt />
       </div>
       <div class="rank-detail">
         <div class="rank-num">
           <div class="ball-icon first" v-if="index+1 === 1">{{index +1}}</div>
           <div class="ball-icon second" v-else-if="index+1 === 2">{{index +1}}</div>
-          <div class="ball-icon first" v-else-if="index+1 === 3">{{index +1}}</div>
+          <div class="ball-icon third" v-else-if="index+1 === 3">{{index +1}}</div>
           <div class="ball-icon" v-else>{{index +1}}</div>
         </div>
         <div class="rank-des">
-          <p class="title">{{rank.mangaName}}</p>
+          <p class="title" @click="toDetail(rank)">{{rank.mangaName}}</p>
           <p class="introduce">{{rank.mangaDetail}}</p>
         </div>
       </div>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   name: 'rankList',
   props: {
@@ -36,6 +37,13 @@ export default {
       type: Object,
       default: () => {}
     }
+  },
+  methods: {
+    toDetail(rank) {
+      this.setCurManga(rank);
+      this.$emit('toDetail', rank.mangaId);
+    },
+    ...mapActions(['setCurManga'])
   }
 };
 </script>
@@ -44,6 +52,9 @@ export default {
 .ranking-list {
   width: 400px;
   padding-right: 20px;
+  p {
+    margin-bottom: 0;
+  }
 }
 .ranking-list .ranking-title {
   display: flex;
@@ -66,6 +77,7 @@ export default {
 .rank .rank-img {
   width: 100px;
   height: 76px;
+  cursor: pointer;
   overflow: hidden;
 }
 .rank-img img {
@@ -97,11 +109,14 @@ export default {
 }
 .rank-des .title {
   font-weight: 600;
+  cursor: pointer;
 }
 .rank-des .introduce {
   width: 200px;
-  text-overflow: ellipsis; /* ellipsis:显示省略符号来代表被修剪的文本  string:使用给定的字符串来代表被修剪的文本*/
-  white-space: nowrap; /* nowrap:规定段落中的文本不进行换行   */
-  overflow: hidden; /*超出部分隐藏*/
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 </style>

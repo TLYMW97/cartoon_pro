@@ -1,9 +1,11 @@
 import * as types from './mutation-types';
 import { message } from 'ant-design-vue';
+import router from '@/router/index';
 const mutations = {
   [types.SET_USER_INFO](state, user) {
     sessionStorage.setItem('user', JSON.stringify(user));
     state.user = user;
+    router.push('/');
   },
   [types.ERR_MSG](state, msg) {
     message.error(msg, 2);

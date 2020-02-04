@@ -3,47 +3,8 @@
     <search-bar></search-bar>
     <div class="classify">
       <ul class="classify-ul">
-        <li>
-          <router-link to="#">原创</router-link>
-        </li>
-        <li>
-          <router-link to="#">热血</router-link>
-        </li>
-        <li>
-          <router-link to="#">冒险</router-link>
-        </li>
-        <li>
-          <router-link to="#">魔法</router-link>
-        </li>
-        <li>
-          <router-link to="#">科幻</router-link>
-        </li>
-        <li>
-          <router-link to="#">奇幻</router-link>
-        </li>
-        <li>
-          <router-link to="#">运动</router-link>
-        </li>
-        <li>
-          <router-link to="#">历史</router-link>
-        </li>
-        <li>
-          <router-link to="#">战争</router-link>
-        </li>
-        <li>
-          <router-link to="#">恋爱</router-link>
-        </li>
-        <li>
-          <router-link to="#">后宫</router-link>
-        </li>
-        <li>
-          <router-link to="#">校园</router-link>
-        </li>
-        <li>
-          <router-link to="#">悬疑</router-link>
-        </li>
-        <li>
-          <router-link to="#">搞笑</router-link>
+        <li v-for="tag of classes" :key="tag.tagId">
+          <router-link :to="{path: '/cartonlist', query: {tagId: tag.tagId}}">{{tag.tagName}}</router-link>
         </li>
       </ul>
       <div class="all-classify">
@@ -58,36 +19,25 @@
       </div>
       <div class="re-r">
         <div class="re-r-t">
-          <div class="t-box" style="background: #000;">
-            <RecommendImg :img_src="'http://by98tel.cdndm5.com/86/2019/11/19/9a8fd6bc8a4b46ea.jpg'"></RecommendImg>
-          </div>
-          <div class="t-box" style="background: #fff;">
-            <RecommendImg :img_src="'http://by98tel.cdndm5.com/86/2019/11/19/731241b407384840.jpg'"></RecommendImg>
+          <div class="t-box" v-for="item of recommand.top" :key="item.mangaId">
+            <RecommendImg :img_src="item.episode[0].episodeHref"></RecommendImg>
           </div>
         </div>
         <div class="re-r-b">
-          <div class="b-box" style="background: darkcyan;">
-            <RecommendImg :img_src="'http://by98tel.cdndm5.com/86/2019/11/19/2d274d5a01774c44.jpg'"></RecommendImg>
-          </div>
-          <div class="b-box" style="background: aquamarine;">
-            <RecommendImg :img_src="'http://by98tel.cdndm5.com/86/2019/11/19/5e0976b1d8e24da6.jpg'"></RecommendImg>
-          </div>
-          <div class="b-box" style="background: firebrick;">
-            <RecommendImg :img_src="'http://by98tel.cdndm5.com/86/2019/11/19/789a57797c324004.jpg'"></RecommendImg>
+          <div class="b-box" v-for="item of recommand.bottom" :key="item.mangaId">
+            <RecommendImg :img_src="item.episode[0].episodeHref"></RecommendImg>
           </div>
         </div>
       </div>
     </div>
     <div class="section">
-      <section-title :title="'原创精品'" :icon="'bulb'"></section-title>
+      <section-title :title="'恋爱精品'" :icon="'bulb'" />
       <div class="section-items">
-        <Cartoon />
-        <Cartoon />
-        <Cartoon />
+        <Cartoon v-for="item of boutique.love" :key="item.mangaId" :cartoon="item" />
       </div>
     </div>
     <div class="ranks">
-      <rank-list title="人气" :rankList="mostPop"></rank-list>
+      <rank-list @toDetail="getDetail" title="人气" :rankList="mostPop"></rank-list>
       <rank-list title="免费" :rankList="freePop"></rank-list>
       <rank-list title="付费" :rankList="payPop"></rank-list>
     </div>
@@ -119,36 +69,30 @@ export default {
   },
   data() {
     return {
+      // 漫画分类
+      classes: [],
       // 所有漫画数据
       allManga: null,
       // 处理flex布局填充
       hideCard: null,
       ifHideCard: false,
       // 排行榜数据
-      freePop: [],
-      payPop: [],
-      mostPop: [],
+      freePop: {},
+      payPop: {},
+      mostPop: {},
+      // 登录状态
       loginVisible: true,
+      // 推荐栏
       recommand: {
         swipers: [],
         top: [],
         bottom: []
       },
-      stars: 4,
-      imgs: [
-        {
-          src: 'http://by98tel.cdndm5.com/86/2019/11/19/477d4d2c679b4e3c.jpg',
-          id: 1
-        },
-        {
-          src: 'http://by98tel.cdndm5.com/86/2019/11/19/3f1f0df0d75b48af.jpg',
-          id: 2
-        },
-        {
-          src: 'http://by98tel.cdndm5.com/86/2019/11/19/a23724ac2efe4e78.jpg',
-          id: 3
-        }
-      ]
+      // 精品推荐
+      boutique: {
+        love: []
+      },
+      stars: 4
     };
   },
   components: {
@@ -169,6 +113,12 @@ export default {
       let freeRes = await this.$api.freePop();
       let payRes = await this.$api.payPop();
       let mostRes = await this.$api.mostPop();
+      let classRes = await this.$api.classes();
+      // 恋爱精品
+      let loveRes = await this.$api.searchByTag(491);
+      const {
+        data: { data: classes }
+      } = classRes;
       const {
         data: { data: frees }
       } = freeRes;
@@ -181,8 +131,10 @@ export default {
       const {
         data: { data }
       } = res;
+      const {
+        data: { data: loves }
+      } = loveRes;
       this.allManga = data;
-      console.log(this.allManga);
       if (this.allManga.length % 7 !== 0) {
         this.ifHideCard = true;
         this.hideCard = 7 - (this.allManga.length % 7);
@@ -190,9 +142,10 @@ export default {
       this.payPop = pays;
       this.freePop = frees;
       this.mostPop = mosts;
-      console.log('pays', pays);
+      this.classes = classes.slice(0, 15);
+      this.boutique.love = loves.slice(0, 6);
       this.recommand.swipers = mosts.mangaList.slice(0, 3);
-      this.recommand.top = mosts.mangaList.slice(3, 5);
+      this.recommand.top = mosts.mangaList.slice(8, 10);
       this.recommand.bottom = mosts.mangaList.slice(5, 8);
     },
     getDetail(mangaId) {
@@ -209,7 +162,7 @@ export default {
 }
 .classify {
   width: $w_1200;
-  margin: 5px auto;
+  margin: 10px auto;
   display: flex;
   justify-content: space-between;
 }
@@ -235,14 +188,14 @@ export default {
   width: $w_1200;
   display: flex;
   margin: 0 auto;
-  max-height: 385px;
+  max-height: 435px;
   justify-content: space-between;
 }
 .recommend .re-l {
-  width: 43%;
+  width: 39%;
 }
 .recommend .re-r {
-  width: 56%;
+  width: 60%;
 }
 .re-r {
   display: flex;
@@ -251,13 +204,13 @@ export default {
 }
 .re-r .re-r-t {
   width: 100%;
-  height: 100%;
+  height: 215px;
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   justify-content: space-between;
 }
 .re-r .re-r-b {
-  height: 100%;
+  height: 210px;
   display: flex;
   justify-content: space-between;
 }

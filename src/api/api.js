@@ -42,3 +42,11 @@ export const payPop = () => {
 export const mostPop = () => {
   return service.get('/findMostPop');
 };
+// 获取漫画分类
+export const classes = () => {
+  return service.get('/findTag');
+};
+// 通过标签搜索漫画
+export const searchByTag = tagId => {
+  return service.post('/findByTag', { tagId });
+};

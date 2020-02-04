@@ -106,6 +106,7 @@ export default {
       });
       this.setCurSection({ chapterId, chapterName });
     },
+    collect() {},
     ...mapActions(['setSections', 'setCurSection'])
   },
   components: {

@@ -4,7 +4,7 @@
       <img src="http://css99tel.cdndm5.com/v202001161319/blue/images/login.png" alt />
     </div>
     <div class="form-r">
-      <a-tabs defaultActiveKey="1">
+      <a-tabs v-model="activeKey">
         <a-tab-pane tab="登录" key="1">
           <login-form @login="login" :code="code"></login-form>
         </a-tab-pane>
@@ -26,6 +26,7 @@ export default {
     return {
       code: '1',
       loginForm: this.$form.createForm(this),
+      activeKey: '1',
       config: {
         username: {
           rules: [{ required: true, message: '请输入用户名' }]
@@ -65,9 +66,9 @@ export default {
       const {
         data: { code }
       } = res;
-      console.log('res', res);
       if (code === 200) {
         this.$message.success('注册成功', 2);
+        this.activeKey = '1';
       }
     },
     ...mapActions(['userLogin'])

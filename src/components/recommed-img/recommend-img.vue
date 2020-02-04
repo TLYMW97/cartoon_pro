@@ -25,6 +25,9 @@ export default {
 img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  // object-fit: cover;
 }
 </style>

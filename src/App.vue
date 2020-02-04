@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Header v-if="this.$route.path !== '/cartoonview'"></Header>
-    <router-view />
+    <keep-alive include="index">
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 
