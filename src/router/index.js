@@ -7,21 +7,25 @@ const routes = [
   {
     path: '/',
     name: 'Home',
+    meta: { hideHeader: false },
     component: () => import('../views/index/index.vue')
   },
   {
     path: '/detail',
     name: 'Detail',
+    meta: { hideHeader: false },
     component: () => import('../views/cartoon-detail/cartoon-detail')
   },
   {
     path: '/cardform',
     name: 'Cardform',
+    meta: { hideHeader: false },
     component: () => import('../views/card-form/card-form')
   },
   {
     path: '/login',
     name: 'Login',
+    meta: { hideHeader: false },
     component: () => import('../views/login/login.vue')
   },
   {
@@ -33,7 +37,14 @@ const routes = [
   {
     path: '/cartoonlist',
     name: 'CartoonList',
+    meta: { hideHeader: false },
     component: () => import('../views/cartoon-list/cartoon-list')
+  },
+  {
+    path: '/authorlogin',
+    name: 'AuthorLogin',
+    meta: { hideHeader: true },
+    component: () => import('../views/author-system/login/login')
   }
   // {
   //   path: '/about',
