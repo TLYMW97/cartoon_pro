@@ -4,14 +4,14 @@
     <div class="classify">
       <ul class="classify-ul">
         <li v-for="tag of classes" :key="tag.tagId">
-          <router-link :to="{path: '/cartonlist', query: {tagId: tag.tagId}}">{{tag.tagName}}</router-link>
+          <router-link :to="{path: '/cartoonlist', query: {tagId: tag.tagId}}">{{tag.tagName}}</router-link>
         </li>
       </ul>
-      <div class="all-classify">
+      <router-link to="/cartoonlist" class="all-classify">
         <span>
           <a-icon type="appstore" />
         </span>全部分类
-      </div>
+      </router-link>
     </div>
     <div class="recommend">
       <div class="re-l">
@@ -43,8 +43,8 @@
     </div>
     <div class="ranks">
       <rank-list @toDetail="getDetail" title="人气" :rankList="mostPop"></rank-list>
-      <rank-list @toDetail="getDetail" title="免费" :rankList="freePop"></rank-list>
-      <rank-list @toDetail="getDetail" title="付费" :rankList="payPop"></rank-list>
+      <rank-list @getMore="priceMore(0)" @toDetail="getDetail" title="免费" :rankList="freePop"></rank-list>
+      <rank-list @getMore="priceMore(1)" @toDetail="getDetail" title="付费" :rankList="payPop"></rank-list>
     </div>
     <!-- <div class="renew">
       <cartoonCard
@@ -157,6 +157,9 @@ export default {
     },
     getDetail(mangaId) {
       this.$router.push({ path: '/detail', query: { mangaId } });
+    },
+    priceMore(mangaPrice) {
+      this.$router.push({ path: '/cartoonlist', query: { mangaPrice } });
     },
     ...mapActions(['setTags'])
   }

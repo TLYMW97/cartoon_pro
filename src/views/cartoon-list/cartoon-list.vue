@@ -89,7 +89,7 @@ export default {
     cartoonCard
   },
   created() {
-    this.getManga({ tagId: '' });
+    this.listInit();
   },
   data() {
     return {
@@ -106,6 +106,18 @@ export default {
     };
   },
   methods: {
+    listInit() {
+      const { tagId, mangaPrice } = this.$route.query;
+      if (tagId) {
+        this.$set(this.search, 'tagId', parseInt(tagId));
+        this.getManga(this.search);
+      } else if (mangaPrice || mangaPrice === 0) {
+        this.$set(this.search, 'mangaPrice', parseInt(mangaPrice));
+        this.getManga(this.search);
+      } else {
+        this.getManga(this.search);
+      }
+    },
     getManga: async function(search) {
       const res = await this.$api.findBySearch(search, 1, 100);
       const {

@@ -2,7 +2,7 @@
   <div class="ranking-list">
     <div class="ranking-title">
       <h3>{{title}}排行</h3>
-      <span class="more">
+      <span class="more" @click="getMore">
         更多
         <a-icon type="right" />
       </span>
@@ -43,6 +43,9 @@ export default {
       this.setCurManga(rank);
       this.$emit('toDetail', rank.mangaId);
     },
+    getMore() {
+      this.$emit('getMore');
+    },
     ...mapActions(['setCurManga'])
   }
 };
@@ -66,6 +69,7 @@ export default {
 }
 .ranking-title .more {
   display: inline-block;
+  cursor: pointer;
   font-weight: 600;
 }
 .rank {
