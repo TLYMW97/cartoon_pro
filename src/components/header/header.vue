@@ -18,7 +18,7 @@
           <router-link to>日漫</router-link>
         </li>
         <li>
-          <router-link to>日漫</router-link>
+          <router-link tag="a" target="_blank" to="/authorlogin">上传</router-link>
         </li>
       </ul>
     </div>
