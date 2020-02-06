@@ -28,6 +28,11 @@ const routes = [
     path: '/cartoonview',
     name: 'CartoonView',
     component: () => import('../views/cartoon-view/cartoon-view')
+  },
+  {
+    path: '/cartoonlist',
+    name: 'CartoonList',
+    component: () => import('../views/cartoon-list/cartoon-list')
   }
   // {
   //   path: '/about',

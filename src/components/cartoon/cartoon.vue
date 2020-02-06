@@ -1,12 +1,13 @@
 <template>
   <div class="c-item">
-    <div class="c-left">
+    <div class="c-left" @click="toDetail(cartoon)">
       <img :src="cartoon.episode[0].episodeHref" alt />
     </div>
     <div class="c-right">
-      <p class="item-title">{{cartoon.mangaName}}</p>
+      <p class="item-title" @click="toDetail(cartoon)">{{cartoon.mangaName}}</p>
       <div class="item-star">
         <a-rate
+          disabled
           style="font-size:12px;color:#ffc73f"
           allow-half
           :defaultValue="cartoon.mangaScore / 2"
@@ -14,7 +15,7 @@
       </div>
       <div class="item-new">
         最新
-        <span class="red-span">第462回 刀锋单间论</span>
+        <span class="red-span">{{cartoon.chapterNew.chapterTitle}}</span>
       </div>
       <div class="item-des">{{cartoon.mangaDetail}}</div>
       <div class="item-tags">
@@ -25,6 +26,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   name: 'cartoon',
   props: {
@@ -37,6 +39,13 @@ export default {
     return {
       stars: 4
     };
+  },
+  methods: {
+    toDetail(cartoon) {
+      this.setCurManga(cartoon);
+      this.$emit('toDetail', cartoon.mangaId);
+    },
+    ...mapActions(['setCurManga'])
   }
 };
 </script>
@@ -47,14 +56,18 @@ export default {
   margin-top: 20px;
   width: 400px;
   display: flex;
+  p {
+    margin-bottom: 0;
+  }
   .c-left {
-    width: 50%;
+    width: 42%;
+    cursor: pointer;
     img {
       width: 100%;
     }
   }
   .c-right {
-    width: 50%;
+    width: 48%;
     margin-left: 10px;
   }
 }
@@ -64,6 +77,7 @@ export default {
 .item-title {
   font-size: $middle-font;
   font-weight: 600;
+  cursor: pointer;
 }
 .item-new {
   margin-top: 30px;

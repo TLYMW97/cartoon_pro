@@ -5,6 +5,10 @@ function findIndex(list, section) {
     return item.chapterId === section.chapterId;
   });
 }
+// 存储所有分类
+export const setTags = ({ commit }, tags) => {
+  commit(types.SET_TAGS, tags);
+};
 // 存储当前打开的漫画
 export const setCurManga = ({ commit, state }, mangaData) => {
   const {

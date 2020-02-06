@@ -31,7 +31,7 @@
             <p>{{currentManga.mangaDetail}}</p>
           </div>
           <div class="operate">
-            <a-button size="large" type="danger" @click="collect">收藏</a-button>
+            <a-button size="large" type="danger" @click="collect(currentManga.mangaId)">收藏</a-button>
             <a-button size="large" type="primary" @click="readStart">开始阅读</a-button>
           </div>
         </div>
@@ -74,12 +74,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['currentManga']),
+    ...mapGetters(['currentManga', 'userInfo']),
     mangaEpisode() {
       return this.currentManga.episode[0].episodeHref;
     }
   },
   created() {
+    this.changeBg();
     this.getDetail();
   },
   mounted() {},
@@ -95,7 +96,6 @@ export default {
       } = res;
       if (code === 200) {
         this.sections = data;
-        this.changeBg();
         this.setSections(data);
       }
     },
@@ -110,7 +110,21 @@ export default {
       });
       this.setCurSection({ chapterId, chapterName });
     },
-    collect() {},
+    collect: async function(mangaId) {
+      if (this.userInfo.token) {
+        const res = await this.$api.collectManga(mangaId);
+        const {
+          data: {
+            data: { code, data }
+          }
+        } = res;
+        if (code === 200) {
+          this.$message.success('收藏成功!');
+        }
+      } else {
+        this.$message.error('你未登录，请登录后再操作!');
+      }
+    },
     ...mapActions(['setSections', 'setCurSection'])
   },
   components: {

@@ -33,15 +33,20 @@
     <div class="section">
       <section-title :title="'恋爱精品'" :icon="'bulb'" />
       <div class="section-items">
-        <Cartoon v-for="item of boutique.love" :key="item.mangaId" :cartoon="item" />
+        <Cartoon
+          @toDetail="getDetail"
+          v-for="item of boutique.love"
+          :key="item.mangaId"
+          :cartoon="item"
+        />
       </div>
     </div>
     <div class="ranks">
       <rank-list @toDetail="getDetail" title="人气" :rankList="mostPop"></rank-list>
-      <rank-list title="免费" :rankList="freePop"></rank-list>
-      <rank-list title="付费" :rankList="payPop"></rank-list>
+      <rank-list @toDetail="getDetail" title="免费" :rankList="freePop"></rank-list>
+      <rank-list @toDetail="getDetail" title="付费" :rankList="payPop"></rank-list>
     </div>
-    <div class="renew">
+    <!-- <div class="renew">
       <cartoonCard
         class="renew-card"
         @toDetail="getDetail"
@@ -50,7 +55,7 @@
         :mangaData="data"
       ></cartoonCard>
       <div class="hide-card" v-for="item in hideCard" :key="item"></div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -62,6 +67,7 @@ import MySwiper from '../../components/my-swiper/my-swiper';
 import SearchBar from '../../components/search-bar/search-bar';
 import cartoonCard from '../../components/cartoon-card/cartoon-card';
 import RankList from '@/components/rank-list/rank-list';
+import { mapActions } from 'vuex';
 export default {
   name: 'index',
   created() {
@@ -101,7 +107,7 @@ export default {
     SectionTitle,
     MySwiper,
     SearchBar,
-    cartoonCard,
+    // cartoonCard,
     RankList
   },
   methods: {
@@ -109,7 +115,7 @@ export default {
       alert('d');
     },
     indexInit: async function() {
-      let res = await this.$api.allManga();
+      // let res = await this.$api.allManga();
       let freeRes = await this.$api.freePop();
       let payRes = await this.$api.payPop();
       let mostRes = await this.$api.mostPop();
@@ -128,20 +134,21 @@ export default {
       const {
         data: { data: mosts }
       } = mostRes;
-      const {
-        data: { data }
-      } = res;
+      // const {
+      //   data: { data }
+      // } = res;
       const {
         data: { data: loves }
       } = loveRes;
-      this.allManga = data;
-      if (this.allManga.length % 7 !== 0) {
-        this.ifHideCard = true;
-        this.hideCard = 7 - (this.allManga.length % 7);
-      }
+      // this.allManga = data;
+      // if (this.allManga.length % 7 !== 0) {
+      //   this.ifHideCard = true;
+      //   this.hideCard = 7 - (this.allManga.length % 7);
+      // }
       this.payPop = pays;
       this.freePop = frees;
       this.mostPop = mosts;
+      this.setTags(classes);
       this.classes = classes.slice(0, 15);
       this.boutique.love = loves.slice(0, 6);
       this.recommand.swipers = mosts.mangaList.slice(0, 3);
@@ -150,7 +157,8 @@ export default {
     },
     getDetail(mangaId) {
       this.$router.push({ path: '/detail', query: { mangaId } });
-    }
+    },
+    ...mapActions(['setTags'])
   }
 };
 </script>

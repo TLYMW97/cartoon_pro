@@ -1,4 +1,5 @@
 import service from './http';
+import state from '../store/state';
 // 获取验证码
 export const code = () => {
   return service.get('/getCode');
@@ -21,6 +22,10 @@ export const checkName = userName => {
 // 获取所有漫画
 export const allManga = () => {
   return service.get('/findAllManga');
+};
+// 查询条件获取漫画
+export const findBySearch = (search, page, size) => {
+  return service.post('/findBySearch', { search, page, size });
 };
 // 获取漫画详情
 export const getChapter = mangaId => {
@@ -49,4 +54,17 @@ export const classes = () => {
 // 通过标签搜索漫画
 export const searchByTag = tagId => {
   return service.post('/findByTag', { tagId });
+};
+
+// 收藏漫画
+export const collectManga = mangaId => {
+  return service.post(
+    '/collectManga',
+    { mangaId },
+    {
+      headers: {
+        token: state.user.token
+      }
+    }
+  );
 };

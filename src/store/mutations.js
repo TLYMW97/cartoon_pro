@@ -21,6 +21,10 @@ const mutations = {
   [types.SET_CURRENT_SECTION](state, section) {
     sessionStorage.setItem('currentSection', JSON.stringify(section));
     state.currentSection = section;
+  },
+  [types.SET_TAGS](state, tags) {
+    sessionStorage.setItem('tags', JSON.stringify(tags));
+    state.tags = tags;
   }
 };
 export default mutations;

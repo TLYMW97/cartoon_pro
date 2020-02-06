@@ -2,7 +2,7 @@
   <div class="header">
     <div class="header-left">
       <h1>
-        <img src="../../assets/logo.png" alt />
+        <img src="../../assets/images/logo.png" alt />
       </h1>
       <ul class="l-ul">
         <li>
@@ -70,7 +70,10 @@ export default {
   computed: {
     ...mapGetters(['userInfo']),
     userAvatar() {
-      return this.userInfo.user.attach.attachUrl;
+      if (this.userInfo.userId) {
+        return this.userInfo.user.attach.attachUrl;
+      }
+      return null;
     }
   },
   components: { LiIcon },
@@ -96,26 +99,31 @@ export default {
   height: 100%;
   max-height: 70px;
   display: flex;
-  padding: 1% 0;
+  padding: 10px 0;
   margin: 0 auto;
   justify-content: space-between;
   background: #fff;
   border-bottom: 1px solid #eaeaea;
   a {
-    color: red;
+    color: rgba(0, 0, 0, 0.85);
+  }
+  a:hover {
+    color: #fd113a;
   }
   .header-left,
   .header-right {
-    height: 100%;
     display: flex;
     align-items: center;
   }
 }
 .header-left h1 {
-  width: 30%;
+  width: 220px;
+  margin-right: 20px;
+  margin-bottom: 0;
 }
 .header-left h1 img {
-  width: 40%;
+  width: 100%;
+  height: 100%;
 }
 .header-left .l-ul,
 .header-right .r-ul {
