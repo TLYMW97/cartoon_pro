@@ -194,6 +194,9 @@ export default {
 }
 .classify .all-classify {
   font-size: 16px;
+  span {
+    margin-right: 5px;
+  }
 }
 .recommend {
   width: $w_1200;

@@ -31,7 +31,11 @@
             <p>{{currentManga.mangaDetail}}</p>
           </div>
           <div class="operate">
-            <a-button size="large" type="danger" @click="collect(currentManga.mangaId)">收藏</a-button>
+            <a-button
+              size="large"
+              type="danger"
+              @click="collect(currentManga.mangaId)"
+            >{{collectText}}</a-button>
             <a-button size="large" type="primary" @click="readStart">开始阅读</a-button>
           </div>
         </div>
@@ -59,6 +63,12 @@
         </div>
       </div>
     </div>
+    <div class="cartoon-comment">
+      <div class="comment-title">
+        <p>全部评价 (共有3条评论)</p>
+      </div>
+      <div class="comment-block"></div>
+    </div>
   </div>
 </template>
 
@@ -70,7 +80,8 @@ export default {
   name: 'cartoon-detail',
   data() {
     return {
-      sections: []
+      sections: [],
+      collectText: '收藏'
     };
   },
   computed: {
@@ -82,11 +93,26 @@ export default {
   created() {
     this.changeBg();
     this.getDetail();
+    this.checkCollcted();
   },
   mounted() {},
   methods: {
-    changeBg(){
-      document.styleSheets[0].addRule('.glass-bg::before', 'background:url(' + this.mangaEpisode + ')');
+    changeBg() {
+      document.styleSheets[0].addRule(
+        '.glass-bg::before',
+        'background:url(' + this.mangaEpisode + ')'
+      );
+    },
+    checkCollcted: async function() {
+      if (!this.userInfo.token) {
+        return;
+      }
+      const { mangaId } = this.$route.query;
+      const res = await this.$api.checkCollect(mangaId);
+      const {
+        data: { data }
+      } = res;
+      this.collectText = data;
     },
     getDetail: async function() {
       const { mangaId } = this.$route.query;

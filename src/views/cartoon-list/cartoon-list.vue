@@ -62,14 +62,16 @@
         </div>
       </div>
       <div class="cartoons">
+        <pagination @pageChange="pageChange" :total="total" :size="size" :page="page" />
         <cartoonCard
           class="cartoons-card"
-          @toDetail="getDetail"
+          @toDetail="getDetail(data)"
           v-for="data in cartoonList"
           :key="data.mangaId"
           :mangaData="data"
         ></cartoonCard>
         <div class="hide-card" v-for="item in hideCard" :key="item"></div>
+        <pagination @pageChange="pageChange" :total="total" :size="size" :page="page" />
       </div>
     </div>
   </div>
@@ -78,7 +80,8 @@
 <script>
 import cartoonCard from '@/components/cartoon-card/cartoon-card';
 import SearchBar from '@/components/search-bar/search-bar';
-import { mapGetters } from 'vuex';
+import Pagination from '@/components/pagination/pagination';
+import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'cartoonList',
   computed: {
@@ -86,7 +89,8 @@ export default {
   },
   components: {
     SearchBar,
-    cartoonCard
+    cartoonCard,
+    Pagination
   },
   created() {
     this.listInit();
@@ -102,7 +106,8 @@ export default {
         mangaPrice: ''
       },
       page: 1,
-      size: 30
+      size: 30,
+      total: 0
     };
   },
   methods: {
@@ -119,11 +124,13 @@ export default {
       }
     },
     getManga: async function(search) {
-      const res = await this.$api.findBySearch(search, 1, 100);
+      const res = await this.$api.findBySearch(search, this.page, this.size);
       const {
         data: { data }
       } = res;
+      console.log('res', res);
       this.cartoonList = data.list;
+      this.total = data.total;
       if (this.cartoonList % 7 !== 0) {
         this.ifHideCard = true;
         this.hideCard = 7 - (this.cartoonList.length % 7);
@@ -141,7 +148,17 @@ export default {
       this.search.mangaPrice = price;
       this.getManga(this.search);
     },
-    getDetail() {}
+    pageChange({ page, size }) {
+      this.page = page;
+      this.size = size;
+      this.getManga(this.search);
+    },
+    getDetail(manga) {
+      const { mangaId } = manga;
+      this.setCurManga(manga);
+      this.$router.push({ path: '/detail', query: { mangaId } });
+    },
+    ...mapActions(['setCurManga'])
   }
 };
 </script>
@@ -150,11 +167,11 @@ export default {
 @import '../../assets/sass/index';
 .cartoon-list {
   width: $w_1200;
-  border: 1px solid #eaeaea;
   margin: 10px auto;
   .classify {
-    border-top: 2px solid #fd113a;
     padding: 20px;
+    border: 1px solid #eaeaea;
+    border-top: 2px solid #fd113a;
   }
 }
 .theme {

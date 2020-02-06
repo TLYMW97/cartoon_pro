@@ -27,6 +27,7 @@ const routes = [
   {
     path: '/cartoonview',
     name: 'CartoonView',
+    meta: { hideHeader: true },
     component: () => import('../views/cartoon-view/cartoon-view')
   },
   {

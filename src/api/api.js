@@ -68,3 +68,15 @@ export const collectManga = mangaId => {
     }
   );
 };
+// 检查是否收藏漫画
+export const checkCollect = mangaId => {
+  return service.post(
+    '/chkCollect',
+    { mangaId },
+    {
+      headers: {
+        token: state.user.token
+      }
+    }
+  );
+};

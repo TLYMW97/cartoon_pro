@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header v-if="this.$route.path !== '/cartoonview'"></Header>
+    <Header v-if="!this.$route.meta.hideHeader"></Header>
     <keep-alive include="index">
       <router-view />
     </keep-alive>

@@ -10,12 +10,14 @@ import {
   Avatar,
   Modal,
   Tabs,
+  Pagination,
   message
 } from 'ant-design-vue';
 Vue.component(Input.name, Input);
 Vue.component(Icon.name, Icon);
 Vue.component(Tag.name, Tag);
 Vue.component(Tabs.name, Tabs);
+Vue.component(Pagination.name, Pagination);
 Vue.component(Tabs.TabPane.name, Tabs.TabPane);
 Vue.component(Input.Search.name, Input.Search);
 Vue.component(Input.Password.name, Input.Password);

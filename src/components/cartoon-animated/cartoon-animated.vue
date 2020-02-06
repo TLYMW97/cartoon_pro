@@ -13,10 +13,7 @@
       </div>
       <div class="author">
         <p>作者:</p>
-        <span>
-          <router-link to>邱福龙</router-link>
-          <router-link to>瑛麒动漫</router-link>
-        </span>
+        <span>{{mangaData.mangaAuthor}}</span>
       </div>
       <div class="chapter">
         <p>最新:</p>
@@ -58,7 +55,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '~@/assets/sass/index';
 .animated {
   display: block;
   overflow: hidden;
@@ -99,18 +97,14 @@ export default {
   font-size: 16px;
   line-height: 16px;
   font-weight: 700;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  @include ellipsis();
 }
 .title a {
   display: inline-block;
   font-size: 14px;
   width: 120px;
   color: #252525;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  @include ellipsis();
 }
 .title p {
   font-size: 14px;
@@ -126,16 +120,15 @@ export default {
 }
 .animated-tip .author {
   color: #666;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  @include ellipsis();
   display: flex;
   padding: 0 10px;
 }
 .author p {
   font-size: 14px;
+  margin-right: 5px;
 }
-.author a {
+.author span {
   float: left;
   display: block;
   padding-left: 3px;
@@ -157,9 +150,7 @@ export default {
   color: #fd113a;
   display: inline-block;
   width: 170px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  @include ellipsis();
   vertical-align: top;
 }
 .animated-tip .desc {
@@ -169,9 +160,7 @@ export default {
   color: #666;
   line-height: 14px;
   margin-top: 3px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
+  @include ellipsis();
 }
 .animated-tip .read {
   font-size: 12px;

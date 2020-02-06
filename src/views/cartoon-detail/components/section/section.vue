@@ -48,6 +48,7 @@ p {
 }
 .section-des p {
   width: 100%;
+  max-width: 150px;
   font-size: 0.95em;
   color: #252525;
   text-align: center;
