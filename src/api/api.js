@@ -68,6 +68,18 @@ export const collectManga = mangaId => {
     }
   );
 };
+// 取消收藏漫画
+export const cancelCollect = mangaId => {
+  return service.post(
+    '/cancelCollect',
+    { mangaId },
+    {
+      headers: {
+        token: state.user.token
+      }
+    }
+  );
+};
 // 检查是否收藏漫画
 export const checkCollect = mangaId => {
   return service.post(
@@ -79,4 +91,7 @@ export const checkCollect = mangaId => {
       }
     }
   );
+};
+export const findByMonth = date => {
+  return service.post('/findTicketByMonth', { date });
 };

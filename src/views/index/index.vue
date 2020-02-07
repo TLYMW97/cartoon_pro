@@ -46,6 +46,15 @@
       <rank-list @getMore="priceMore(0)" @toDetail="getDetail" title="免费" :rankList="freePop"></rank-list>
       <rank-list @getMore="priceMore(1)" @toDetail="getDetail" title="付费" :rankList="payPop"></rank-list>
     </div>
+    <div class="month-list">
+      <section-title :title="'月票榜'" :icon="'rise'" />
+      <div class="list">
+        <div class="list-item" v-for="(item,index) of boutique.currentMonth" :key="item.mangaId">
+          <div class="ball-icon">{{index+1}}</div>
+          <div class="manga-name">{{item.mangaName}}</div>
+        </div>
+      </div>
+    </div>
     <!-- <div class="renew">
       <cartoonCard
         class="renew-card"
@@ -77,11 +86,6 @@ export default {
     return {
       // 漫画分类
       classes: [],
-      // 所有漫画数据
-      allManga: null,
-      // 处理flex布局填充
-      hideCard: null,
-      ifHideCard: false,
       // 排行榜数据
       freePop: {},
       payPop: {},
@@ -96,7 +100,8 @@ export default {
       },
       // 精品推荐
       boutique: {
-        love: []
+        love: [],
+        currentMonth: []
       },
       stars: 4
     };
@@ -122,6 +127,12 @@ export default {
       let classRes = await this.$api.classes();
       // 恋爱精品
       let loveRes = await this.$api.searchByTag(491);
+      // 月榜
+      const date = this.getCurrentMonth();
+      let monthRes = await this.$api.findByMonth(date);
+      const {
+        data: { data: monthList }
+      } = monthRes;
       const {
         data: { data: classes }
       } = classRes;
@@ -134,23 +145,16 @@ export default {
       const {
         data: { data: mosts }
       } = mostRes;
-      // const {
-      //   data: { data }
-      // } = res;
       const {
         data: { data: loves }
       } = loveRes;
-      // this.allManga = data;
-      // if (this.allManga.length % 7 !== 0) {
-      //   this.ifHideCard = true;
-      //   this.hideCard = 7 - (this.allManga.length % 7);
-      // }
       this.payPop = pays;
       this.freePop = frees;
       this.mostPop = mosts;
       this.setTags(classes);
       this.classes = classes.slice(0, 15);
       this.boutique.love = loves.slice(0, 6);
+      this.boutique.currentMonth = monthList;
       this.recommand.swipers = mosts.mangaList.slice(0, 3);
       this.recommand.top = mosts.mangaList.slice(8, 10);
       this.recommand.bottom = mosts.mangaList.slice(5, 8);
@@ -160,6 +164,18 @@ export default {
     },
     priceMore(mangaPrice) {
       this.$router.push({ path: '/cartoonlist', query: { mangaPrice } });
+    },
+    getCurrentMonth() {
+      let date = new Date().toLocaleDateString();
+      let index = date.lastIndexOf('/');
+      date = date
+        .slice(0, index)
+        .replace('/', '-')
+        .split('-');
+      if (date[1].length === 1) {
+        date[1] = '0' + date[1];
+      }
+      return date.join('-');
     },
     ...mapActions(['setTags'])
   }
@@ -234,7 +250,8 @@ export default {
 .b-box {
   width: 32%;
 }
-.section {
+.section,
+.month-list {
   width: $w_1200;
   margin: 30px auto;
 }
@@ -247,21 +264,36 @@ export default {
   display: flex;
   margin: 30px auto;
 }
-.renew {
-  width: $w_1200;
+.list {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 30px auto;
+  max-height: 400px;
 }
-.renew .renew-card {
-  margin-bottom: 20px;
+.list-item {
+  width: 300px;
+  margin-top: 10px;
+  padding-left: 20px;
+  display: flex;
+  .ball-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    margin-right: 15px;
+    background: #eaeaea;
+    text-align: center;
+    color: #fff;
+  }
+  .first {
+    background: #ffe675;
+  }
+  .second {
+    background: #feaf00;
+  }
+  .third {
+    background: #fe8c00;
+  }
 }
-.renew .hide-card {
-  width: 167px;
-  height: 287px;
-}
-
 .login-mask {
   width: 100%;
   height: 100%;
