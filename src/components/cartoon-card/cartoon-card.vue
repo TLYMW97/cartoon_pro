@@ -37,15 +37,16 @@ export default {
     }
   },
   mounted() {
-    this.stars = this.stars/2;
-    if(this.stars%1 !== 0) {
-      this.stars = parseInt(this.stars)+0.5;
+    this.stars = this.stars / 2;
+    if (this.stars % 1 !== 0) {
+      this.stars = parseInt(this.stars) + 0.5;
     }
   }
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '~@/assets/sass/index';
 .card {
   width: 167px;
   position: relative;
@@ -68,9 +69,7 @@ export default {
   color: #252525;
   display: block;
   margin: 8px 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  @include ellipsis();
 }
 .card .star {
   width: 100%;
@@ -96,9 +95,7 @@ export default {
 }
 .renew .new {
   display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  @include ellipsis();
   font-size: 12px;
   color: #fd113a;
   margin-left: 5px;

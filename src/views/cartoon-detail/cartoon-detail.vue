@@ -31,20 +31,41 @@
             <p>{{currentManga.mangaDetail}}</p>
           </div>
           <div class="operate">
-            <a-button size="large" type="danger" @click="collect(currentManga.mangaId)">收藏</a-button>
+            <a-button
+              size="large"
+              type="danger"
+              @click="collect(currentManga.mangaId)"
+            >{{collected ? '已收藏' : '收藏'}}</a-button>
             <a-button size="large" type="primary" @click="readStart">开始阅读</a-button>
           </div>
         </div>
       </div>
     </div>
     <div class="cartoon-main">
-      <div class="sections">
-        <Section
-          @readManga="readManga"
-          :key="section.chapterId"
-          v-for="section of sections"
-          :section="section"
-        ></Section>
+      <div class="main-left">
+        <div class="sections">
+          <Section
+            @readManga="readManga"
+            :key="section.chapterId"
+            v-for="section of sections"
+            :section="section"
+          ></Section>
+        </div>
+        <div class="cartoon-comment">
+          <div class="comment-title">
+            <p>全部评价 (共有3条评论)</p>
+          </div>
+          <div class="comment-block">
+            <a-textarea v-model="content" :rows="4"></a-textarea>
+            <div class="content-operate">
+              <span>请您文明上网，理性发言，注意文明用语</span>
+              <a-button type="primary">发表评论</a-button>
+            </div>
+          </div>
+          <div class="comments">
+            <comment></comment>
+          </div>
+        </div>
       </div>
       <div class="main-right">
         <div class="author">
@@ -65,12 +86,15 @@
 <script>
 import SerachBar from '../../components/search-bar/search-bar';
 import Section from './components/section/section';
+import Comment from './components/comment/comment';
 import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'cartoon-detail',
   data() {
     return {
-      sections: []
+      sections: [],
+      collected: false,
+      content: ''
     };
   },
   computed: {
@@ -82,11 +106,26 @@ export default {
   created() {
     this.changeBg();
     this.getDetail();
+    this.checkCollcted();
   },
   mounted() {},
   methods: {
-    changeBg(){
-      document.styleSheets[0].addRule('.glass-bg::before', 'background:url(' + this.mangaEpisode + ')');
+    changeBg() {
+      document.styleSheets[0].addRule(
+        '.glass-bg::before',
+        'background:url(' + this.mangaEpisode + ')'
+      );
+    },
+    checkCollcted: async function() {
+      if (!this.userInfo.token) {
+        return;
+      }
+      const { mangaId } = this.$route.query;
+      const res = await this.$api.checkCollect(mangaId);
+      const {
+        data: { data }
+      } = res;
+      this.collected = data;
     },
     getDetail: async function() {
       const { mangaId } = this.$route.query;
@@ -111,16 +150,23 @@ export default {
       this.setCurSection({ chapterId, chapterName });
     },
     collect: async function(mangaId) {
-      if (this.userInfo.token) {
+      if (this.userInfo.token && !this.collected) {
         const res = await this.$api.collectManga(mangaId);
         const {
-          data: {
-            data: { code, data }
-          }
+          data: { code, data }
         } = res;
         if (code === 200) {
           this.$message.success('收藏成功!');
+          this.collected = true;
+          console.log('this.collected', this.collected);
         }
+      } else if (this.userInfo.token && this.collected) {
+        const res = await this.$api.cancelCollect(mangaId);
+        const {
+          data: { data }
+        } = res;
+        this.collected = false;
+        console.log('this.collected', this.collected);
       } else {
         this.$message.error('你未登录，请登录后再操作!');
       }
@@ -129,7 +175,8 @@ export default {
   },
   components: {
     SerachBar,
-    Section
+    Section,
+    Comment
   }
 };
 </script>
@@ -211,11 +258,14 @@ p {
   display: flex;
   padding-left: 35px;
 }
-.sections {
+.main-left {
   flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  padding-right: 35px;
+  margin-right: 20px;
+  .sections {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 .main-right {
   width: 240px;
@@ -240,5 +290,22 @@ p {
 }
 .author-name {
   font-size: $middle-font;
+}
+.cartoon-comment {
+  .comment-title {
+    padding: 10px;
+  }
+  .comment-block {
+    .content-operate {
+      margin-top: 20px;
+      text-align: right;
+      span {
+        margin-right: 20px;
+      }
+    }
+    textarea {
+      resize: none;
+    }
+  }
 }
 </style>

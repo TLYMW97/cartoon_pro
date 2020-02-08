@@ -79,14 +79,15 @@ export default {
   components: { LiIcon },
   methods: {
     toPersonal() {
-      const {
-        user: { userId }
-      } = this.userInfo;
-      if (!userId) {
+      alert('d');
+      const { token } = this.userInfo;
+      if (!token) {
+        alert('ddd');
         this.$router.push('/login');
         return;
+      } else {
+        this.$message.success('已登录');
       }
-      this.$message.success('已登录');
     }
   }
 };

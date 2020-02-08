@@ -56,6 +56,7 @@ export default {
   margin-top: 20px;
   width: 400px;
   display: flex;
+  font-size: 13px;
   p {
     margin-bottom: 0;
   }
@@ -89,10 +90,7 @@ export default {
   margin-top: 5px;
   padding-right: 10px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  @include moreEllipsis();
 }
 .item-tags {
   display: flex;
@@ -107,8 +105,6 @@ export default {
   background-color: #ff5660;
   color: #fff;
   margin-right: 1vw;
-  text-overflow: ellipsis; /* ellipsis:显示省略符号来代表被修剪的文本  string:使用给定的字符串来代表被修剪的文本*/
-  white-space: nowrap; /* nowrap:规定段落中的文本不进行换行   */
-  overflow: hidden; /*超出部分隐藏*/
+  @include ellipsis();
 }
 </style>

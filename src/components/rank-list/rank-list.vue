@@ -51,7 +51,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import '~@/assets/sass/index';
 .ranking-list {
   width: 400px;
   padding-right: 20px;
@@ -117,10 +118,7 @@ export default {
 }
 .rank-des .introduce {
   width: 200px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  font-size: 13px;
+  @include moreEllipsis();
 }
 </style>
