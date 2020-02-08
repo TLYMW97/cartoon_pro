@@ -48,9 +48,6 @@
         },
         methods:{
             login(){
-                this.loginForm.validateFields((err, values)=>{
-                    console.log(values);
-                });
             }
         }
     };
