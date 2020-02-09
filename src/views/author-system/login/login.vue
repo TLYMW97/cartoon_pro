@@ -28,11 +28,12 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     export default {
         name: "login",
         data(){
             return{
-                loginForm: null,
+                loginForm: this.$form.createForm(this),
                 config: {
                     username: {
                         rules: [
@@ -48,7 +49,18 @@
         },
         methods:{
             login(){
-            }
+                const {
+                    loginForm: { validateFields }
+                } = this;
+                validateFields(async (err, val) => {
+                    this.userLogin(val).then(res=>{
+                        if(res) {
+                            this.$router.push({path:'/authorindex'});
+                        }
+                    });
+                });
+            },
+            ...mapActions(['userLogin'])
         }
     };
 </script>
