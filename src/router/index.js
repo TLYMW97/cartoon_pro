@@ -45,11 +45,17 @@ const routes = [
     name: 'AuthorLogin',
     meta: { hideHeader: true },
     component: () => import('../views/author-system/login/login')
-  }, 
+  },
   {
     path: '/search',
     name: 'Search',
     component: () => import('../views/search-result/search-result')
+  },
+  {
+    path: '/authorindex',
+    name: 'AuthorIndex',
+    meta: { hideHeader: true },
+    component: () => import('../views/author-system/index/index')
   }
   // {
   //   path: '/about',

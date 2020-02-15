@@ -5,7 +5,6 @@ const mutations = {
   [types.SET_USER_INFO](state, user) {
     sessionStorage.setItem('user', JSON.stringify(user));
     state.user = user;
-    router.push('/');
   },
   [types.ERR_MSG](state, msg) {
     message.error(msg, 2);

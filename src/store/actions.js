@@ -57,6 +57,7 @@ export const userLogin = async ({ commit }, reqBody) => {
   } = res;
   if (code === 200) {
     commit(types.SET_USER_INFO, data);
+    return data;
   } else {
     commit(types.ERR_MSG, msg);
   }
