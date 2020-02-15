@@ -1,10 +1,15 @@
+// 颜色规范
 $index-color: #fd113a
+$gray-span: gray
+// 字体规范
 $small-font: 12px
-$middle-font: 18px
-$large-font: 30px
+$medium-font: 14px
+$medium-x-font: 16px
+$large-font: 18px
+$large-x-font: 22px
 $avatar-size: 80px
 $w_1200: 1200px
-$gray-span: gray
+
 @mixin ellipsis ()
   text-overflow: ellipsis 
   white-space: nowrap
@@ -15,3 +20,16 @@ $gray-span: gray
   display: -webkit-box
   -webkit-line-clamp: 2
   -webkit-box-orient: vertical
+@mixin flex($justify: flex-start ,$align: stretch , $wrap: nowrap, $direction: row)
+  display: flex
+  justify-content: $justify
+  align-items: $align
+  flex-wrap: $wrap
+  flex-direction: $direction
+
+@mixin w1200($mt: 0)
+  width: $w_1200
+  margin: $mt auto
+
+  
+      

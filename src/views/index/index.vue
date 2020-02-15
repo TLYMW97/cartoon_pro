@@ -1,10 +1,10 @@
 <template>
   <div class="index-page">
-    <search-bar></search-bar>
+    <search-bar @search="search"></search-bar>
     <div class="classify">
       <ul class="classify-ul">
         <li v-for="tag of classes" :key="tag.tagId">
-          <router-link :to="{path: '/cartoonlist', query: {tagId: tag.tagId}}">{{tag.tagName}}</router-link>
+          <router-link :to="{ path: '/cartoonlist', query: { tagId: tag.tagId } }">{{ tag.tagName }}</router-link>
         </li>
       </ul>
       <router-link to="/cartoonlist" class="all-classify">
@@ -46,13 +46,47 @@
       <rank-list @getMore="priceMore(0)" @toDetail="getDetail" title="免费" :rankList="freePop"></rank-list>
       <rank-list @getMore="priceMore(1)" @toDetail="getDetail" title="付费" :rankList="payPop"></rank-list>
     </div>
-    <div class="month-list">
+    <!-- <div class="month-list">
       <section-title :title="'月票榜'" :icon="'rise'" />
       <div class="list">
-        <div class="list-item" v-for="(item,index) of boutique.currentMonth" :key="item.mangaId">
-          <div class="ball-icon">{{index+1}}</div>
-          <div class="manga-name">{{item.mangaName}}</div>
+        <div class="list-item" v-for="(item, index) of boutique.currentMonth" :key="item.mangaId">
+          <div class="ball-icon">{{ index + 1 }}</div>
+          <div class="manga-name">{{ item.mangaName }}</div>
         </div>
+      </div>
+    </div>-->
+    <div class="categories">
+      <div class="category-header">
+        <ul>
+          <li
+            v-for="category of categoryHeader"
+            :key="category.tagId"
+            @click="getTagList(category.tagId)"
+          >
+            <span>{{ category.tagName }}</span>
+          </li>
+          <li>
+            <router-link to="/cartoonlist" class="all-classify">
+              <span>全部分类</span>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+      <div class="category-list">
+        <banner v-if="boutique.categoryList.length > 0" :mangaList="boutique.categoryList">
+          <!-- <cartoon-card v-for="item of payPop.mangaList" :key="item.mangaId" :mangaData="item"></cartoon-card> -->
+        </banner>
+      </div>
+    </div>
+    <div class="recent-update">
+      <section-title :title="'最近更新'" :icon="'bulb'">
+              <div class="update-date">
+        <span class="date">今日</span>
+        <span class="date">昨日</span>
+      </div> 
+      </section-title>
+      <div class="update-list">
+
       </div>
     </div>
     <!-- <div class="renew">
@@ -76,16 +110,21 @@ import MySwiper from '../../components/my-swiper/my-swiper';
 import SearchBar from '../../components/search-bar/search-bar';
 import cartoonCard from '../../components/cartoon-card/cartoon-card';
 import RankList from '@/components/rank-list/rank-list';
+import Banner from '@/components/banner/banner';
+import Swiper from '@/components/swiper/swiper';
+import CurrentDate from '@/utils/CurrentDate';
 import { mapActions } from 'vuex';
 export default {
   name: 'index',
   created() {
     this.indexInit();
+    CurrentDate();
   },
   data() {
     return {
       // 漫画分类
       classes: [],
+      categoryHeader: [],
       // 排行榜数据
       freePop: {},
       payPop: {},
@@ -101,7 +140,8 @@ export default {
       // 精品推荐
       boutique: {
         love: [],
-        currentMonth: []
+        currentMonth: [],
+        categoryList: []
       },
       stars: 4
     };
@@ -112,13 +152,12 @@ export default {
     SectionTitle,
     MySwiper,
     SearchBar,
+    // Swiper,
+    Banner,
     // cartoonCard,
     RankList
   },
   methods: {
-    onSearch() {
-      alert('d');
-    },
     indexInit: async function() {
       // let res = await this.$api.allManga();
       let freeRes = await this.$api.freePop();
@@ -129,10 +168,14 @@ export default {
       let loveRes = await this.$api.searchByTag(491);
       // 月榜
       const date = this.getCurrentMonth();
-      let monthRes = await this.$api.findByMonth(date);
-      const {
-        data: { data: monthList }
-      } = monthRes;
+      // let monthRes = await this.$api.findByMonth({
+      //   date,
+      //   page: 1 * 1,
+      //   size: 100 * 1
+      // });
+      // const {
+      //   data: { data: monthList }
+      // } = monthRes;
       const {
         data: { data: classes }
       } = classRes;
@@ -153,8 +196,10 @@ export default {
       this.mostPop = mosts;
       this.setTags(classes);
       this.classes = classes.slice(0, 15);
+      this.categoryHeader = classes.slice(0, 6);
       this.boutique.love = loves.slice(0, 6);
-      this.boutique.currentMonth = monthList;
+      this.boutique.categoryList = loves.slice(0, 15);
+      // this.boutique.currentMonth = monthList;
       this.recommand.swipers = mosts.mangaList.slice(0, 3);
       this.recommand.top = mosts.mangaList.slice(8, 10);
       this.recommand.bottom = mosts.mangaList.slice(5, 8);
@@ -167,7 +212,9 @@ export default {
     },
     getCurrentMonth() {
       let date = new Date().toLocaleDateString();
+      console.log('date', date);
       let index = date.lastIndexOf('/');
+      
       date = date
         .slice(0, index)
         .replace('/', '-')
@@ -177,7 +224,25 @@ export default {
       }
       return date.join('-');
     },
-    ...mapActions(['setTags'])
+    search: async function(fuzzy) {
+      const res = await this.$api.searchByFuzzy(fuzzy);
+      const {
+        data: { code, data }
+      } = res;
+      if (code === 200) {
+        this.setSearchResult(data);
+        this.$router.push('/search');
+      }
+    },
+    getTagList: async function(tagId) {
+      const res = await this.$api.searchByTag(tagId);
+      console.log('res', res);
+      const {
+        data: { data }
+      } = res;
+      this.boutique.categoryList = data;
+    },
+    ...mapActions(['setTags', 'setSearchResult'])
   }
 };
 </script>
@@ -188,14 +253,12 @@ export default {
   width: 100%;
 }
 .classify {
-  width: $w_1200;
-  margin: 10px auto;
-  display: flex;
-  justify-content: space-between;
+  @include w1200(10px);
+  @include flex(space-between);
 }
 .classify .classify-ul {
   display: flex;
-  font-size: 14px;
+  font-size: $medium-font;
   margin-bottom: 0;
 }
 .classify-ul li {
@@ -215,11 +278,9 @@ export default {
   }
 }
 .recommend {
-  width: $w_1200;
-  display: flex;
-  margin: 0 auto;
+  @include w1200();
+  @include flex(space-between);
   max-height: 435px;
-  justify-content: space-between;
 }
 .recommend .re-l {
   width: 39%;
@@ -228,21 +289,17 @@ export default {
   width: 60%;
 }
 .re-r {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  @include flex(space-between, null, null, column);
 }
 .re-r .re-r-t {
   width: 100%;
   height: 215px;
-  display: flex;
+  @include flex(space-between);
   margin-bottom: 5px;
-  justify-content: space-between;
 }
 .re-r .re-r-b {
   height: 210px;
-  display: flex;
-  justify-content: space-between;
+  @include flex(space-between);
 }
 .t-box {
   width: 49.5%;
@@ -252,22 +309,17 @@ export default {
 }
 .section,
 .month-list {
-  width: $w_1200;
-  margin: 30px auto;
+  @include w1200(30px);
 }
 .section .section-items {
-  display: flex;
-  flex-wrap: wrap;
+  @include flex(null, null, wrap);
 }
 .ranks {
-  width: $w_1200;
+  @include w1200(30px);
   display: flex;
-  margin: 30px auto;
 }
 .list {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  @include flex(null, null, wrap, column);
   max-height: 400px;
 }
 .list-item {
@@ -293,6 +345,42 @@ export default {
   .third {
     background: #fe8c00;
   }
+}
+.categories {
+  background-color: #5f5053;
+  .category-header {
+    @include w1200();
+    padding: 20px;
+    ul {
+      @include flex(space-between);
+      li span {
+        color: #fff;
+        opacity: 0.8;
+        cursor: pointer;
+        font-size: $large-x-font;
+      }
+      li span:hover {
+        opacity: 1;
+      }
+    }
+  }
+  .category-list {
+    @include w1200(10px);
+    overflow: hidden;
+    margin-bottom: 60px;
+  }
+}
+.recent-update {
+  @include w1200();
+  .update-date {
+   margin-left: 30px;
+  .date {
+    font-size: 16px;
+    color: #000;
+    font-weight: 600;
+    margin-right: 20px;
+  }
+}
 }
 .login-mask {
   width: 100%;

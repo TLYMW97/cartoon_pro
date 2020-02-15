@@ -1,8 +1,9 @@
 <template>
   <div class="my-swiper">
-    <swiper :option="swiperOption" ref="mySwiper">
+    <swiper v-if="mangas.length > 0" :option="swiperOption" ref="mySwiper">
       <swiper-slide v-for="item of mangas" :key="item.mangaId">
         <recommend-img :img_src="item.episode[0].episodeHref"></recommend-img>
+        <slot></slot>
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
     </swiper>
@@ -14,7 +15,7 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import RecommendImg from '../recommed-img/recommend-img';
 import 'swiper/dist/css/swiper.css';
 export default {
-  name: 'mySwiper',
+  name: 'mySwiper1',
   components: {
     swiper,
     swiperSlide,
@@ -41,6 +42,8 @@ export default {
         grabCursor: true,
         parallax: true,
         effect: 'cube'
+        // slidesPerView: 3, //一行显示3个
+        // slidesPerColumn: 2 //显示2行
         // slidesPerView: 'auto',
         // centeredSlides: true,
         // spaceBetween: 30

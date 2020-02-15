@@ -24,6 +24,14 @@ const mutations = {
   [types.SET_TAGS](state, tags) {
     sessionStorage.setItem('tags', JSON.stringify(tags));
     state.tags = tags;
+  },
+  [types.SET_HISTORY_READ](state, manga) {
+    state.historyRead.push(manga);
+    localStorage.setItem('historyRead', JSON.stringify(state.historyRead));
+  },
+  [types.SET_SEARCH_RESULT](state, searchResult) {
+    state.searchResult = searchResult;
+    sessionStorage.setItem('searchResult', JSON.stringify(searchResult));
   }
 };
 export default mutations;

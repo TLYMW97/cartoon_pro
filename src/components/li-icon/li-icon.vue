@@ -67,8 +67,8 @@ p {
   text-align: center;
 }
 .icon {
-  width: 18px;
-  height: 18px;
+  width: $large-font;
+  height: $large-font;
   margin: 0 auto;
   background-repeat: no-repeat;
 }

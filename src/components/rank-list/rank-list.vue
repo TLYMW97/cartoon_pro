@@ -61,8 +61,7 @@ export default {
   }
 }
 .ranking-list .ranking-title {
-  display: flex;
-  justify-content: space-between;
+  @include flex(space-between);
 }
 .ranking-title h3 {
   font-size: 20px;

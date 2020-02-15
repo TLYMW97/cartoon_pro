@@ -166,12 +166,11 @@ export default {
 <style scoped lang="scss">
 @import '../../assets/sass/index';
 .cartoon-list {
-  width: $w_1200;
-  margin: 10px auto;
+  @include w1200(10px);
   .classify {
     padding: 20px;
     border: 1px solid #eaeaea;
-    border-top: 2px solid #fd113a;
+    border-top: 2px solid $index-color;
   }
 }
 .theme {
@@ -184,15 +183,13 @@ export default {
     min-width: 50px;
   }
   .theme-list {
-    display: flex;
-    flex-wrap: wrap;
+    @include flex(null, null, wrap);
     .theme-item {
       cursor: pointer;
       margin-bottom: 10px;
       padding: 0 10px 10px;
       box-sizing: border-box;
-      display: flex;
-      align-items: center;
+      @include flex(null, center);
       border-bottom: 1px solid #eaeaea;
     }
     .option {
@@ -203,26 +200,23 @@ export default {
       padding: 0 8px;
     }
     .theme-item:hover {
-      color: #fd113a;
+      color: $index-color;
     }
   }
 }
 .theme-actived {
-  color: #fd113a;
-  border-bottom-color: #fd113a !important;
+  color: $index-color;
+  border-bottom-color: $index-color !important;
 }
 .actived {
-  background-color: #fd113a;
+  background-color: $index-color;
   padding-bottom: 0 !important;
   color: #fff;
   border-radius: 30px;
 }
 .cartoons {
-  width: $w_1200;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 30px auto;
+  @include w1200(30px);
+  @include flex(space-between, null, wrap);
 }
 .cartoons .cartoon-card {
   margin-bottom: 20px;

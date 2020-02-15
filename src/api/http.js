@@ -1,7 +1,7 @@
 import axios from 'axios';
 import router from '../router';
 import { message } from 'ant-design-vue';
-
+import state from '../store/state';
 /*
  * 跳转登录页
  */
@@ -34,6 +34,11 @@ const service = axios.create({
 // 请求拦截
 service.interceptors.request.use(
   config => {
+    if (state.user.token) {
+      config.headers = {
+        token: state.user.token
+      };
+    }
     // 可在此添加loading
     return config;
   },

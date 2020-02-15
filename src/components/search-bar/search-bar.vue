@@ -2,7 +2,7 @@
   <div class="search-bar">
     <div class="bar-input">
       <a-input-search
-        placeholder="搜索漫画"
+        placeholder="搜索漫画名称或分类"
         @search="onSearch"
         enterButton
         size="large"
@@ -23,6 +23,7 @@ export default {
   methods: {
     onSearch() {
       this.$emit('search', this.searchContent);
+      this.searchContent = '';
     }
   }
 };

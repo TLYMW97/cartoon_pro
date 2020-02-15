@@ -36,17 +36,18 @@ p {
   margin: 0;
 }
 .section {
-  display: flex;
-  align-items: center;
+  @include flex(center, center);
   padding: 15px;
   cursor: pointer;
-  justify-content: center;
   background: #f6f6f6;
   width: 20%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 .section:hover {
   background: rgb(243, 205, 205);
+  .title {
+    color: red;
+  }
 }
 .section img {
   height: 100%;
