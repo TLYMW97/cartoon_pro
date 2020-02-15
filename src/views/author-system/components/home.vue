@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="home">
         <div class="top">
             <div class="left-info">111</div>
             <div class="right-msg">11</div>
@@ -30,28 +30,30 @@
     .clear{
         clear: both;
     }
-    .top{
+    .home{
+        width: 100%;
+        height: 100%;
+    }
+    .home .top{
         margin: 25px 0 25px 0;
         display: flex;
+        justify-content: space-between;
     }
     .top .left-info,.top .right-msg{
         background: #f7f7f7;
-        width: 480px;
+        width: 510px;
         height: 165px;
         padding: 20px;
-        margin-right: 25px;
         border: #d6d6d6 solid 1px;
     }
-    .my-cartoon{
+    .home .my-cartoon{
         border: #d6d6d6 solid 1px;
-        width: 985px;
-        height: 440px;
+        width: 100%;
+        min-height: 440px;
         margin-top: 30px;
-        overflow-y: auto;
     }
     .my-cartoon .header{
-        position: absolute;
-        width: 983px;
+        width: 100%;
         height: 30px;
         padding-bottom: 40px;
         background: url("http://css99tel.cdndm5.com/v201910292122/cartoonupload/images/topbg.png") repeat-x top left;

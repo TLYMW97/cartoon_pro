@@ -44,7 +44,7 @@
                     <div class="left-nav">
                         <div class="home">
                             <img src="http://css99tel.cdndm5.com/v201910292122/cartoonupload/images/icon_leftnav_home.png" alt="">
-                            <router-link to="">首页</router-link>
+                            <router-link to="" @click.native="changeTab('Home')">首页</router-link>
                         </div>
                         <div class="admin-list">
                             <ul>
@@ -53,10 +53,10 @@
                                     <router-link to="">漫画管理</router-link>
                                 </li>
                                 <li class="child-list">
-                                    <router-link to="">发表漫画</router-link>
+                                    <router-link to=""  @click.native="changeTab('Publish')">发表漫画</router-link>
                                 </li>
                                 <li class="child-list">
-                                    <router-link to="">未通过的章节</router-link>
+                                    <router-link to="">漫画审核列表</router-link>
                                 </li>
                             </ul>
                         </div>
@@ -84,10 +84,12 @@
 
 <script>
     import Home from '../components/home';
+    import Publish from '../components/publish';
     export default {
         name: "index",
         components:{
-          Home,
+            Home,
+            Publish,
         },
         data(){
             return{
@@ -95,6 +97,9 @@
             };
         },
         methods: {
+            changeTab(comName){
+                this.comName = comName;
+            },
             logout(){
                 console.log(1);
             }
@@ -116,7 +121,7 @@
         height: 135px;
     }
     .header .container-header{
-        width: 1200px;
+        width: 1250px;
         margin: 0 auto;
         position: relative;
         z-index: 100;
@@ -162,18 +167,16 @@
         height: 100%;
     }
     .container .center{
-        width: 1200px;
-        height: 700px;
+        width: 1250px;
         background: white;
         border-radius: 15px;
         margin: 0 auto;
+        display: flex;
     }
     .center .left-nav{
-        float: left;
         border-right: #d6d6d6 solid 1px;
         border-radius: 15px 0 0 15px;
         width: 157px;
-        height: 700px;
         background: #f7f7f7;
     }
     .left-nav a:hover,.left-nav a:active{
@@ -219,8 +222,8 @@
         padding: 20px 0 0 20px;
     }
     .center .right{
-        padding-left: 24px;
-        float: left;
+        flex-grow: 1;
+        margin:0 25px;
     }
     .footer{
         width: 100%;
