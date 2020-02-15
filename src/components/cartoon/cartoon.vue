@@ -76,12 +76,13 @@ export default {
   width: 100%;
 }
 .item-title {
-  font-size: $middle-font;
+  font-size: $large-font;
   font-weight: 600;
   cursor: pointer;
 }
 .item-new {
   margin-top: 30px;
+  font-size: $small-font;
 }
 .red-span {
   color: $index-color;
@@ -93,8 +94,7 @@ export default {
   @include moreEllipsis();
 }
 .item-tags {
-  display: flex;
-  flex-wrap: wrap;
+  @include flex(null, null, wrap);
   margin-top: 50px;
   max-height: 80px;
   display: -webkit-box; /*  display: -webkit-box; 必须结合的属性 ，将对象作为弹性伸缩盒子模型显示  */

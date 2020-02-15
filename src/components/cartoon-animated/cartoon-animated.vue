@@ -101,19 +101,19 @@ export default {
 }
 .title a {
   display: inline-block;
-  font-size: 14px;
+  font-size:$medium-font;
   width: 120px;
   color: #252525;
   @include ellipsis();
 }
 .title p {
-  font-size: 14px;
+  font-size: $medium-font;
   display: block;
   margin-right: 4px;
 }
 .animated-detail .rate {
-  line-height: 14px;
-  font-size: 12px;
+  line-height: $medium-font;
+  font-size: $small-font;
 }
 .rate >>> .ant-rate-star {
   margin-right: 5px;
@@ -125,45 +125,45 @@ export default {
   padding: 0 10px;
 }
 .author p {
-  font-size: 14px;
+  font-size: $medium-font;
   margin-right: 5px;
 }
 .author span {
   float: left;
   display: block;
   padding-left: 3px;
-  font-size: 14px;
+  font-size: $medium-font;
 }
 .animated-tip .chapter {
   height: 24px;
-  line-height: 14px;
+  line-height: $medium-font;
   display: flex;
   padding: 0 10px;
 }
 .chapter p {
   width: 40px;
-  font-size: 14px;
+  font-size: $medium-font;
   color: #252525;
 }
 .chapter a {
   margin-left: 3px;
-  color: #fd113a;
+  color: $index-color;
   display: inline-block;
   width: 170px;
   @include ellipsis();
   vertical-align: top;
 }
 .animated-tip .desc {
-  height: 14px;
+  height: $medium-font;
   padding: 0 10px;
-  font-size: 12px;
+  font-size: $small-font;
   color: #666;
-  line-height: 14px;
+  line-height: $medium-font;
   margin-top: 3px;
   @include ellipsis();
 }
 .animated-tip .read {
-  font-size: 12px;
+  font-size: $small-font;
   cursor: pointer;
   padding: 0 10px 10px 10px;
 }
@@ -173,10 +173,10 @@ export default {
   height: 34px;
   margin-top: 10px;
   line-height: 34px;
-  background-color: #fd113a;
+  background-color: $index-color;
   color: #fff;
   text-align: center;
-  font-size: 14px;
+  font-size: $medium-font;
   border-radius: 4px;
   cursor: pointer;
 }

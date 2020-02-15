@@ -15,10 +15,12 @@
           <router-link to>排行</router-link>
         </li>
         <li>
-          <router-link to>日漫</router-link>
+          <router-link tag="a" target="_blank" to="/authorlogin">上传</router-link>
         </li>
         <li>
-          <router-link tag="a" target="_blank" to="/authorlogin">上传</router-link>
+          <router-link to="/cartoonlist">
+            <a-icon type="appstore" style="font-size: 16px" />
+          </router-link>
         </li>
       </ul>
     </div>
@@ -96,20 +98,18 @@ export default {
 <style scoped lang="scss">
 @import '../../assets/sass/index';
 .header {
-  width: $w_1200;
+  @include w1200();
   height: 100%;
   max-height: 70px;
-  display: flex;
+  @include flex(space-between);
   padding: 10px 0;
-  margin: 0 auto;
-  justify-content: space-between;
   background: #fff;
   border-bottom: 1px solid #eaeaea;
   a {
     color: rgba(0, 0, 0, 0.85);
   }
   a:hover {
-    color: #fd113a;
+    color: $index-color;
   }
   .header-left,
   .header-right {
@@ -130,10 +130,11 @@ export default {
 .header-right .r-ul {
   width: 100%;
   display: flex;
-  font-size: $middle-font;
+  font-size: $large-font;
 }
 .l-ul li {
   width: 100%;
+  font-size: 16px;
 }
 .user {
   width: $avatar-size;

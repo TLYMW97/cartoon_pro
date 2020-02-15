@@ -79,8 +79,7 @@ export default {
 <style scoped lang="scss">
 @import '../../assets/sass/index';
 .login-form {
-  width: $w_1200;
-  margin: 30px auto;
+  @include w1200(30px);
   display: flex;
   .form-l,
   .form-r {

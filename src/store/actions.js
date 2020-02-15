@@ -28,6 +28,13 @@ export const setSections = async ({ commit }, sections) => {
 export const setCurSection = ({ commit }, section) => {
   commit(types.SET_CURRENT_SECTION, section);
 };
+// 存入历史纪录
+export const setHistoryRead = ({ commit, state }, manga) => {
+  if (state.historyRead.length >= 10) {
+    state.historyRead = state.historyRead.splice(0, 1);
+  }
+  commit(types.SET_HISTORY_READ, manga);
+};
 // 跳转下一章节
 export const getNextSection = ({ commit, state }) => {
   const { sections, currentSection } = state;
@@ -37,6 +44,10 @@ export const getNextSection = ({ commit, state }) => {
   } else {
     commit(types.SET_CURRENT_SECTION, sections[cIndex + 1]);
   }
+};
+// 存储搜索内容
+export const setSearchResult = ({ commit }, searchResult) => {
+  commit(types.SET_SEARCH_RESULT, searchResult);
 };
 // 用户登录
 export const userLogin = async ({ commit }, reqBody) => {
