@@ -75,7 +75,8 @@ export default {
       episodes: [],
       sectinsShow: false,
       toTop: false,
-      timer: null
+      timer: null,
+      timerTwo: null
     };
   },
   created() {
@@ -87,7 +88,6 @@ export default {
       this.timer = setTimeout(() => {
         let scrollTop =
           document.documentElement.scrollTop || document.body.scrollTop;
-        console.log('scrollTop', scrollTop);
         if (scrollTop > 1300) {
           this.toTop = true;
         } else {
@@ -96,7 +96,17 @@ export default {
       }, 600);
     },
     toElTop() {
-      window.scrollTo(0, 0);
+      this.timerTwo = setInterval(() => {
+        let scrollTop =
+          document.documentElement.scrollTop || document.body.scrollTop;
+        let ispeed = Math.floor(-scrollTop / 5);
+        document.documentElement.scrollTop = document.body.scrollTop =
+          scrollTop + ispeed;
+        this.toTop = true;
+        if (scrollTop === 0) {
+          clearInterval(this.timerTwo);
+        }
+      }, 20);
     },
     viewInit: async function() {
       window.scrollTo(0, 0);

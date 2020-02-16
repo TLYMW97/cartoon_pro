@@ -45,23 +45,19 @@ export default {
       lis: [
         {
           name: 'VIP',
-          icon:
-            'http://css99tel.cdndm5.com/v201910292122/blue/images/sd/header-vip.png'
+          icon: 'icon-shoucang'
         },
         {
           name: '历史',
-          icon:
-            'http://css99tel.cdndm5.com/v201910292122/blue/images/sd/header-vip.png'
+          icon: 'icon-historyrecord'
         },
         {
           name: '收藏',
-          icon:
-            'http://css99tel.cdndm5.com/v201910292122/blue/images/sd/header-vip.png'
+          icon: 'icon-shoucang'
         },
         {
           name: '下载APP',
-          icon:
-            'http://css99tel.cdndm5.com/v201910292122/blue/images/sd/header-vip.png'
+          icon: 'icon-shoucang'
         }
       ]
     };

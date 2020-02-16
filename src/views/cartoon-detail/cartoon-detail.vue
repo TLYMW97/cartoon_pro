@@ -125,7 +125,6 @@ export default {
   created() {
     this.detailInit();
   },
-  mounted() {},
   methods: {
     detailInit() {
       const { mangaId } = this.$route.query;
