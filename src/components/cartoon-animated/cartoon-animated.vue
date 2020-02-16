@@ -2,13 +2,13 @@
   <div class="animated">
     <div class="animated-tip">
       <router-link to title="山海逆战">
-        <img :src="mangaData.episode[0].episodeHref" alt />
+        <img :src="mangaPic" alt />
       </router-link>
       <div class="animated-detail">
         <div class="title">
           <router-link to :title="mangaData.mangaName">{{mangaData.mangaName}}</router-link>
-          <p>评分:{{mangaData.mangaScore}}</p>
-          <a-rate class="rate" allow-half v-model="this.stars" disabled></a-rate>
+          <p>评分:{{mangaData.mangaScore | starFormat}}</p>
+          <a-rate class="rate" allow-half :value="stars | starFormat" disabled></a-rate>
         </div>
       </div>
       <div class="author">
@@ -30,28 +30,10 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mangaCardMixin } from '../../mixin/manga';
 export default {
   name: 'cartoon-animated',
-  props: ['mangaData'],
-  data() {
-    return {
-      stars: this.mangaData.mangaScore
-    };
-  },
-  methods: {
-    toDetail() {
-      this.setCurManga(this.mangaData);
-      this.$emit('toDetail');
-    },
-    ...mapActions(['setCurManga'])
-  },
-  mounted() {
-    this.stars = this.stars / 2;
-    if (this.stars % 1 !== 0) {
-      this.stars = parseInt(this.stars) + 0.5;
-    }
-  }
+  mixins: [mangaCardMixin]
 };
 </script>
 
@@ -101,7 +83,7 @@ export default {
 }
 .title a {
   display: inline-block;
-  font-size:$medium-font;
+  font-size: $medium-font;
   width: 120px;
   color: #252525;
   @include ellipsis();

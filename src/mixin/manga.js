@@ -66,3 +66,27 @@ export const mangaMixin = {
     ...mapActions(['setSections', 'setCurSection', 'setCurManga'])
   }
 };
+
+export const mangaCardMixin = {
+  computed: {
+    mangaPic() {
+      return this.mangaData.episode[0].episodeHref;
+    },
+    stars() {
+      return this.mangaData.mangaScore;
+    }
+  },
+  props: {
+    mangaData: {
+      type: Object,
+      default: () => {}
+    }
+  },
+  methods: {
+    toDetail() {
+      this.setCurManga(this.mangaData);
+      this.$emit('toDetail', this.mangaData.mangaId);
+    },
+    ...mapActions(['setCurManga'])
+  }
+};

@@ -9,13 +9,10 @@
           <router-link to="/">首页</router-link>
         </li>
         <li>
-          <router-link to>更新</router-link>
-        </li>
-        <li>
           <router-link to>排行</router-link>
         </li>
         <li>
-          <router-link tag="a" target="_blank" to="/authorlogin">上传</router-link>
+          <router-link tag="a" target="_blank" to="/authorlogin">我要投稿</router-link>
         </li>
         <li>
           <router-link to="/cartoonlist">
@@ -133,7 +130,7 @@ export default {
   font-size: $large-font;
 }
 .l-ul li {
-  width: 100%;
+  margin-right: 20px;
   font-size: 16px;
 }
 .user {

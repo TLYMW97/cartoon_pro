@@ -6,7 +6,7 @@
         <div class="swiper-slide" v-for="(item, index) of mangaList" :key="index">
           <!-- <img :src="item.url" />
           <img src="../../assets/01.jpg"/>-->
-          <cartoonCard :mangaData="item"></cartoonCard>
+          <cartoon-card-o @toDetail="toDetail" :mangaData="item"></cartoon-card-o>
         </div>
       </div>
       <!-- <div class="swiper-pagination"></div> -->
@@ -18,6 +18,7 @@
 <script>
 import Swiper from 'swiper';
 import 'swiper/dist/css/swiper.min.css';
+import CartoonCardO from '@/components/cartoon-card-o/cartoon-card-o';
 import cartoonCard from '@/components/cartoon-card/cartoon-card';
 export default {
   data() {
@@ -31,7 +32,7 @@ export default {
     };
   },
   components: {
-    cartoonCard
+    CartoonCardO
   },
   props: {
     mangaList: {
@@ -57,11 +58,10 @@ export default {
         //在Wrapper上添加等于slides相加的宽或高，在对flexbox布局的支持不是很好的浏览器中可能需要用到。
         setWrapperSize: true,
         // 设置slider容器能够同时显示的slides数量(carousel模式)。
-        slidesPerView: 5,
-        slidesOffsetBefore: 30,
+        slidesPerView: 6,
         // 将slide的宽和高取整(四舍五入)
         roundLengths: true,
-        slidesPerGroup: 5,
+        slidesPerGroup: 6,
         // slide间距
         spaceBetween: 20
         // pagination: {
@@ -76,6 +76,9 @@ export default {
         //   disableOnInteraction: false
         // },
       });
+    },
+    toDetail(mangaId) {
+      this.$emit('toDetail', mangaId);
     }
   }
 };

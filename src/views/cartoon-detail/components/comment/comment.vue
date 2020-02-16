@@ -15,7 +15,7 @@
         </div>
         <div class="content">{{comm.commBody}}</div>
         <div class="time-operate">
-          <div class="time">{{commDate(comm.commTime)}}</div>
+          <div class="time">{{ formatDate(comm.commTime)}}</div>
           <div class="operate">
             <span class="like" @click="commLike(comm)" :class="comm.status ? 'activited' : ''">
               <a-icon type="like" />
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { formatDate } from '../../../../utils/dateFormat';
 export default {
   name: 'comment',
   computed: {
@@ -74,6 +75,7 @@ export default {
     showArea() {
       this.areaShow = !this.areaShow;
     },
+    formatDate,
     replyComm(comm) {
       const { commId: commExid, userId } = comm;
       const reply = {
