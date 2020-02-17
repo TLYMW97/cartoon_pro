@@ -33,6 +33,7 @@
     .home{
         width: 100%;
         height: 100%;
+        margin-bottom: 25px;
     }
     .home .top{
         margin: 25px 0 25px 0;

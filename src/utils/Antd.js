@@ -11,6 +11,7 @@ import {
   Modal,
   Tabs,
   Pagination,
+  Radio,
   message
 } from 'ant-design-vue';
 Vue.component(Input.name, Input);
@@ -30,4 +31,6 @@ Vue.component(Button.name, Button);
 Vue.component(Avatar.name, Avatar);
 Vue.component(Rate.name, Rate);
 Vue.component(Modal.name, Modal);
+Vue.component(Radio.name, Radio);
+Vue.component(Radio.Group.name, Radio.Group);
 Vue.prototype.$message = message;
