@@ -17,6 +17,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/assets/sass/index';
 .cartoon-card-o {
   z-index: 99;
   margin-top: 10px;
@@ -43,6 +44,7 @@ export default {
     color: #fff;
     opacity: 0.8;
     margin-bottom: 0;
+    @include ellipsis();
   }
 }
 .cartoon-card-o:hover {

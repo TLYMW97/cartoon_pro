@@ -413,6 +413,7 @@ export default {
 }
 .categories {
   position: relative;
+  min-width: 1200px;
   overflow: hidden;
   .category-header {
     @include w1200();
@@ -436,6 +437,7 @@ export default {
   }
   .category-list {
     @include w1200(10px);
+    // width: 100%;
     overflow: hidden;
   }
 }

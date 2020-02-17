@@ -1,14 +1,10 @@
 <template>
   <div class="my-swiper">
     <swiper v-if="mangaList.length > 0" :option="swiperOption" ref="mySwiper">
-      <swiper-slide
-        v-for="item of mangaList"
-        :key="item.mangaId"
-        style="width:300px; width: auto"
-      >
+      <swiper-slide v-for="item of mangaList" :key="item.mangaId" style="width:300px; width: auto">
         <cartoonCard :mangaData="item"></cartoonCard>
       </swiper-slide>
-      <div class="swiper-pagination" slot="pagination"></div>
+      <div class="swiper-pagination1" slot="pagination"></div>
     </swiper>
   </div>
 </template>
@@ -33,14 +29,12 @@ export default {
   data() {
     return {
       swiperOption: {
-        pagination: {
-          el: '.swiper-pagination'
-        },
+        pagination: '.swiper-pagination1',
         // 如果需要前进后退按钮
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
-        },
+        // navigation: {
+        //   nextEl: '.swiper-button-next',
+        //   prevEl: '.swiper-button-prev'
+        // },
         // autoplay: {
         //   disableOnInteraction: false
         // },

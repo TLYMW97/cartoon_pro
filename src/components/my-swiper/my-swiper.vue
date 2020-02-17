@@ -5,7 +5,7 @@
         <recommend-img :img_src="item.episode[0].episodeHref"></recommend-img>
         <slot></slot>
       </swiper-slide>
-      <div class="swiper-pagination" slot="pagination"></div>
+      <div class="swiper-pagination1" slot="pagination"></div>
     </swiper>
   </div>
 </template>
@@ -37,7 +37,10 @@ export default {
           stopOnLastSlide: false,
           disableOnInteraction: false
         },
-        pagination: '.swiper-pagination',
+        pagination: {
+          el: '.swiper-pagination1'
+        },
+        // pagination: '.swiper-pagination1',
         paginationType: 'fraction',
         grabCursor: true,
         parallax: true,

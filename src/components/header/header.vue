@@ -16,14 +16,15 @@
         </li>
         <li>
           <router-link to="/cartoonlist">
-            <a-icon type="appstore" style="font-size: 16px" />
+            <!-- <a-icon type="appstore" style="font-size: 16px" /> -->
+            <icon-svg iconHref="icon-leimupinleifenleileibie--" size="18px"></icon-svg>
           </router-link>
         </li>
       </ul>
     </div>
     <div class="header-right">
       <ul class="r-ul">
-        <li-icon v-for="(li,index) of lis" :name="li.name" :key="index" :icon="li.icon"></li-icon>
+        <li-icon v-for="(li,index) of lis" :name="li.name" :key="index" :icon="li.icon" :id="li.id"></li-icon>
       </ul>
       <div class="user">
         <a-avatar @click="toPersonal" size="large" icon="user" :src="userAvatar" />
@@ -34,6 +35,7 @@
 
 <script>
 import LiIcon from '../li-icon/li-icon';
+import IconSvg from '../icon-svg/icon-svg';
 import { mapGetters } from 'vuex';
 export default {
   name: 'indexHeader',
@@ -44,19 +46,13 @@ export default {
     return {
       lis: [
         {
-          name: 'VIP',
-          icon: 'icon-shoucang'
-        },
-        {
+          id: 1,
           name: '历史',
           icon: 'icon-historyrecord'
         },
         {
+          id: 2,
           name: '收藏',
-          icon: 'icon-shoucang'
-        },
-        {
-          name: '下载APP',
           icon: 'icon-shoucang'
         }
       ]
@@ -71,7 +67,7 @@ export default {
       return null;
     }
   },
-  components: { LiIcon },
+  components: { LiIcon, IconSvg },
   methods: {
     toPersonal() {
       alert('d');
