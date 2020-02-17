@@ -125,7 +125,6 @@ export default {
   created() {
     this.detailInit();
   },
-  mounted() {},
   methods: {
     detailInit() {
       const { mangaId } = this.$route.query;
@@ -173,10 +172,8 @@ export default {
           }
         }
         this.commList.sort((pre, next) => {
-          console.log(Date.parse(pre.commTime));
           return Date.parse(next.commTime) - Date.parse(pre.commTime);
         });
-        console.log('this.commList', this.commList);
       }
     },
     commManga: async function() {
@@ -333,7 +330,7 @@ p {
 .cartoon-comment {
   border: 1px solid #eaeaea;
   margin-top: 20px;
-  padding: 0 15px;
+  padding: 10px 15px;
   .comment-title {
     padding: 20px 10px;
   }

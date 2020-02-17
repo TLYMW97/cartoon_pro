@@ -21,7 +21,7 @@
         </p>
         <p>
           <span class="gray-span">分数:</span>
-          {{mangaData.mangaScore/2}}
+          {{mangaData.mangaScore | starFormat}}
         </p>
       </div>
       <div class="introduce">

@@ -9,24 +9,22 @@
           <router-link to="/">首页</router-link>
         </li>
         <li>
-          <router-link to>更新</router-link>
-        </li>
-        <li>
           <router-link to>排行</router-link>
         </li>
         <li>
-          <router-link tag="a" target="_blank" to="/authorlogin">上传</router-link>
+          <router-link tag="a" target="_blank" to="/authorlogin">我要投稿</router-link>
         </li>
         <li>
           <router-link to="/cartoonlist">
-            <a-icon type="appstore" style="font-size: 16px" />
+            <!-- <a-icon type="appstore" style="font-size: 16px" /> -->
+            <icon-svg iconHref="icon-leimupinleifenleileibie--" size="18px"></icon-svg>
           </router-link>
         </li>
       </ul>
     </div>
     <div class="header-right">
       <ul class="r-ul">
-        <li-icon v-for="(li,index) of lis" :name="li.name" :key="index" :icon="li.icon"></li-icon>
+        <li-icon v-for="(li,index) of lis" :name="li.name" :key="index" :icon="li.icon" :id="li.id"></li-icon>
       </ul>
       <div class="user">
         <a-avatar @click="toPersonal" size="large" icon="user" :src="userAvatar" />
@@ -37,6 +35,7 @@
 
 <script>
 import LiIcon from '../li-icon/li-icon';
+import IconSvg from '../icon-svg/icon-svg';
 import { mapGetters } from 'vuex';
 export default {
   name: 'indexHeader',
@@ -47,24 +46,14 @@ export default {
     return {
       lis: [
         {
-          name: 'VIP',
-          icon:
-            'http://css99tel.cdndm5.com/v201910292122/blue/images/sd/header-vip.png'
-        },
-        {
+          id: 1,
           name: '历史',
-          icon:
-            'http://css99tel.cdndm5.com/v201910292122/blue/images/sd/header-vip.png'
+          icon: 'icon-historyrecord'
         },
         {
+          id: 2,
           name: '收藏',
-          icon:
-            'http://css99tel.cdndm5.com/v201910292122/blue/images/sd/header-vip.png'
-        },
-        {
-          name: '下载APP',
-          icon:
-            'http://css99tel.cdndm5.com/v201910292122/blue/images/sd/header-vip.png'
+          icon: 'icon-shoucang'
         }
       ]
     };
@@ -78,7 +67,7 @@ export default {
       return null;
     }
   },
-  components: { LiIcon },
+  components: { LiIcon, IconSvg },
   methods: {
     toPersonal() {
       alert('d');
@@ -133,7 +122,7 @@ export default {
   font-size: $large-font;
 }
 .l-ul li {
-  width: 100%;
+  margin-right: 20px;
   font-size: 16px;
 }
 .user {

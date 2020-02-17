@@ -37,7 +37,7 @@
           @toDetail="getDetail"
           v-for="item of boutique.love"
           :key="item.mangaId"
-          :cartoon="item"
+          :mangaData="item"
         />
       </div>
     </div>
@@ -61,6 +61,7 @@
           <li
             v-for="category of categoryHeader"
             :key="category.tagId"
+            :class="categroyActivited === category.tagId ? 'categroyActivited' : ''"
             @click="getTagList(category.tagId)"
           >
             <span>{{ category.tagName }}</span>
@@ -73,20 +74,34 @@
         </ul>
       </div>
       <div class="category-list">
-        <banner v-if="boutique.categoryList.length > 0" :mangaList="boutique.categoryList">
+        <banner
+          v-if="boutique.categoryList.length > 0"
+          @toDetail="getDetail"
+          :mangaList="boutique.categoryList"
+        >
           <!-- <cartoon-card v-for="item of payPop.mangaList" :key="item.mangaId" :mangaData="item"></cartoon-card> -->
         </banner>
       </div>
     </div>
     <div class="recent-update">
       <section-title :title="'最近更新'" :icon="'bulb'">
-              <div class="update-date">
-        <span class="date">今日</span>
-        <span class="date">昨日</span>
-      </div> 
+        <div class="update-date">
+          <span
+            class="date"
+            :class="dateActivited === date.weekDay ? 'dateActivited' : ''"
+            v-for="date of dateList"
+            :key="date.weekDay"
+            @click="getByTime(date.localDate)"
+          >{{ date.weekDay }}</span>
+        </div>
       </section-title>
       <div class="update-list">
-
+        <Cartoon
+          v-for="cartoon of updatedList"
+          @toDetail="getDetail"
+          :mangaData="cartoon"
+          :key="cartoon.mangaId"
+        ></Cartoon>
       </div>
     </div>
     <!-- <div class="renew">
@@ -112,19 +127,22 @@ import cartoonCard from '../../components/cartoon-card/cartoon-card';
 import RankList from '@/components/rank-list/rank-list';
 import Banner from '@/components/banner/banner';
 import Swiper from '@/components/swiper/swiper';
-import CurrentDate from '@/utils/CurrentDate';
+import weekDate from '@/utils/WeekDate';
 import { mapActions } from 'vuex';
 export default {
   name: 'index',
   created() {
     this.indexInit();
-    CurrentDate();
   },
   data() {
     return {
       // 漫画分类
       classes: [],
       categoryHeader: [],
+      // 每日更新
+      dateActivited: '今天',
+      updatedList: [],
+      dateList: [],
       // 排行榜数据
       freePop: {},
       payPop: {},
@@ -143,6 +161,8 @@ export default {
         currentMonth: [],
         categoryList: []
       },
+      // 分类推荐
+      categroyActivited: 491,
       stars: 4
     };
   },
@@ -160,14 +180,15 @@ export default {
   methods: {
     indexInit: async function() {
       // let res = await this.$api.allManga();
-      let freeRes = await this.$api.freePop();
-      let payRes = await this.$api.payPop();
-      let mostRes = await this.$api.mostPop();
-      let classRes = await this.$api.classes();
-      // 恋爱精品
-      let loveRes = await this.$api.searchByTag(491);
+      const dateList = weekDate();
+      this.getTags();
+      this.getRecLove();
+      this.getPop();
+      this.getFree();
+      this.getPay();
+      this.getByTime();
       // 月榜
-      const date = this.getCurrentMonth();
+      // const date = this.getCurrentMonth();
       // let monthRes = await this.$api.findByMonth({
       //   date,
       //   page: 1 * 1,
@@ -176,45 +197,75 @@ export default {
       // const {
       //   data: { data: monthList }
       // } = monthRes;
-      const {
-        data: { data: classes }
-      } = classRes;
-      const {
-        data: { data: frees }
-      } = freeRes;
-      const {
-        data: { data: pays }
-      } = payRes;
-      const {
-        data: { data: mosts }
-      } = mostRes;
+
+      // this.boutique.currentMonth = monthList;
+      this.dateList = dateList;
+    },
+    getRecLove: async function() {
+      // 恋爱精品
+      let loveRes = await this.$api.searchByTag(491);
       const {
         data: { data: loves }
       } = loveRes;
-      this.payPop = pays;
-      this.freePop = frees;
-      this.mostPop = mosts;
+      this.boutique.love = loves.slice(0, 6);
+      this.boutique.categoryList = loves.slice(0, 15);
+    },
+    getDetail(mangaId) {
+      this.$router.push({ path: '/detail', query: { mangaId } });
+    },
+    getTags: async function() {
+      let classRes = await this.$api.classes();
+      const {
+        data: { data: classes }
+      } = classRes;
       this.setTags(classes);
       this.classes = classes.slice(0, 15);
       this.categoryHeader = classes.slice(0, 6);
-      this.boutique.love = loves.slice(0, 6);
-      this.boutique.categoryList = loves.slice(0, 15);
-      // this.boutique.currentMonth = monthList;
+    },
+    getPop: async function() {
+      let mostRes = await this.$api.mostPop();
+      const {
+        data: { data: mosts }
+      } = mostRes;
+      this.mostPop = mosts;
       this.recommand.swipers = mosts.mangaList.slice(0, 3);
       this.recommand.top = mosts.mangaList.slice(8, 10);
       this.recommand.bottom = mosts.mangaList.slice(5, 8);
     },
-    getDetail(mangaId) {
-      this.$router.push({ path: '/detail', query: { mangaId } });
+    getFree: async function() {
+      let freeRes = await this.$api.freePop();
+      const {
+        data: { data: frees }
+      } = freeRes;
+      this.freePop = frees;
+    },
+    getPay: async function() {
+      let payRes = await this.$api.payPop();
+      const {
+        data: { data: pays }
+      } = payRes;
+      this.payPop = pays;
+    },
+    getByTime: async function(date) {
+      date = date || '2020-02-01';
+      let res = await this.$api.searchByTime({
+        date,
+        page: 1,
+        size: 6
+      });
+      console.log('updatedRes', res);
+      const {
+        data: { data }
+      } = res;
+      console.log('data', data);
+      this.updatedList = data.list;
     },
     priceMore(mangaPrice) {
       this.$router.push({ path: '/cartoonlist', query: { mangaPrice } });
     },
     getCurrentMonth() {
       let date = new Date().toLocaleDateString();
-      console.log('date', date);
       let index = date.lastIndexOf('/');
-      
       date = date
         .slice(0, index)
         .replace('/', '-')
@@ -236,7 +287,7 @@ export default {
     },
     getTagList: async function(tagId) {
       const res = await this.$api.searchByTag(tagId);
-      console.log('res', res);
+      this.categroyActivited = tagId;
       const {
         data: { data }
       } = res;
@@ -346,41 +397,68 @@ export default {
     background: #fe8c00;
   }
 }
+.categories::before {
+  content: '';
+  position: absolute;
+  background: url('../../assets/images/bg.jpg') no-repeat;
+  background-size: cover;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  max-height: 480px;
+  filter: blur(66px) contrast(0.9);
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: -99;
+}
 .categories {
-  background-color: #5f5053;
+  position: relative;
+  min-width: 1200px;
+  overflow: hidden;
   .category-header {
     @include w1200();
     padding: 20px;
     ul {
-      @include flex(space-between);
+      @include flex(space-between, center);
       li span {
         color: #fff;
         opacity: 0.8;
         cursor: pointer;
-        font-size: $large-x-font;
+        font-size: $large-font;
       }
       li span:hover {
         opacity: 1;
+      }
+      .categroyActivited span {
+        opacity: 1;
+        font-size: $large-x-font;
       }
     }
   }
   .category-list {
     @include w1200(10px);
+    // width: 100%;
     overflow: hidden;
-    margin-bottom: 60px;
   }
 }
 .recent-update {
-  @include w1200();
+  @include w1200(20px);
   .update-date {
-   margin-left: 30px;
-  .date {
-    font-size: 16px;
-    color: #000;
-    font-weight: 600;
-    margin-right: 20px;
+    margin-left: 30px;
+    .date {
+      cursor: pointer;
+      font-size: 16px;
+      color: #000;
+      font-weight: 600;
+      margin-right: 20px;
+    }
+  }
+  .update-list {
+    @include flex(null, null, wrap);
   }
 }
+.dateActivited {
+  color: $index-color !important;
 }
 .login-mask {
   width: 100%;

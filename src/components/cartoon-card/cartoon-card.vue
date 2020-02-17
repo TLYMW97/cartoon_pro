@@ -7,8 +7,8 @@
       <router-link to class="title">{{mangaData.mangaName}}</router-link>
     </div>
     <div class="star">
-      <p>评分:{{mangaData.mangaScore}}</p>
-      <a-rate class="rate" allow-half v-model="this.stars" disabled />
+      <p>评分:{{mangaData.mangaScore | starFormat}}</p>
+      <a-rate class="rate" allow-half :value="stars | starFormat" disabled />
     </div>
     <div class="renew">
       <p>最新:</p>
@@ -32,16 +32,11 @@ export default {
     };
   },
   methods: {
-    toDetail() {
-      this.$emit('toDetail', this.mangaData.mangaId);
+    toDetail(mangaId) {
+      this.$emit('toDetail', mangaId);
     }
   },
-  mounted() {
-    this.stars = this.stars / 2;
-    if (this.stars % 1 !== 0) {
-      this.stars = parseInt(this.stars) + 0.5;
-    }
-  }
+  mounted() {}
 };
 </script>
 
