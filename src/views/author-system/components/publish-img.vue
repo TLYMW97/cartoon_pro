@@ -7,7 +7,25 @@
             <h2>上传封面</h2>
         </div>
         <div class="make">
+            <div class="screen-shot">
+                <div class="shot1" style="width: 122px;height: 163px;">
+                    <img :src="shotBg.Bg1" alt="封面一">
+                </div>
+                <div class="shot2" style="width: 119px;height: 119px;">
+                    <img :src="shotBg.Bg2" alt="封面二">
+                </div>
+                <div class="shot3" style="width: 266px;height: 119px;">
+                    <img :src="shotBg.Bg3" alt="封面三">
+                </div>
+                <div class="shot4" style="width: 154px;height: 119px;">
+                    <img :src="shotBg.Bg4" alt="封面四">
+                </div>
+            </div>
+            <p style="margin-bottom: 5px;color: #999;">可上传多张原稿进行切图</p>
+            <div class="preview">
 
+                <img :src="preview" alt="">
+            </div>
         </div>
         <div class="btn">
             <div class="btn-middle">
@@ -21,6 +39,17 @@
 <script>
     export default {
         name: "publish-img",
+        data(){
+            return {
+                shotBg:{
+                    Bg1: 'http://css99tel.cdndm5.com/v202002212048/cartoonupload/images/cover_1.png',
+                    Bg2: 'http://css99tel.cdndm5.com/v202002212048/cartoonupload/images/cover_2.png',
+                    Bg3: 'http://css99tel.cdndm5.com/v202002212048/cartoonupload/images/cover_3.png',
+                    Bg4: 'http://css99tel.cdndm5.com/v202002212048/cartoonupload/images/cover_4.png',
+                },
+                preview: 'http://css99tel.cdndm5.com/v202002212048/cartoonupload/images/cover_default.png',
+            }
+        },
         methods:{
             next(){
                 this.$emit('next','publishChapter');
@@ -71,6 +100,31 @@
         margin: 0 auto;
         background-color: #f7f7f7;
         border: #d6d6d6 solid 1px;
+        padding: 40px 70px;
+    }
+    .make .screen-shot{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 30px;
+    }
+    .screen-shot div{
+        padding: 2px;
+        background-color: white;
+    }
+    .make .preview{
+        width: 822px;
+        height: 554px;
+        padding: 5px;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        background: url("http://css99tel.cdndm5.com/v202002212048/cartoonupload/images/cover_img.png");
+    }
+    .preview img{
+        max-width: 812px;
+        max-height: 544px;
+        object-fit:contain;
     }
     .publish-img .btn{
         margin-top: 25px;

@@ -25,25 +25,43 @@
                 <a-form-item v-bind="formItemLayout" label="特殊说明">
                     <a-textarea placeholder="请输入作品简介" :rows="5"></a-textarea>
                 </a-form-item>
-                <div class="img-upload">
-                    <a-upload
-                            listType="picture-card"
-                            :fileList="fileList"
-                            :multiple="multiple"
-                            @preview="handlePreview"
-                            @change="handleChange"
-                            :beforeUpload="beforeUpload"
-                            :showUploadList="showUploadList"
-                    >
-                        <div>
-                            <a-icon type="plus" />
-                            <div class="ant-upload-text">Upload</div>
+                <a-form-item  v-bind="formItemLayout" label="图片上传">
+                    <div class="img-div">
+                        <div class="img-upload">
+                            <div class="img-show" v-for="item of imgList" :key="item.id">
+                                <div class="img-mask"></div>
+                                <img :src="item.img" alt="">
+                            </div>
+                            <a-upload
+                                    listType="picture-card"
+                                    :fileList="fileList"
+                                    :multiple="multiple"
+                                    @preview="handlePreview"
+                                    @change="handleChange"
+                                    :beforeUpload="beforeUpload"
+                                    :showUploadList="showUploadList"
+                            >
+                                <div>
+                                    <a-icon type="plus" />
+                                    <div class="ant-upload-text">Upload</div>
+                                </div>
+                                <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">
+                                    <img alt="example" style="width: 100%" :src="previewImage" />
+                                </a-modal>
+                            </a-upload>
                         </div>
-                        <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">
-                            <img alt="example" style="width: 100%" :src="previewImage" />
-                        </a-modal>
-                    </a-upload>
-                </div>
+                        <div class="upload">
+                            <div class="left">
+                                <a-button type="primary" @click="upLoadImg">开始上传</a-button>
+                            </div>
+                            <div class="right">
+                                <p>1.上传完成后，如果需要可以拖拽图片调换顺序。</p>
+                                <p>2.选择图片时可用鼠标批量框选上传。</p>
+                                <p>3.请让每张图片清晰并在15M以内。</p>
+                            </div>
+                        </div>
+                    </div>
+                </a-form-item>
             </a-form>
             <div class="btn">
                 <div class="btn-middle">
@@ -68,6 +86,7 @@
                     wrapperCol: {span: 18}
                 },
                 // 图片列表
+                imgList: [],
                 fileList:[],
                 previewImage: '',
                 previewVisible: false,
@@ -76,20 +95,26 @@
             };
         },
         methods: {
+            // 上传图片
+            upLoadImg(){
+                console.log(this.imgList);
+            },
             // 点击图片回调
             handlePreview (file) {
-                console.log(file);
                 this.previewImage = file.url || file.thumbUrl;
                 this.previewVisible = true;
             },
             // 上传前处理
             beforeUpload(file){
-                console.log(file);
                 let r = new FileReader();
                 r.readAsDataURL(file);
                 r.onload = e => {
                     file.thumbUrl = e.target.result;
-                    console.log(file);
+                    let img = {
+                        img: file.thumbUrl,
+                        id: file.uid,
+                    };
+                    this.imgList.push(img)
                 };
                 return false;
             },
@@ -100,11 +125,10 @@
             // 改变图片钩子
             handleChange ({ fileList }) {
                 this.fileList = fileList;
-                console.log(fileList);
             },
             // 返回上一页
             back(){
-
+                this.$emit('back','publishImg')
             },
             // 提交审核
             push(){
@@ -137,12 +161,58 @@
     .publish-chapter .form{
         margin: 25px 0;
     }
+    .form .img-div{
+        border: 1px solid #dadada;
+    }
+    .img-div .left{
+        float: left;
+        line-height: 60px;
+    }
+    .img-div .right{
+        float: right;
+    }
+    .right p{
+        margin-bottom: 0;
+        line-height: normal;
+    }
     .form .img-upload{
-        width: 950px;
+        background: #fafafa;
+        border-radius: 5px;
         margin: 0 auto;
+        padding: 25px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .form .upload{
+        padding: 20px;
+        height: 100px;
+        border-top: #dadada 1px solid;
+    }
+    .img-upload .img-show{
+        width: 102px;
+        height: 102px;
+        margin: 10px;
+    }
+    .img-show .img-mask{
+        width: 102px;
+        height: 102px;
+        background: rgba(0, 0, 0, 0.5);
+        position:absolute;
+        display: none;
+    }
+    .img-show img{
+        width: 100%;
+        height: 100%;
+    }
+    .img-show:hover .img-mask{
+        display: block;
+    }
+    .img-upload>>>.ant-upload.ant-upload-select-picture-card{
+        margin: 10px;
     }
     .form>>>.ant-form-item{
-        margin: 10px 0;
+        margin: 15px 0;
     }
     .publish-chapter .btn{
         margin-top: 25px;
