@@ -9,11 +9,13 @@
         <div class="cartoon-list">
             <a-button class="publish-btn" type="primary" v-if="showButton" @click="toPublish">创建漫画</a-button>
             <!--{{myCartoonData}}-->
-            <!--<div class="list">-->
-                <!--<ul>-->
-                    <!--<li></li>-->
-                <!--</ul>-->
-            <!--</div>-->
+            <div class="list" v-else>
+                <ul>
+                    <li>
+                        <img src="http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/7b5712dbea4b4938a09162c9749e32e6_0_0_452_603.jpg" alt="">
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>
@@ -29,7 +31,7 @@
         },
         data(){
             return{
-                showButton: true,
+                showButton: false,
             }
         },
         methods:{
@@ -74,11 +76,12 @@
         height: 50px;
     }
     .cartoon-list .list{
+        width: 100%;
         padding: 0 0 10px 0;
-        margin: 55px 0 0 37px;
         background: url("http://css99tel.cdndm5.com/v202002212048/cartoonupload/images/bookbg.png") no-repeat left 168px;
     }
     .list ul{
+        display: block;
         padding-left: 35px;
     }
     .list ul li{
@@ -90,5 +93,9 @@
         bottom: 5px;
         padding-left: 4px;
         float: left;
+    }
+    .list ul li img{
+        width: 136px;
+        height: 178px;
     }
 </style>

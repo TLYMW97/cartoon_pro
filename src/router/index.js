@@ -76,6 +76,12 @@ const routes = [
         meta: { hideHeader: true },
         component: () => import('../views/author-system/review/review')
 
+      },
+      {
+        path:'/mycartoon',
+        name: 'mycartoon',
+        meta: { hideHeader: true },
+        component: () => import('../views/author-system/my-cartoon/my-cartoon')
       }
     ]
   }

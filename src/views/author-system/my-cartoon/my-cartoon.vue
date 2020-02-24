@@ -1,5 +1,5 @@
 <template>
-    <div></div>
+    <div>我的漫画</div>
 </template>
 
 <script>

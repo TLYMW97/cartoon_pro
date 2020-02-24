@@ -11,12 +11,12 @@
                     <div class="topnav">
                         <ul>
                             <li>
-                                <router-link to="">
+                                <router-link to="/home">
                                     <img src="http://css99tel.cdndm5.com/v201910292122/cartoonupload/images/icon_home_topnav.png" alt="首页">
                                 </router-link>
                             </li>
                             <li>
-                                <router-link to="">
+                                <router-link to="/mycartoon">
                                     <img src="http://css99tel.cdndm5.com/v201910292122/cartoonupload/images/icon_manhua_topnav.png" alt="漫画">
                                 </router-link>
                             </li>
