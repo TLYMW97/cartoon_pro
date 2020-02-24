@@ -29,7 +29,10 @@
                     <div class="img-div">
                         <div class="img-upload">
                             <div class="img-show" v-for="item of imgList" :key="item.id">
-                                <div class="img-mask"></div>
+                                <div class="img-mask">
+                                    <a-button class="icon-style" @click="deleteImg(item)" icon="delete"/>
+                                    <a-button class="icon-style" @click="zoomIn(item)" icon="zoom-in" />
+                                </div>
                                 <img :src="item.img" alt="">
                             </div>
                             <a-upload
@@ -43,7 +46,7 @@
                             >
                                 <div>
                                     <a-icon type="plus" />
-                                    <div class="ant-upload-text">Upload</div>
+                                    <div class="ant-upload-text">选择图片</div>
                                 </div>
                                 <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">
                                     <img alt="example" style="width: 100%" :src="previewImage" />
@@ -134,6 +137,19 @@
             push(){
 
             },
+            //
+            deleteImg(img){
+                this.fileList.some((value,index) => {
+                    if(img.id === value.uid){
+                        this.fileList.splice(index,1);
+                        this.imgList.splice(index,1);
+                    }
+                })
+            },
+            zoomIn(img){
+                this.previewVisible = true;
+                this.previewImage = img.img;
+            }
         }
     };
 </script>
@@ -201,12 +217,20 @@
         position:absolute;
         display: none;
     }
+    .img-mask .icon-style{
+        color: white;
+        font-size: 18px;
+        margin: 5px;
+        background:rgba(0, 0, 0, 0) ;
+    }
     .img-show img{
         width: 100%;
         height: 100%;
     }
     .img-show:hover .img-mask{
-        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .img-upload>>>.ant-upload.ant-upload-select-picture-card{
         margin: 10px;
