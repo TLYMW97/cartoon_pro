@@ -44,7 +44,7 @@
                     <div class="left-nav">
                         <div class="home">
                             <img src="http://css99tel.cdndm5.com/v201910292122/cartoonupload/images/icon_leftnav_home.png" alt="">
-                            <router-link to="" @click.native="changeTab('Home')">首页</router-link>
+                            <router-link to="/home">首页</router-link>
                         </div>
                         <div class="admin-list">
                             <ul>
@@ -53,10 +53,10 @@
                                     <router-link to="">漫画管理</router-link>
                                 </li>
                                 <li class="child-list">
-                                    <router-link to=""  @click.native="changeTab('Publish')">发表漫画</router-link>
+                                    <router-link to="/publish">发表漫画</router-link>
                                 </li>
                                 <li class="child-list">
-                                    <router-link to="">漫画审核列表</router-link>
+                                    <router-link to="/review">漫画审核列表</router-link>
                                 </li>
                             </ul>
                         </div>
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="right">
-                        <component :is="comName"></component>
+                        <router-view></router-view>
                     </div>
                 </div>
             </div>
@@ -83,17 +83,12 @@
 </template>
 
 <script>
-    import Home from '../components/home';
-    import Publish from '../components/publish';
     export default {
         name: "index",
         components:{
-            Home,
-            Publish,
         },
         data(){
             return{
-                comName:Home,
             };
         },
         methods: {

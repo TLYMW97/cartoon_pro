@@ -54,8 +54,30 @@ const routes = [
   {
     path: '/authorindex',
     name: 'AuthorIndex',
+    redirect: '/home',
     meta: { hideHeader: true },
-    component: () => import('../views/author-system/index/index')
+    component: () => import('../views/author-system/index/index'),
+    children: [
+      {
+        path: '/home',
+        name: 'home',
+        meta: { hideHeader: true },
+        component: () => import('../views/author-system/home/home')
+      },
+      {
+        path: '/publish',
+        name: 'publish',
+        meta: { hideHeader: true },
+        component: () => import('../views/author-system/publish/publish')
+      },
+      {
+        path:'/review',
+        name: 'review',
+        meta: { hideHeader: true },
+        component: () => import('../views/author-system/review/review')
+
+      }
+    ]
   }
   // {
   //   path: '/about',

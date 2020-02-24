@@ -4,25 +4,24 @@
             <div class="left-info">111</div>
             <div class="right-msg">11</div>
         </div>
-        <div class="my-cartoon">
-            <div class="header">
-                <h3>
-                    <strong>我的漫画</strong>
-                    （共有<span>7</span>部）
-                </h3>
-            </div>
-            <div class="cartoon-list">
-                111
-                111
-                11
-            </div>
-        </div>
+        <myCartoonList :my-cartoon-data="myCartoonData"></myCartoonList>
     </div>
 </template>
 
 <script>
+    import myCartoonList from '../components/my-cartoon-list'
     export default {
-        name: "home"
+        name: "home",
+        data(){
+          return{
+              myCartoonData: {text:'222'},
+          }
+        },
+        components:{
+            myCartoonList,
+        },
+        methods:{
+        }
     };
 </script>
 
