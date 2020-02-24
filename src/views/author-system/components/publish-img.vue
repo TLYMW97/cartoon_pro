@@ -21,9 +21,18 @@
                     <img :src="shotBg.Bg4" alt="封面四">
                 </div>
             </div>
-            <p style="margin-bottom: 5px;color: #999;">可上传多张原稿进行切图</p>
+            <div class="upload-button">
+                <p style="margin-bottom: 0;color: #999;">可上传多张原稿进行切图</p>
+                <a-upload
+                        :beforeUpload="beforeUpload"
+                        :showUploadList="showUploadList"
+                >
+                    <a-button type="primary">
+                        <a-icon type="upload" /> 选择封面
+                    </a-button>
+                </a-upload>
+            </div>
             <div class="preview">
-
                 <img :src="preview" alt="">
             </div>
         </div>
@@ -41,6 +50,10 @@
         name: "publish-img",
         data(){
             return {
+                uploadText: '选择封面',
+                imgList: [],
+                img:null,
+                showUploadList: false,
                 shotBg:{
                     Bg1: 'http://css99tel.cdndm5.com/v202002212048/cartoonupload/images/cover_1.png',
                     Bg2: 'http://css99tel.cdndm5.com/v202002212048/cartoonupload/images/cover_2.png',
@@ -51,6 +64,21 @@
             }
         },
         methods:{
+            // 上传前处理
+            beforeUpload(file){
+                let r = new FileReader();
+                r.readAsDataURL(file);
+                r.onload = e => {
+                    file.thumbUrl = e.target.result;
+                    this.img = {
+                        img: file.thumbUrl,
+                        id: file.uid,
+                    };
+                    this.preview = this.img.img;
+                    console.log(this.img);
+                };
+                return false;
+            },
             next(){
                 this.$emit('next','publishChapter');
             },
@@ -121,10 +149,18 @@
         text-align: center;
         background: url("http://css99tel.cdndm5.com/v202002212048/cartoonupload/images/cover_img.png");
     }
+    .preview .preview-upload{
+        position: absolute;
+    }
     .preview img{
         max-width: 812px;
         max-height: 544px;
         object-fit:contain;
+    }
+    .make .upload-button{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
     }
     .publish-img .btn{
         margin-top: 25px;

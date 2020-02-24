@@ -39,7 +39,6 @@
                                     listType="picture-card"
                                     :fileList="fileList"
                                     :multiple="multiple"
-                                    @preview="handlePreview"
                                     @change="handleChange"
                                     :beforeUpload="beforeUpload"
                                     :showUploadList="showUploadList"
@@ -94,18 +93,12 @@
                 previewImage: '',
                 previewVisible: false,
                 multiple: true,
-                showUploadList: false,
             };
         },
         methods: {
             // 上传图片
             upLoadImg(){
                 console.log(this.imgList);
-            },
-            // 点击图片回调
-            handlePreview (file) {
-                this.previewImage = file.url || file.thumbUrl;
-                this.previewVisible = true;
             },
             // 上传前处理
             beforeUpload(file){
