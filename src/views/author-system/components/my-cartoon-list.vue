@@ -9,10 +9,10 @@
         <div class="cartoon-list">
             <a-button class="publish-btn" type="primary" v-if="showButton" @click="toPublish">创建漫画</a-button>
             <!--{{myCartoonData}}-->
-            <div class="list" v-else>
+            <div class="list" v-else v-for="item of listNum" :key="item">
                 <ul>
-                    <li>
-                        <img src="http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/7b5712dbea4b4938a09162c9749e32e6_0_0_452_603.jpg" alt="">
+                    <li v-for="data of listData.slice(item, item+6)" :key="data.id">
+                        <img :src="data.img" alt="">
                     </li>
                 </ul>
             </div>
@@ -31,15 +31,43 @@
         },
         data(){
             return{
-                showButton: false,
-            }
+                showButton: true,
+                listData: [
+                    {
+                        img:'http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/11721b276d744bc29d595473cfcbe50e_0_0_452_603.jpg',
+                        id:1,
+                    }
+                ],
+                listNum: [],
+            };
         },
         methods:{
             toPublish(){
-                this.$router.push("/publish")
+                this.$router.push("/publish");
+            },
+            getListData(){
+                let count = 0;
+                if(this.listData.length>0)this.showButton = false;
+                if(this.listData.length%6 !== 0){
+                    this.listNum.push(0)
+                    this.listData.map((value, index) => {
+                        if(count === 6){
+                            this.listNum.push(index);
+                        } else {
+                            count++;
+                        }
+                    })
+                } else {
+                    this.listNum.push(0);
+                }
             }
+        },
+        created() {
+        },
+        mounted() {
+            this.getListData();
         }
-    }
+    };
 </script>
 
 <style scoped>
@@ -68,6 +96,7 @@
         min-height: 442px;
         padding: 20px;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
     }
@@ -76,6 +105,7 @@
         height: 50px;
     }
     .cartoon-list .list{
+        margin-top: 40px;
         width: 100%;
         padding: 0 0 10px 0;
         background: url("http://css99tel.cdndm5.com/v202002212048/cartoonupload/images/bookbg.png") no-repeat left 168px;
