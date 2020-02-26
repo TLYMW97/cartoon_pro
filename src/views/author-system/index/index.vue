@@ -64,7 +64,7 @@
                             <ul>
                                 <li>
                                     <img src="http://css99tel.cdndm5.com/v201910292122/cartoonupload/images/icon_leftnav_my.png" alt="">
-                                    <router-link to="">我的漫画</router-link>
+                                    <router-link to="/mycartoon">我的漫画</router-link>
                                 </li>
                                 <li class="child-list">
                                     <router-link to="">1111</router-link>
@@ -200,6 +200,9 @@
     .admin-list ul, .my-cartoon ul{
         list-style: none;
         margin-bottom: 0;
+    }
+    .admin-list>>>.router-link-active .admin-list{
+
     }
     .admin-list ul li, .my-cartoon ul li{
         display: flex;

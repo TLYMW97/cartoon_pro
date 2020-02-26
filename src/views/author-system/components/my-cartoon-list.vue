@@ -13,6 +13,7 @@
                 <ul>
                     <li v-for="data of listData.slice(item, item+6)" :key="data.id">
                         <img :src="data.img" alt="">
+                        <p>{{data.name}}</p>
                     </li>
                 </ul>
             </div>
@@ -36,7 +37,38 @@
                     {
                         img:'http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/11721b276d744bc29d595473cfcbe50e_0_0_452_603.jpg',
                         id:1,
-                    }
+                        name: '1213',
+                    },
+                    {
+                        img:'http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/11721b276d744bc29d595473cfcbe50e_0_0_452_603.jpg',
+                        id:2,
+                        name: '1223',
+                    },
+                    {
+                        img:'http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/11721b276d744bc29d595473cfcbe50e_0_0_452_603.jpg',
+                        id:3,
+                        name: '1233',
+                    },
+                    {
+                        img:'http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/11721b276d744bc29d595473cfcbe50e_0_0_452_603.jpg',
+                        id:4,
+                        name: '1243',
+                    },
+                    {
+                        img:'http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/11721b276d744bc29d595473cfcbe50e_0_0_452_603.jpg',
+                        id:5,
+                        name: '1253',
+                    },
+                    {
+                        img:'http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/11721b276d744bc29d595473cfcbe50e_0_0_452_603.jpg',
+                        id:6,
+                        name: '1263',
+                    },
+                    {
+                        img:'http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/11721b276d744bc29d595473cfcbe50e_0_0_452_603.jpg',
+                        id:7,
+                        name: '1273',
+                    },
                 ],
                 listNum: [],
             };
@@ -48,18 +80,19 @@
             getListData(){
                 let count = 0;
                 if(this.listData.length>0)this.showButton = false;
-                if(this.listData.length%6 !== 0){
-                    this.listNum.push(0)
-                    this.listData.map((value, index) => {
-                        if(count === 6){
-                            this.listNum.push(index);
-                        } else {
-                            count++;
-                        }
-                    })
-                } else {
-                    this.listNum.push(0);
+                this.listNum.push(0)
+                this.listData.map((value, index) => {
+                    if(count === 6){
+                        this.listNum.push(index);
+                        count=1;
+                    } else {
+                        count++;
+                    }
+                })
+                if(count!==0){
+                    console.log(count);
                 }
+                console.log(this.listNum);
             }
         },
         created() {
@@ -127,5 +160,10 @@
     .list ul li img{
         width: 136px;
         height: 178px;
+    }
+    .list ul li p{
+        margin-top: 20px;
+        display: block;
+        text-align: center;
     }
 </style>

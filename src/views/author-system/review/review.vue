@@ -1,13 +1,21 @@
 <template>
     <div class="review">
-        <img src="http://css99tel.cdndm5.com/v202002212048/cartoonupload/images/noData.png" alt="">
+        <div v-if="listShow" class="review-list">
+        </div>
+        <img src="http://css99tel.cdndm5.com/v202002212048/cartoonupload/images/noData.png" v-else alt="">
     </div>
 </template>
 
 <script>
     export default {
-        name: "review"
-    }
+        name: "review",
+        data(){
+            return{
+                listShow: false,
+                reviewData: [],
+            };
+        }
+    };
 </script>
 
 <style scoped>
@@ -18,5 +26,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    .review .review-list{
+
     }
 </style>
