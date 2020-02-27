@@ -117,7 +117,7 @@
 
 <style scoped>
     .publish-form{
-        margin-top: 25px;
+        margin: 25px 0;
         border: #d6d6d6 solid 1px;
     }
     .publish-form .header{

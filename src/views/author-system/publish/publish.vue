@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    import publishForm from './pubish-form';
+    import publishForm from './publish-form';
     import publishImg from './publish-img';
     import publishChapter from './publish-chapter';
     export default {

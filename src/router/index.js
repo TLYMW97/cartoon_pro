@@ -71,6 +71,36 @@ const routes = [
         component: () => import('../views/author-system/publish/publish')
       },
       {
+        path:'/publishform',
+        name: 'publishform',
+        meta: { hideHeader: true },
+        component: () => import('../views/author-system/publish/publish-form')
+      },
+      {
+        path:'/publishchapter',
+        name: 'publishchapter',
+        meta: { hideHeader: true },
+        component: () => import('../views/author-system/publish/publish-chapter')
+      },
+      {
+        path:'/publishimg',
+        name: 'publishimg',
+        meta: { hideHeader: true },
+        component: () => import('../views/author-system/publish/publish-img')
+      },
+      {
+        path: '/chapteredit',
+        name: 'chapetredit',
+        meta: { hideHeader: true },
+        component: () => import('../views/author-system/cartoon-edit/chapter-edit')
+      },
+      {
+        path: '/commentedit',
+        name: 'commentedit',
+        meta: { hideHeader: true },
+        component: () => import('../views/author-system/cartoon-edit/comment-edit')
+      },
+      {
         path:'/review',
         name: 'review',
         meta: { hideHeader: true },
@@ -82,9 +112,15 @@ const routes = [
         name: 'mycartoon',
         meta: { hideHeader: true },
         component: () => import('../views/author-system/my-cartoon/my-cartoon')
-      }
-    ]
-  }
+      },
+      {
+        path:'/cartoonedit',
+        name:'cartoonedit',
+        meta: { hideHeader: true },
+        component: ()=> import('../views/author-system/cartoon-edit/cartoon-edit')
+      },
+    ],
+  },
   // {
   //   path: '/about',
   //   name: 'about',

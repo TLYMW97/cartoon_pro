@@ -88,6 +88,7 @@
                     wrapperCol: {span: 18}
                 },
                 // 图片列表
+                showUploadList:false,
                 imgList: [],
                 fileList:[],
                 previewImage: '',
@@ -149,7 +150,7 @@
 
 <style scoped>
     .publish-chapter{
-        margin-top: 25px;
+        margin: 25px 0px;
         padding-bottom: 40px;
         border: #d6d6d6 solid 1px;
     }

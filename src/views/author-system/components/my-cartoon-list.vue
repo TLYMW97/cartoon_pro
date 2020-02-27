@@ -11,7 +11,7 @@
             <!--{{myCartoonData}}-->
             <div class="list" v-else v-for="item of listNum" :key="item">
                 <ul>
-                    <li v-for="data of listData.slice(item, item+6)" :key="data.id">
+                    <li v-for="data of listData.slice(item, item+6)" :key="data.id" @click="getCartoon(data)">
                         <img :src="data.img" alt="">
                         <p>{{data.name}}</p>
                     </li>
@@ -74,6 +74,10 @@
             };
         },
         methods:{
+            getCartoon(data){
+                console.log(data);
+                this.$router.push("/cartoonedit");
+            },
             toPublish(){
                 this.$router.push("/publish");
             },
@@ -156,6 +160,7 @@
         bottom: 5px;
         padding-left: 4px;
         float: left;
+        cursor:pointer;
     }
     .list ul li img{
         width: 136px;

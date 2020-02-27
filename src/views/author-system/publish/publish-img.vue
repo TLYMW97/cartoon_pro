@@ -91,7 +91,7 @@
 
 <style scoped>
     .publish-img{
-        margin-top: 25px;
+        margin: 25px 0;
         padding-bottom: 40px;
         border: #d6d6d6 solid 1px;
     }
