@@ -125,11 +125,11 @@
             },
             // 返回上一页
             back(){
-                this.$emit('back','publishImg')
+                this.$emit('back','publishImg');
             },
             // 提交审核
             push(){
-
+                this.$emit('next', 'finish');
             },
             //
             deleteImg(img){

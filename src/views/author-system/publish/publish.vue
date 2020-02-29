@@ -11,12 +11,14 @@
     import publishForm from './publish-form';
     import publishImg from './publish-img';
     import publishChapter from './publish-chapter';
+    import finish from './finish'
     export default {
         name: "publish",
         components: {
             publishForm,
             publishImg,
-            publishChapter
+            publishChapter,
+            finish
         },
         data(){
             return{
@@ -99,6 +101,9 @@
                 } else if(this.comName === 'publishChapter'){
                     this.stepimg[1].img = this.img.start[1].img;
                     this.stepimg[2].img = this.img.action[2].img;
+                } else if(this.comName === 'finish'){
+                    this.stepimg[2].img = this.img.start[2].img;
+                    this.stepimg[3].img = this.img.action[3].img;
                 }
             }
         },

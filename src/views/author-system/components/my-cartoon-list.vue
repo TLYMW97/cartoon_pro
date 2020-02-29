@@ -76,7 +76,7 @@
         methods:{
             getCartoon(data){
                 console.log(data);
-                this.$router.push("/cartoonedit");
+                this.$router.push("/homeedit");
             },
             toPublish(){
                 this.$router.push("/publish");

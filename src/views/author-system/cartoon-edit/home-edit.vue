@@ -4,7 +4,7 @@
         <div class="container">
             <div class="center">
                 <div class="left-nav">
-                    <homeList></homeList>
+                    <editList></editList>
                 </div>
                 <div class="right">
                     <router-view></router-view>
@@ -16,20 +16,19 @@
 </template>
 
 <script>
-    import homeList from '../components/home-list';
+    import editList from '../components/edit-list';
     import authorHeader from '../components/author-header';
+    import cartoonEdit from '../cartoon-edit/cartoon-edit';
     export default {
-        name: "index",
+        name: "home-edit",
+        data(){
+          return{
+              comName: cartoonEdit,
+          };
+        },
         components:{
             authorHeader,
-            homeList,
-        },
-        data(){
-            return{
-                listShow:false,
-            };
-        },
-        methods: {
+            editList,
         }
     };
 </script>
