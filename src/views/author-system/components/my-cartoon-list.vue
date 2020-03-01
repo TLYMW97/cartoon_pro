@@ -3,7 +3,7 @@
         <div class="header">
             <h3>
                 <strong>我的漫画</strong>
-                （共有<span>7</span>部）
+                （共有<span>{{this.listData.length}}</span>部）
             </h3>
         </div>
         <div class="cartoon-list">
@@ -12,8 +12,8 @@
             <div class="list" v-else v-for="item of listNum" :key="item">
                 <ul>
                     <li v-for="data of listData.slice(item, item+6)" :key="data.id" @click="getCartoon(data)">
-                        <img :src="data.img" alt="">
-                        <p>{{data.name}}</p>
+                        <img :src="data.episode[0].episodeHref" alt="">
+                        <p>{{data.mangaName}}</p>
                     </li>
                 </ul>
             </div>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+    import {mapGetters,mapActions} from 'vuex';
     export default {
         name: "my-cartoon",
         props:{
@@ -33,55 +34,21 @@
         data(){
             return{
                 showButton: true,
-                listData: [
-                    {
-                        img:'http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/11721b276d744bc29d595473cfcbe50e_0_0_452_603.jpg',
-                        id:1,
-                        name: '1213',
-                    },
-                    {
-                        img:'http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/11721b276d744bc29d595473cfcbe50e_0_0_452_603.jpg',
-                        id:2,
-                        name: '1223',
-                    },
-                    {
-                        img:'http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/11721b276d744bc29d595473cfcbe50e_0_0_452_603.jpg',
-                        id:3,
-                        name: '1233',
-                    },
-                    {
-                        img:'http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/11721b276d744bc29d595473cfcbe50e_0_0_452_603.jpg',
-                        id:4,
-                        name: '1243',
-                    },
-                    {
-                        img:'http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/11721b276d744bc29d595473cfcbe50e_0_0_452_603.jpg',
-                        id:5,
-                        name: '1253',
-                    },
-                    {
-                        img:'http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/11721b276d744bc29d595473cfcbe50e_0_0_452_603.jpg',
-                        id:6,
-                        name: '1263',
-                    },
-                    {
-                        img:'http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/11721b276d744bc29d595473cfcbe50e_0_0_452_603.jpg',
-                        id:7,
-                        name: '1273',
-                    },
-                ],
+                listData: [],
                 listNum: [],
             };
         },
         methods:{
             getCartoon(data){
-                console.log(data);
+                this.setMangaByClick(data);
+                console.log(this.getMangaByClick);
                 this.$router.push("/homeedit");
             },
             toPublish(){
                 this.$router.push("/publish");
             },
-            getListData(){
+            getListData: async function(){
+                this.listData = this.authorManga;
                 let count = 0;
                 if(this.listData.length>0)this.showButton = false;
                 this.listNum.push(0)
@@ -93,11 +60,11 @@
                         count++;
                     }
                 })
-                if(count!==0){
-                    console.log(count);
-                }
-                console.log(this.listNum);
-            }
+            },
+            ...mapActions(['setMangaByClick'])
+        },
+        computed: {
+            ...mapGetters(['authorManga','getMangaByClick'])
         },
         created() {
         },
@@ -121,7 +88,8 @@
         background: url("http://css99tel.cdndm5.com/v201910292122/cartoonupload/images/topbg.png") repeat-x top left;
     }
     .header h3{
-        width: 200px;
+        width: 250px;
+        text-align: center;
         padding: 10px 30px 0;
         background: #fff;
         height: 38px;

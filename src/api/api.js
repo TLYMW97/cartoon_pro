@@ -108,3 +108,12 @@ export const checkCommLike = commId => {
 export const replyComm = reply => {
   return service.post('/replyComm', reply);
 };
+
+/**
+ * 作者端接口
+ **/
+
+// 获取作者上传漫画
+export const findMyManga = data =>{
+  return service.post('/findMyManga', data);
+}

@@ -24,8 +24,8 @@
                     <img src="http://css99tel.cdndm5.com/v201910292122/cartoonupload/images/icon_leftnav_my.png" alt="">
                     <router-link to="/mycartoon">我的漫画</router-link>
                 </li>
-                <li class="child-list">
-                    <router-link to="">1111</router-link>
+                <li class="manga-list" v-for="list of listData" :key="list.mangaId">
+                    <router-link to="">{{list.mangaName}}</router-link>
                 </li>
             </ul>
         </div>
@@ -33,8 +33,25 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
     export default {
-        name: "home-list"
+        name: "home-list",
+        data(){
+            return{
+                listData: [],
+            };
+        },
+        methods:{
+            getListData(){
+                this.listData = this.authorManga;
+            }
+        },
+        computed: {
+            ...mapGetters(['authorManga'])
+        },
+        created() {
+            this.getListData();
+        }
     };
 </script>
 
@@ -82,6 +99,16 @@
     .child-list a{
         margin-left: 35px;
         display: block;
+        height: 25px;
+        line-height: 25px;
+        font-weight: normal;
+        font-size: 14px;
+    }
+    .manga-list a{
+        display: block;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
         height: 25px;
         line-height: 25px;
         font-weight: normal;

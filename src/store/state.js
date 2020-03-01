@@ -5,7 +5,9 @@ const sessionData = {
   currentSection: JSON.parse(sessionStorage.getItem('currentSection')),
   tags: JSON.parse(sessionStorage.getItem('tags')),
   historyRead: JSON.parse(localStorage.getItem('historyRead')),
-  searchResult: JSON.parse(sessionStorage.getItem('searchResult'))
+  searchResult: JSON.parse(sessionStorage.getItem('searchResult')),
+  authorManga: JSON.parse(sessionStorage.getItem('authorManga')),
+  mangaData: JSON.parse(sessionStorage.getItem('mangaData')),
 };
 const state = {
   user: sessionData.user || {},
@@ -14,6 +16,8 @@ const state = {
   currentSection: sessionData.currentSection || '',
   tags: sessionData.tags || [],
   historyRead: sessionData.historyRead || [],
-  searchResult: sessionData.searchResult || []
+  searchResult: sessionData.searchResult || [],
+  authorManga: sessionData.authorManga || [],
+  mangaData: sessionData.mangaData || [],
 };
 export default state;

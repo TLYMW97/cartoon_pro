@@ -32,6 +32,14 @@ const mutations = {
   [types.SET_SEARCH_RESULT](state, searchResult) {
     state.searchResult = searchResult;
     sessionStorage.setItem('searchResult', JSON.stringify(searchResult));
+  },
+  [types.SET_AUTHOR_MANGA](state, authorManga) {
+    state.authorManga = authorManga;
+    sessionStorage.setItem('authorManga', JSON.stringify(authorManga));
+  },
+  [types.SET_MANGA_DATA](state, mangaData){
+    state.mangaData = mangaData;
+    sessionStorage.setItem('mangaData', JSON.stringify(mangaData));
   }
 };
 export default mutations;

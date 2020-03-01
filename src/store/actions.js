@@ -74,3 +74,13 @@ export const userRegister = async ({ commit, state }, reqBody) => {
     commit(types.ERR_MSG, msg);
   }
 };
+
+// 存入作者上传漫画数据
+export const authorUploadManga = async ({ commit }, manga) => {
+  commit(types.SET_AUTHOR_MANGA, manga);
+};
+
+// 储存作者漫画--点击的漫画数据
+export const setMangaByClick = async ({commit}, data) =>{
+  commit(types.SET_MANGA_DATA, data);
+};
