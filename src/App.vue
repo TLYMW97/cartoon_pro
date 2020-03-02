@@ -119,4 +119,14 @@ table {
   fill: currentColor;
   overflow: hidden;
 }
+a {
+  text-decoration: none !important;
+}
+.bar-input,
+.cartoon-info {
+  .ant-btn-primary {
+    background-color: #f4815b !important;
+    border-color: #f4815b;
+  }
+}
 </style>

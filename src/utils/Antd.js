@@ -10,6 +10,7 @@ import {
   Avatar,
   Modal,
   Tabs,
+  Spin,
   Pagination,
   message
 } from 'ant-design-vue';
@@ -30,4 +31,5 @@ Vue.component(Button.name, Button);
 Vue.component(Avatar.name, Avatar);
 Vue.component(Rate.name, Rate);
 Vue.component(Modal.name, Modal);
+Vue.component(Spin.name, Spin);
 Vue.prototype.$message = message;
