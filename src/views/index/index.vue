@@ -1,6 +1,5 @@
 <template>
   <div class="index-page">
-    <search-bar @search="search"></search-bar>
     <div class="classify">
       <ul class="classify-ul">
         <li v-for="tag of classes" :key="tag.tagId">
@@ -13,7 +12,11 @@
         </span>全部分类
       </router-link>
     </div>
-    <div class="recommend">
+    <div class="swiper-recommend">
+      <index-banner />
+    </div>
+    <search-bar @search="search"></search-bar>
+    <!-- <div class="recommend">
       <div class="re-l">
         <my-swiper :mangas="recommand.swipers"></my-swiper>
       </div>
@@ -29,7 +32,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
     <div class="section">
       <section-title :title="'恋爱精品'" :icon="'bulb'" />
       <div class="section-items">
@@ -129,6 +132,7 @@ import Banner from '@/components/banner/banner';
 import Swiper from '@/components/swiper/swiper';
 import weekDate from '@/utils/WeekDate';
 import { mapActions } from 'vuex';
+import IndexBanner from '../../components/index-banner/banner';
 export default {
   name: 'index',
   created() {
@@ -136,6 +140,9 @@ export default {
   },
   data() {
     return {
+      requestFirst: false,
+      requestTwo: false,
+      requestThree: false,
       // 漫画分类
       classes: [],
       categoryHeader: [],
@@ -149,12 +156,6 @@ export default {
       mostPop: {},
       // 登录状态
       loginVisible: true,
-      // 推荐栏
-      recommand: {
-        swipers: [],
-        top: [],
-        bottom: []
-      },
       // 精品推荐
       boutique: {
         love: [],
@@ -167,26 +168,25 @@ export default {
     };
   },
   components: {
-    RecommendImg,
+    // RecommendImg,
     Cartoon,
     SectionTitle,
-    MySwiper,
+    // MySwiper,
     SearchBar,
     // Swiper,
     Banner,
     // cartoonCard,
-    RankList
+    RankList,
+    IndexBanner
   },
   methods: {
     indexInit: async function() {
+      window.scrollTo(0, 0);
       // let res = await this.$api.allManga();
       const dateList = weekDate();
+      window.addEventListener('scroll', this.windowScroll);
       this.getTags();
       this.getRecLove();
-      this.getPop();
-      this.getFree();
-      this.getPay();
-      this.getByTime();
       // 月榜
       // const date = this.getCurrentMonth();
       // let monthRes = await this.$api.findByMonth({
@@ -201,50 +201,60 @@ export default {
       // this.boutique.currentMonth = monthList;
       this.dateList = dateList;
     },
+    windowScroll() {
+      let scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop > 400 && !this.requestFirst) {
+        this.getPop();
+        this.getFree();
+        this.getPay();
+        this.requestFirst = true;
+      } else if (scrollTop > 1600 && !this.requestTwo) {
+        this.getByTime();
+        this.requestTwo = true;
+      }
+    },
     getRecLove: async function() {
       // 恋爱精品
-      let loveRes = await this.$api.searchByTag(491);
+      let res = await this.$api.searchByTag(491);
       const {
-        data: { data: loves }
-      } = loveRes;
-      this.boutique.love = loves.slice(0, 6);
-      this.boutique.categoryList = loves.slice(0, 15);
+        data: { data }
+      } = res;
+      this.boutique.love = data.slice(0, 6);
+      this.boutique.categoryList = data.slice(0, 15);
     },
     getDetail(mangaId) {
       this.$router.push({ path: '/detail', query: { mangaId } });
     },
     getTags: async function() {
-      let classRes = await this.$api.classes();
+      let res = await this.$api.classes();
       const {
-        data: { data: classes }
-      } = classRes;
-      this.setTags(classes);
-      this.classes = classes.slice(0, 15);
-      this.categoryHeader = classes.slice(0, 6);
+        data: { data }
+      } = res;
+      this.setTags(data);
+      this.classes = data.slice(0, 15);
+      this.categoryHeader = data.slice(0, 6);
     },
     getPop: async function() {
-      let mostRes = await this.$api.mostPop();
+      let res = await this.$api.mostPop();
       const {
-        data: { data: mosts }
-      } = mostRes;
-      this.mostPop = mosts;
-      this.recommand.swipers = mosts.mangaList.slice(0, 3);
-      this.recommand.top = mosts.mangaList.slice(8, 10);
-      this.recommand.bottom = mosts.mangaList.slice(5, 8);
+        data: { data }
+      } = res;
+      this.mostPop = data;
     },
     getFree: async function() {
-      let freeRes = await this.$api.freePop();
+      let res = await this.$api.freePop();
       const {
-        data: { data: frees }
-      } = freeRes;
-      this.freePop = frees;
+        data: { data }
+      } = res;
+      this.freePop = data;
     },
     getPay: async function() {
-      let payRes = await this.$api.payPop();
+      let res = await this.$api.payPop();
       const {
-        data: { data: pays }
-      } = payRes;
-      this.payPop = pays;
+        data: { data }
+      } = res;
+      this.payPop = data;
     },
     getByTime: async function(date) {
       date = date || '2020-02-01';
@@ -253,11 +263,9 @@ export default {
         page: 1,
         size: 6
       });
-      console.log('updatedRes', res);
       const {
         data: { data }
       } = res;
-      console.log('data', data);
       this.updatedList = data.list;
     },
     priceMore(mangaPrice) {
@@ -304,10 +312,19 @@ export default {
   width: 100%;
 }
 .classify {
-  @include w1200(10px);
+  width: 100%;
+  min-width: 1200px;
+  padding: 10px 10%;
+  background-color: #333240;
   @include flex(space-between);
+  a {
+    font-size: 16px;
+    color: #fff;
+    opacity: 0.8;
+  }
 }
 .classify .classify-ul {
+  // @include w1200(10px);
   display: flex;
   font-size: $medium-font;
   margin-bottom: 0;
@@ -315,18 +332,18 @@ export default {
 .classify-ul li {
   margin-right: 10px;
   border-bottom: 1px solid transparent;
-  a {
-    color: rgba(0, 0, 0, 0.85);
-  }
 }
-.classify-ul li:hover {
-  border-color: $index-color;
+.classify a:hover {
+  opacity: 1;
 }
 .classify .all-classify {
-  font-size: 16px;
   span {
     margin-right: 5px;
   }
+}
+.swiper-recommend {
+  padding: 20px 10px;
+  background-color: #333240;
 }
 .recommend {
   @include w1200();

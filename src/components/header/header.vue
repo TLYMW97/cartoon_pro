@@ -1,33 +1,41 @@
 <template>
-  <div class="header">
-    <div class="header-left">
-      <h1>
-        <img src="../../assets/images/logo.png" alt />
-      </h1>
-      <ul class="l-ul">
-        <li>
-          <router-link to="/">首页</router-link>
-        </li>
-        <li>
-          <router-link to>排行</router-link>
-        </li>
-        <li>
-          <router-link tag="a" target="_blank" to="/authorlogin">我要投稿</router-link>
-        </li>
-        <li>
-          <router-link to="/cartoonlist">
-            <!-- <a-icon type="appstore" style="font-size: 16px" /> -->
-            <icon-svg iconHref="icon-leimupinleifenleileibie--" size="18px"></icon-svg>
-          </router-link>
-        </li>
-      </ul>
-    </div>
-    <div class="header-right">
-      <ul class="r-ul">
-        <li-icon v-for="(li,index) of lis" :name="li.name" :key="index" :icon="li.icon" :id="li.id"></li-icon>
-      </ul>
-      <div class="user">
-        <a-avatar @click="toPersonal" size="large" icon="user" :src="userAvatar" />
+  <div class="index-header">
+    <div class="header">
+      <div class="header-left">
+        <h1>
+          <img src="../../assets/images/logo1.png" alt />
+        </h1>
+        <ul class="l-ul">
+          <li>
+            <router-link to="/">首页</router-link>
+          </li>
+          <li>
+            <router-link to>排行</router-link>
+          </li>
+          <li>
+            <router-link tag="a" target="_blank" to="/authorlogin">我要投稿</router-link>
+          </li>
+          <li>
+            <router-link to="/cartoonlist">
+              <!-- <a-icon type="appstore" style="font-size: 16px" /> -->
+              分类
+            </router-link>
+          </li>
+        </ul>
+      </div>
+      <div class="header-right">
+        <ul class="r-ul">
+          <li-icon
+            v-for="(li,index) of lis"
+            :name="li.name"
+            :key="index"
+            :icon="li.icon"
+            :id="li.id"
+          ></li-icon>
+        </ul>
+        <div class="user">
+          <a-avatar @click="toPersonal" size="large" icon="user" :src="userAvatar" />
+        </div>
       </div>
     </div>
   </div>
@@ -35,7 +43,6 @@
 
 <script>
 import LiIcon from '../li-icon/li-icon';
-import IconSvg from '../icon-svg/icon-svg';
 import { mapGetters } from 'vuex';
 export default {
   name: 'indexHeader',
@@ -67,7 +74,7 @@ export default {
       return null;
     }
   },
-  components: { LiIcon, IconSvg },
+  components: { LiIcon },
   methods: {
     toPersonal() {
       alert('d');
@@ -86,19 +93,23 @@ export default {
 
 <style scoped lang="scss">
 @import '../../assets/sass/index';
+.index-header {
+  width: 100%;
+  background-color: #282828;
+}
 .header {
   @include w1200();
-  height: 100%;
   max-height: 70px;
   @include flex(space-between);
   padding: 10px 0;
-  background: #fff;
-  border-bottom: 1px solid #eaeaea;
+  background: #282828;
+  overflow: hidden;
   a {
-    color: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    opacity: 0.8;
   }
   a:hover {
-    color: $index-color;
+    opacity: 1;
   }
   .header-left,
   .header-right {
@@ -110,6 +121,7 @@ export default {
   width: 220px;
   margin-right: 20px;
   margin-bottom: 0;
+  overflow: hidden;
 }
 .header-left h1 img {
   width: 100%;

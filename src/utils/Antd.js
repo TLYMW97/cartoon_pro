@@ -10,6 +10,7 @@ import {
   Avatar,
   Modal,
   Tabs,
+  Spin,
   Pagination,
   Radio,
   Upload,
@@ -35,4 +36,5 @@ Vue.component(Modal.name, Modal);
 Vue.component(Radio.name, Radio);
 Vue.component(Radio.Group.name, Radio.Group);
 Vue.component(Upload.name, Upload);
+Vue.component(Spin.name, Spin);
 Vue.prototype.$message = message;

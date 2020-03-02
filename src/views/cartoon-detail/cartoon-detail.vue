@@ -57,6 +57,15 @@
             :section="section"
           ></Section>
         </div>
+        <div class="more-button" @click="getMore = true" v-if="!getMore">展开全部</div>
+        <div class="more-sctions" v-else>
+          <Section
+            @readManga="readManga"
+            :key="section.chapterId"
+            v-for="section of moreSection"
+            :section="section"
+          ></Section>
+        </div>
         <div class="cartoon-comment">
           <div class="comment-title">
             <p>
@@ -113,6 +122,7 @@ export default {
         mangaId: '',
         commBody: ''
       },
+      getMore: false,
       commList: []
     };
   },
@@ -301,6 +311,13 @@ p {
   .sections {
     flex: 1;
     @include flex(null, null, wrap);
+  }
+  .more-button {
+    cursor: pointer;
+    width: 100%;
+    background-color: #f6f6f6;
+    padding: 10px;
+    text-align: center;
   }
 }
 .main-right {

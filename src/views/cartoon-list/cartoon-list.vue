@@ -61,17 +61,24 @@
           </div>
         </div>
       </div>
-      <div class="cartoons">
-        <pagination @pageChange="pageChange" :total="total" :size="size" :page="page" />
-        <cartoonCard
-          class="cartoons-card"
-          @toDetail="getDetail(data)"
-          v-for="data in cartoonList"
-          :key="data.mangaId"
-          :mangaData="data"
-        ></cartoonCard>
-        <div class="hide-card" v-for="item in hideCard" :key="item"></div>
-        <pagination @pageChange="pageChange" :total="total" :size="size" :page="page" />
+      <div class="cartoon-box">
+        <div class="loading" v-if="cartoonList.length === 0">
+          <a-spin>
+            <a-icon slot="indicator" type="loading" style="font-size: 24px; color:#f6815c" spin />
+          </a-spin>
+        </div>
+        <div class="cartoons" v-else>
+          <pagination @pageChange="pageChange" :total="total" :size="size" :page="page" />
+          <cartoonCard
+            class="cartoons-card"
+            @toDetail="getDetail(data)"
+            v-for="data in cartoonList"
+            :key="data.mangaId"
+            :mangaData="data"
+          ></cartoonCard>
+          <div class="hide-card" v-for="item in hideCard" :key="item"></div>
+          <pagination @pageChange="pageChange" :total="total" :size="size" :page="page" />
+        </div>
       </div>
     </div>
   </div>
@@ -124,11 +131,11 @@ export default {
       }
     },
     getManga: async function(search) {
+      this.cartoonList.length = 0;
       const res = await this.$api.findBySearch(search, this.page, this.size);
       const {
         data: { data }
       } = res;
-      console.log('res', res);
       this.cartoonList = data.list;
       this.total = data.total;
       if (this.cartoonList % 7 !== 0) {
@@ -172,6 +179,9 @@ export default {
     border: 1px solid #eaeaea;
     border-top: 2px solid $index-color;
   }
+  .cartoon-box {
+    position: relative;
+  }
 }
 .theme {
   display: flex;
@@ -203,6 +213,11 @@ export default {
       color: $index-color;
     }
   }
+}
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: #f6815c;
 }
 .theme-actived {
   color: $index-color;

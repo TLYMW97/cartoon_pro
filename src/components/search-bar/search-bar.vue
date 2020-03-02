@@ -37,12 +37,16 @@ export default {
   height: 100px;
   margin: 0 auto;
   text-align: center;
-  background: url('http://css99tel.cdndm5.com/v201910292122/blue/images/search-bg.jpg')
-    no-repeat;
+  background-color: #333240;
+  // background: url('http://css99tel.cdndm5.com/v201910292122/blue/images/search-bg.jpg')
+  // repeat;
 }
 .bar-input {
   display: inline-block;
   width: 40%;
   margin: 30px auto;
+}
+.ant-input-search-button {
+  background-color: #f4815b !important;
 }
 </style>

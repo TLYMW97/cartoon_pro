@@ -3,7 +3,8 @@ export const mangaMixin = {
   data() {
     return {
       collected: false,
-      sections: []
+      sections: [],
+      moreSection: []
     };
   },
   computed: {
@@ -16,7 +17,9 @@ export const mangaMixin = {
         data: { code, data }
       } = res;
       if (code === 200) {
-        this.sections = data;
+        const sectionLength = data.length;
+        this.sections = data.slice(0, 8);
+        this.moreSection = data.slice(8, sectionLength);
         this.setSections(data);
       }
     },
