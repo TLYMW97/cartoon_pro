@@ -4,7 +4,7 @@
             <div class="left-info">111</div>
             <div class="right-msg">11</div>
         </div>
-        <myCartoonList @getClickData="getClickData"></myCartoonList>
+        <myCartoonList></myCartoonList>
     </div>
 </template>
 
@@ -19,10 +19,9 @@
         components:{
             myCartoonList,
         },
+        created(){
+        },
         methods:{
-            getClickData(){
-
-            }
         }
     };
 </script>

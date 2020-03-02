@@ -18,7 +18,6 @@
 <script>
     import homeList from '../components/home-list';
     import authorHeader from '../components/author-header';
-    import { mapActions } from 'vuex';
     export default {
         name: "index",
         components:{
@@ -31,14 +30,10 @@
             };
         },
         methods: {
-            getMyUpload: async function(){
-               let manga = await this.$api.findMyManga();
-               this.authorUploadManga(manga.data.data);
-            },
-            ...mapActions(['authorUploadManga'])
         },
         created() {
-            this.getMyUpload();
+        },
+        mounted() {
         }
     };
 </script>

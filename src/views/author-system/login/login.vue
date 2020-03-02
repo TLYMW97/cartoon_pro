@@ -55,12 +55,18 @@ export default {
       validateFields(async (err, val) => {
         this.userLogin(val).then(res => {
           if (res) {
-            this.$router.push({ path: '/authorindex' });
+            this.getMyUpload();
           }
         });
       });
     },
-    ...mapActions(['userLogin'])
+    getMyUpload: async function(){
+      let manga = await this.$api.findMyManga();
+      console.log(1);
+      this.authorUploadManga(manga.data.data);
+      this.$router.push({ path: '/authorindex' });
+    },
+    ...mapActions(['userLogin','authorUploadManga'])
   }
 };
 </script>

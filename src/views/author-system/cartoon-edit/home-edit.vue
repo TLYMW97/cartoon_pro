@@ -19,7 +19,6 @@
     import editList from '../components/edit-list';
     import authorHeader from '../components/author-header';
     import cartoonEdit from '../cartoon-edit/cartoon-edit';
-    import mapGetters from 'vuex';
     export default {
         name: "home-edit",
         components:{
@@ -34,11 +33,8 @@
         created() {
         },
         methods:{
-            getData(){
-            },
         },
         computed:{
-            ...mapGetters(['getMangaByClick'])
         }
     };
 </script>

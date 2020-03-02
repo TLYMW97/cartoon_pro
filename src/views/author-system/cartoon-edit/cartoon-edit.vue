@@ -6,34 +6,33 @@
         <div class="container">
             <div class="cartoon-msg">
                 <div class="title">
-                    <p>123</p>
+                    <p>{{cartoonData.mangaName}}</p>
                     <span>创建时间:2020-02-26</span>
                 </div>
             </div>
             <div class="info-bar">
                 <div class="img-bar">
-                    <img src="http://telresource.cdndm5.com/userfile/3/conver//2020/2/25/315113011/2/11721b276d744bc29d595473cfcbe50e_0_0_452_603.jpg" alt="" width="100%" height="100%">
+                    <img :src="cartoonData.episode[0].episodeHref" :alt="cartoonData.mangaName" width="100%" height="100%">
                 </div>
                 <div class="right-bar">
                     <div class="info">
-                        <p>名称：123</p>
-                        <p>进度：连载中</p>
+                        <p>名称：{{cartoonData.mangaName}}</p>
+                        <p v-if="cartoonData.status===0?cartoonData.status='连载中':cartoonData.status='已完结'">进度：{{cartoonData.status}}</p>
                         <p>评论数：0</p>
-                        <p>书号：136421</p>
-                        <p>创建：从左到右</p>
+                        <p>作者：{{cartoonData.mangaAuthor}}</p>
                         <p>阅读人次：0</p>
                         <p>题材：热血</p>
-                        <p>更新时间：123</p>
-                        <p>收藏量：123</p>
-                        <p>章节：123</p>
-                        <p>下回更新：123</p>
-                        <p>人气值：123</p>
+                        <p>更新时间：{{cartoonData.mangaUpdatetime}}</p>
+                        <p>收藏量：{{cartoonData.mangaCollection}}</p>
+                        <p>最新章节：{{cartoonData.mangaNew}}</p>
+                        <p>创建时间：{{cartoonData.mangaCreatetime}}</p>
+                        <p>人气值：{{cartoonData.mangaPopularity}}</p>
                     </div>
                     <div class="cartoon-edit">
-                        <a-button type="primary" icon="file-add">新建章节</a-button>
-                        <a-button type="primary" icon="picture">修改封面</a-button>
-                        <a-button type="primary" icon="edit">章节管理</a-button>
-                        <a-button type="primary" icon="delete">删除</a-button>
+                        <a-button type="primary" icon="file-add" @click="$router.push('/publishchapter')">新建章节</a-button>
+                        <a-button type="primary" icon="picture" @click="$router.push('/publishimg')">修改封面</a-button>
+                        <a-button type="primary" icon="edit" @click="$router.push('/chapteredit')">章节管理</a-button>
+                        <a-button type="primary" icon="delete" @click="deleteManga">删除</a-button>
                     </div>
                 </div>
             </div>
@@ -45,9 +44,30 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
     export default {
         name: "cartoon-edit",
         components:{
+        },
+        data(){
+          return{
+            cartoonData: null,
+          };
+        },
+        created() {
+            this.getData();
+        },
+        methods:{
+            getData(){
+                this.cartoonData = this.getMangaByClick;
+                console.log(this.cartoonData);
+            },
+            deleteManga(){
+                console.log('delete');
+            }
+        },
+        computed:{
+            ...mapGetters(['getMangaByClick'])
         }
     };
 </script>
