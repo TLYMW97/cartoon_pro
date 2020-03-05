@@ -84,3 +84,18 @@ export const authorUploadManga = async ({ commit }, manga) => {
 export const setMangaByClick = async ({commit}, data) =>{
   commit(types.SET_MANGA_DATA, data);
 };
+
+// 存入创建漫画表单数据
+export const setCreateMangaForm = async ({commit}, form) =>{
+  commit(types.SET_CREATE_MANGA_FORM, form);
+}
+
+// 存入漫画封面图片
+export const setMangaTitlePage = async ({commit}, titlePage) => {
+  commit(types.SET_MANGA_TITLE_PAGE, titlePage);
+}
+
+// 存入章节数据和图片
+export const setChapterData = async ({commit}, chapterData) => {
+  commit(types.SET_CHAPTER_DATA, chapterData);
+}

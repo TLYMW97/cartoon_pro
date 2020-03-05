@@ -7,20 +7,20 @@
             <h2>上传封面</h2>
         </div>
         <div class="make">
-            <div class="screen-shot">
-                <div class="shot1" style="width: 122px;height: 163px;">
-                    <img :src="shotBg.Bg1" alt="封面一">
-                </div>
-                <div class="shot2" style="width: 119px;height: 119px;">
-                    <img :src="shotBg.Bg2" alt="封面二">
-                </div>
-                <div class="shot3" style="width: 266px;height: 119px;">
-                    <img :src="shotBg.Bg3" alt="封面三">
-                </div>
-                <div class="shot4" style="width: 154px;height: 119px;">
-                    <img :src="shotBg.Bg4" alt="封面四">
-                </div>
-            </div>
+            <!--<div class="screen-shot">-->
+                <!--<div class="shot1" style="width: 122px;height: 163px;">-->
+                    <!--<img :src="shotBg.Bg1" alt="封面一">-->
+                <!--</div>-->
+                <!--<div class="shot2" style="width: 119px;height: 119px;">-->
+                    <!--<img :src="shotBg.Bg2" alt="封面二">-->
+                <!--</div>-->
+                <!--<div class="shot3" style="width: 266px;height: 119px;">-->
+                    <!--<img :src="shotBg.Bg3" alt="封面三">-->
+                <!--</div>-->
+                <!--<div class="shot4" style="width: 154px;height: 119px;">-->
+                    <!--<img :src="shotBg.Bg4" alt="封面四">-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="upload-button">
                 <p style="margin-bottom: 0;color: #999;">可上传多张原稿进行切图</p>
                 <a-upload
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
     export default {
         name: "publish-img",
         data(){
@@ -75,16 +76,18 @@
                         id: file.uid,
                     };
                     this.preview = this.img.img;
-                    console.log(this.img);
+                    // console.log(this.img);
                 };
                 return false;
             },
             next(){
+                this.setMangaTitlePage(this.img);
                 this.$emit('next','publishChapter');
             },
             back(){
                 this.$emit('back', 'publishForm');
-            }
+            },
+            ...mapActions(['setMangaTitlePage'])
         }
     };
 </script>
@@ -124,7 +127,6 @@
     }
     .publish-img .make{
         width: 950px;
-        height: 900px;
         margin: 0 auto;
         background-color: #f7f7f7;
         border: #d6d6d6 solid 1px;

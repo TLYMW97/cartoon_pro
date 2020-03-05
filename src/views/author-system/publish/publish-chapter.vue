@@ -5,9 +5,6 @@
         </div>
         <div class="form">
             <a-form :layout="formLayout">
-                <a-form-item :wrapper-col="{span: 7}" :label-col="{span: 4}" label="漫画名">
-                    123(绑定漫画名标题)
-                </a-form-item>
                 <a-form-item :wrapper-col="{span: 7}" :label-col="{span: 4}" label="*章节排序">
                     <a-input></a-input>
                 </a-form-item>
@@ -57,7 +54,7 @@
                                 <a-button type="primary" @click="upLoadImg">开始上传</a-button>
                             </div>
                             <div class="right">
-                                <p>1.上传完成后，如果需要可以拖拽图片调换顺序。</p>
+                                <p>1.漫画请按照顺序上传。</p>
                                 <p>2.选择图片时可用鼠标批量框选上传。</p>
                                 <p>3.请让每张图片清晰并在15M以内。</p>
                             </div>
@@ -133,10 +130,14 @@
             },
             //
             deleteImg(img){
-                this.fileList.some((value,index) => {
-                    if(img.id === value.uid){
+                console.log(img);
+                console.log(this.fileList);
+                console.log(this.imgList);
+                this.imgList.some((value,index) => {
+                    if(img.id === value.id){
                         this.fileList.splice(index,1);
                         this.imgList.splice(index,1);
+                        console.log(this.fileList);
                     }
                 })
             },

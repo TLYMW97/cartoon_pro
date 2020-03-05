@@ -40,6 +40,16 @@ const mutations = {
   [types.SET_MANGA_DATA](state, mangaData){
     state.mangaData = mangaData;
     sessionStorage.setItem('mangaData', JSON.stringify(mangaData));
+  },
+  [types.SET_CREATE_MANGA_FORM](state, mangaForm){
+    state.mangaForm = mangaForm;
+    sessionStorage.setItem('mangaForm', JSON.stringify(mangaForm));
+  },
+  [types.SET_MANGA_TITLE_PAGE](state, mangaTitlePage){
+    sessionStorage.setItem('mangaTitlePage', JSON.stringify(mangaTitlePage));
+  },
+  [types.SET_CHAPTER_DATA](state, chapterData){
+    sessionStorage.setItem('chapterData', JSON.stringify(chapterData));
   }
 };
 export default mutations;
