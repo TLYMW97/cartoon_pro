@@ -4,20 +4,20 @@
             <h3>发布章节</h3>
         </div>
         <div class="form">
-            <a-form :layout="formLayout">
-                <a-form-item :wrapper-col="{span: 7}" :label-col="{span: 4}" label="*章节排序">
-                    <a-input></a-input>
+            <a-form :layout="formLayout" :form="chapterForm">
+                <a-form-item :wrapper-col="{span: 7}" :label-col="{span: 4}" label="*章节号">
+                    <a-input placeholder="请输入章节号" v-decorator="['chapterId']"></a-input>
                 </a-form-item>
-                <a-form-item v-bind="formItemLayout" label="*阅读顺序">
-                    <a-radio-group v-decorator="['radio-group']">
+                <a-form-item v-bind="formItemLayout" label="*章节类型">
+                    <a-radio-group v-decorator="['chapterType']">
                         <a-radio value="1">话</a-radio>
                         <a-radio value="2">卷</a-radio>
                         <a-radio value="3">外传</a-radio>
                         <a-radio value="4">其他</a-radio>
                     </a-radio-group>
                 </a-form-item>
-                <a-form-item :wrapper-col="{span: 7}" :label-col="{span: 4}"  label="*章节详情">
-                    <a-input placeholder="请按填写章节号与章节标题"></a-input>
+                <a-form-item :wrapper-col="{span: 7}" :label-col="{span: 4}"  label="*章节名称">
+                    <a-input placeholder="请按填写章节号与章节标题" v-decorator="['chapterTitle']"></a-input>
                 </a-form-item>
                 <a-form-item v-bind="formItemLayout" label="特殊说明">
                     <a-textarea placeholder="请输入作品简介" :rows="5"></a-textarea>
@@ -54,7 +54,7 @@
                                 <a-button type="primary" @click="upLoadImg">开始上传</a-button>
                             </div>
                             <div class="right">
-                                <p>1.漫画请按照顺序上传。</p>
+                                <p>1.漫画请按照顺序上传,第一张默认为章节图片。</p>
                                 <p>2.选择图片时可用鼠标批量框选上传。</p>
                                 <p>3.请让每张图片清晰并在15M以内。</p>
                             </div>
@@ -73,10 +73,12 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
     export default {
         name: "publish-chapter",
         data(){
             return{
+                chapterForm: this.$form.createForm(this),
                 // form-item布局类型
                 formLayout: 'horizontal',
                 // form-item布局格式
@@ -126,7 +128,10 @@
             },
             // 提交审核
             push(){
-                this.$emit('next', 'finish');
+                this.chapterForm.validateFields((err, value)=>{
+                    this.setChapterData(value);
+                    // this.$emit('next', 'finish');
+                });
             },
             //
             deleteImg(img){
@@ -144,7 +149,8 @@
             zoomIn(img){
                 this.previewVisible = true;
                 this.previewImage = img.img;
-            }
+            },
+            ...mapActions(['setChapterData'])
         }
     };
 </script>

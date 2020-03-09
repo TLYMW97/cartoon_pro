@@ -129,6 +129,20 @@ const routes = [
         component: () => import('../views/author-system/publish/publish-img')
       },
     ]
+  },
+  {
+    path:'/adminindex',
+    name:'adminindex',
+    meta:{hideHeader: true},
+    component: () => import('../views/admin-system/index'),
+    children:[
+      {
+        path: 'review',
+        name: 'review',
+        meta: {hideHeader: true},
+        component: () => import('../views/admin-system/review-manga/review-manga'),
+      }
+    ]
   }
   // {
   //   path: '/about',

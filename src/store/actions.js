@@ -95,7 +95,8 @@ export const setMangaTitlePage = async ({commit}, titlePage) => {
   commit(types.SET_MANGA_TITLE_PAGE, titlePage);
 }
 
-// 存入章节数据和图片
+// 存入章节数据
 export const setChapterData = async ({commit}, chapterData) => {
   commit(types.SET_CHAPTER_DATA, chapterData);
 }
+

@@ -14,39 +14,22 @@
                 <a-form-item v-bind="formItemLayout" label="作品简介">
                     <a-textarea placeholder="请输入作品简介" :rows="5" v-decorator="['mangaDetail']"></a-textarea>
                 </a-form-item>
-                <a-form-item v-bind="formItemLayout" label="*阅读顺序">
-                    <a-radio-group v-decorator="['radio-group1']">
-                        <a-radio value="left">从左到右</a-radio>
-                        <a-radio value="right">从右到左</a-radio>
-                    </a-radio-group>
-                </a-form-item>
-                <a-form-item v-bind="formItemLayout" label="*作品性质">
-                    <a-radio-group v-decorator="['radio-group2']">
-                        <a-radio value="1">原创</a-radio>
-                        <a-radio value="2">转载</a-radio>
-                    </a-radio-group>
-                </a-form-item>
                 <a-form-item v-bind="formItemLayout" label="*创作进程">
-                    <a-radio-group v-decorator="['radio-group3']">
+                    <a-radio-group v-decorator="['mangaStatus']">
                         <a-radio value="1">连载中</a-radio>
                         <a-radio value="2">已完结</a-radio>
                     </a-radio-group>
                 </a-form-item>
-                <a-form-item v-bind="formItemLayout" label="*用户群体">
-                    <a-radio-group v-decorator="['radio-group4']">
-                        <a-radio value="1">少年向</a-radio>
-                        <a-radio value="2">少女向</a-radio>
-                        <a-radio value="3">青年向</a-radio>
-                        <a-radio value="4">一般向</a-radio>
-                    </a-radio-group>
-                </a-form-item>
                 <a-form-item v-bind="formItemLayout" label="*漫画题材">
-                    <a-radio-group v-decorator="['radio-group5']">
-                        <a-radio v-for="item in classTag" :value="item.value" :key="item.label">{{item.label}}</a-radio>
-                    </a-radio-group>
+                    <!--<a-radio-group v-decorator="['mangaClass']">-->
+                        <!--<a-radio v-for="item in classTag" :value="item.value" :key="item.label">{{item.label}}</a-radio>-->
+                    <!--</a-radio-group>-->
+                    <a-checkbox-group class="check-box" v-decorator="['mangaClass']">
+                        <a-checkbox v-for="checkItem of classTag" :value="checkItem.value" :key="checkItem.value">{{checkItem.label}}</a-checkbox>
+                    </a-checkbox-group>
                 </a-form-item>
                 <a-form-item v-bind="formItemLayout" label="*漫画地区">
-                    <a-radio-group v-decorator="['radio-group6']">
+                    <a-radio-group v-decorator="['mangaAddres']">
                         <a-radio value="1">港台</a-radio>
                         <a-radio value="2">大陆</a-radio>
                         <a-radio value="3">日韩</a-radio>
@@ -91,7 +74,8 @@
                     wrapperCol: {span: 18}
                 },
                 // 获取分类题材
-                classTag: null
+                classTag: null,
+                check: false,
             };
         },
         methods:{
@@ -104,12 +88,12 @@
                     };
                     return obj;
                 });
+                console.log(this.classTag);
             },
             next(){
                 this.mangaForm.validateFields((err, value)=>{
                     this.setCreateMangaForm(value);
                     this.$emit('next', 'publishImg');
-
                 });
             },
             ...mapActions(['setCreateMangaForm'])
@@ -146,5 +130,9 @@
     }
     .form>>>.ant-form-item{
         margin: 10px 0;
+    }
+    .form>>>.ant-checkbox-wrapper{
+        margin-left: 11px;
+        margin-top: 8px;
     }
 </style>

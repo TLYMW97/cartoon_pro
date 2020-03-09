@@ -117,3 +117,9 @@ export const replyComm = reply => {
 export const findMyManga = data =>{
   return service.post('/findMyManga', data);
 }
+
+
+// 获取未审核漫画
+export const getUnauditManga = () => {
+  return service.get('/unauditManga');
+}
