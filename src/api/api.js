@@ -119,7 +119,7 @@ export const findMyManga = data =>{
 }
 
 
-// 获取未审核漫画
-export const getUnauditManga = () => {
-  return service.get('/unauditManga');
+// 获取审核漫画数据
+export const getUnauditManga = unAuditType => {
+  return service.post('/unAudit',unAuditType);
 }

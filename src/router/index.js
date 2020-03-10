@@ -133,14 +133,33 @@ const routes = [
   {
     path:'/adminindex',
     name:'adminindex',
+    redirect: '/adminindex/dataStatistics',
     meta:{hideHeader: true},
     component: () => import('../views/admin-system/index'),
     children:[
       {
-        path: 'review',
-        name: 'review',
+        path: 'manga',
+        name: 'manga',
         meta: {hideHeader: true},
-        component: () => import('../views/admin-system/review-manga/review-manga'),
+        component: () => import('../views/admin-system/manga/manga'),
+      },
+      {
+        path: 'comments',
+        name: 'comments',
+        meta: {hideHeader: true},
+        component: () => import('../views/admin-system/comments/comments'),
+      },
+      {
+        path: 'dataStatistics',
+        name: 'dataStatistics',
+        meta: {hideHeader: true},
+        component: () => import('../views/admin-system/data-statistics/data-statistics'),
+      },
+      {
+        path: 'user',
+        name: 'user',
+        meta: {hideHeader: true},
+        component: () => import('../views/admin-system/user/user'),
       }
     ]
   }

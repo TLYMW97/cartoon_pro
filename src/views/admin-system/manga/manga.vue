@@ -71,7 +71,7 @@
         methods: {
             // 获取未审核数据
             getUnauditManga: async function() {
-                let res = await this.$api.getUnauditManga();
+                let res = await this.$api.getUnauditManga(0);
                 console.log(res);
             },
             handleChange (value, key, column) {

@@ -4,31 +4,50 @@
             <h3>发布漫画</h3>
         </div>
         <div class="form">
-            <a-form :layout="formLayout" :form="mangaForm">
-                <a-form-item :wrapper-col="{span: 7}" :label-col="{span: 4}" label="*漫画名">
-                    <a-input placeholder="请输入漫画名称" v-decorator="['mangaName']"></a-input>
+            <a-form :layout="formLayout" :form="mangaForm" @submit="next">
+                <a-form-item :wrapper-col="{span: 7}" :label-col="{span: 4}" label="漫画名">
+                    <a-input placeholder="请输入漫画名称" v-decorator="[
+                    'mangaName',
+                        {
+                            rules: [{
+                                required: true, message:'您还未填写漫画名称',
+                            }]
+                        }
+                    ]"
+                    ></a-input>
                 </a-form-item>
-                <a-form-item :wrapper-col="{span: 7}" :label-col="{span: 4}" label="*作者名">
-                    <a-input placeholder="请输入作者名称" v-decorator="['authorName']"></a-input>
+                <a-form-item :wrapper-col="{span: 7}" :label-col="{span: 4}" label="作者名">
+                    <a-input placeholder="请输入作者名称" v-decorator="[
+                    'authorName',
+                        {
+                            rules: [{
+                                required: true, message: '您还未填写漫画名称',
+                            }]
+                        }
+                    ]"></a-input>
                 </a-form-item>
                 <a-form-item v-bind="formItemLayout" label="作品简介">
-                    <a-textarea placeholder="请输入作品简介" :rows="5" v-decorator="['mangaDetail']"></a-textarea>
+                    <a-textarea placeholder="请输入作品简介" :rows="5" v-decorator="[
+                    'mangaDetail',
+                        {
+                            rules: [{
+                                required: true, message: '您还未填写作品简介',
+                            }]
+                        }
+                    ]"></a-textarea>
                 </a-form-item>
-                <a-form-item v-bind="formItemLayout" label="*创作进程">
-                    <a-radio-group v-decorator="['mangaStatus']">
+                <a-form-item v-bind="formItemLayout" label="创作进程">
+                    <a-radio-group v-decorator="['mangaStatus',{initialValue: '1'}]">
                         <a-radio value="1">连载中</a-radio>
                         <a-radio value="2">已完结</a-radio>
                     </a-radio-group>
                 </a-form-item>
-                <a-form-item v-bind="formItemLayout" label="*漫画题材">
-                    <!--<a-radio-group v-decorator="['mangaClass']">-->
-                        <!--<a-radio v-for="item in classTag" :value="item.value" :key="item.label">{{item.label}}</a-radio>-->
-                    <!--</a-radio-group>-->
-                    <a-checkbox-group class="check-box" v-decorator="['mangaClass']">
+                <a-form-item v-bind="formItemLayout" label="漫画题材">
+                    <a-checkbox-group class="check-box" v-decorator="['mangaClass']" defaultValue="['480']">
                         <a-checkbox v-for="checkItem of classTag" :value="checkItem.value" :key="checkItem.value">{{checkItem.label}}</a-checkbox>
                     </a-checkbox-group>
                 </a-form-item>
-                <a-form-item v-bind="formItemLayout" label="*漫画地区">
+                <a-form-item v-bind="formItemLayout" label="漫画地区">
                     <a-radio-group v-decorator="['mangaAddres']">
                         <a-radio value="1">港台</a-radio>
                         <a-radio value="2">大陆</a-radio>
@@ -40,21 +59,38 @@
                     <p>请填写真实准确的联系方式，也便于我们与您联系洽谈创作、出版以及其他相关合作。</p>
                 </div>
                 <a-form-item :wrapper-col="{span: 7}" :label-col="{span: 4}" label="您的姓名">
-                    <a-input placeholder="请输入您的姓名" v-decorator="['name']"></a-input>
+                    <a-input placeholder="请输入您的姓名" v-decorator="[
+                    'name',
+                        {
+                            rules:[{required: true, message:'您还未填写您的姓名'}]
+                        }
+                    ]"></a-input>
                 </a-form-item>
                 <a-form-item :wrapper-col="{span: 7}" :label-col="{span: 4}" label="手机号码">
-                    <a-input placeholder="请输入手机号码" v-decorator="['phoneNum']"></a-input>
+                    <a-input placeholder="请输入手机号码" v-decorator="[
+                    'phoneNum',
+                        {
+                            rules:[{required: true, message:'您还未填写您的手机号码'}]
+                        }
+                    ]"></a-input>
                 </a-form-item>
                 <a-form-item :wrapper-col="{span: 7}" :label-col="{span: 4}" label="QQ">
-                    <a-input placeholder="请输入QQ号码" v-decorator="['qqNum']"></a-input>
+                    <a-input placeholder="请输入QQ号码" v-decorator="[
+                    'qqNum',
+                        {
+                            rules:[{required: true, message:'您还未填写您的QQ号码'}]
+                        }
+                    ]"></a-input>
                 </a-form-item>
-                <div style="background: #f0f0f0;width: 80%;padding: 25px;margin: 20px 0 20px 10%;border-top: #767676 1px dashed;border-bottom: #767676 1px dashed;">
-                    <a-radio value="1">我已阅读并接受
+                <a-form-item style="background: #f0f0f0;width: 80%;padding: 25px;margin: 20px 0 20px 10%;border-top: #767676 1px dashed;border-bottom: #767676 1px dashed;">
+                    <a-radio value="1" v-decorator="['agree']">我已阅读并接受
                         <router-link to="">漫画内容上传协议</router-link>
                     </a-radio>
-                </div>
+                </a-form-item>
+                <a-form-item>
+                    <a-button html-type="submit" type="primary" style="display:block;margin:0 auto;">填完了，下一步</a-button>
+                </a-form-item>
             </a-form>
-            <a-button @click="next" type="primary" style="display:block;margin:0 auto;">填完了，下一步</a-button>
         </div>
     </div>
 </template>
@@ -74,6 +110,7 @@
                     wrapperCol: {span: 18}
                 },
                 // 获取分类题材
+                firstClass: null,
                 classTag: null,
                 check: false,
             };
@@ -88,13 +125,22 @@
                     };
                     return obj;
                 });
+                this.firstClass=this.classTag[0].value;
                 console.log(this.classTag);
+                console.log(this.firstClass);
             },
-            next(){
-                this.mangaForm.validateFields((err, value)=>{
-                    this.setCreateMangaForm(value);
-                    this.$emit('next', 'publishImg');
+            next(e){
+                e.preventDefault();
+                this.mangaForm.validateFields((err, values) => {
+                    // if (!err) {
+                    //     console.log('Received values of form: ', values);
+                    // }
+                    console.log(values);
                 });
+                // this.mangaForm.validateFields((err, value)=>{
+                //     this.setCreateMangaForm(value);
+                //     this.$emit('next', 'publishImg');
+                // });
             },
             ...mapActions(['setCreateMangaForm'])
         },

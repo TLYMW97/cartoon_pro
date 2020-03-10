@@ -12,26 +12,28 @@
                 </div>
                 <a-menu theme="dark" :defaultSelectedKeys="['1']" mode="inline">
                     <a-menu-item key="1">
-                        <a-icon type="pie-chart" />
-                        <span>数据统计</span>
+                        <router-link to="/adminindex/dataStatistics">
+                            <a-icon type="pie-chart" />
+                            <span>数据统计</span>
+                        </router-link>
                     </a-menu-item>
                     <a-menu-item key="2">
-                        <router-link to="/adminindex/review">
+                        <router-link to="/adminindex/manga">
                             <a-icon type="desktop" />
                             <span>漫画审核</span>
                         </router-link>
                     </a-menu-item>
                     <a-menu-item key="3">
-                        <a-icon type="user" />
-                        <span>用户管理</span>
+                        <router-link to="/adminindex/user">
+                            <a-icon type="user" />
+                            <span>用户管理</span>
+                        </router-link>
                     </a-menu-item>
                     <a-menu-item key="4">
-                        <a-icon type="team" />
-                        <span>评论管理</span>
-                    </a-menu-item>
-                    <a-menu-item key="5">
-                        <a-icon type="file" />
-                        <span>数据管理</span>
+                        <router-link to="/adminindex/comments">
+                            <a-icon type="team" />
+                            <span>评论管理</span>
+                        </router-link>
                     </a-menu-item>
                 </a-menu>
             </a-layout-sider>
