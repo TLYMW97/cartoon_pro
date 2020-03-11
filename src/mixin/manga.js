@@ -28,6 +28,11 @@ export const mangaMixin = {
       this.readManga({ chapterId, chapterName });
     },
     readManga({ chapterId, chapterName }) {
+      if (!this.userInfo.token && this.currentManga.mangaPrice > 0) {
+        this.$message.error('该内容为付费内容,请先登录后阅读');
+        this.$router.push('/login');
+        return;
+      }
       this.$router.push({
         path: '/cartoonview',
         query: { chapterId, chapterName }
@@ -53,7 +58,6 @@ export const mangaMixin = {
         if (code === 200) {
           this.$message.success('收藏成功!');
           this.collected = true;
-          console.log('this.collected', this.collected);
         }
       } else if (this.userInfo.token && this.collected) {
         const res = await this.$api.cancelCollect(mangaId);
@@ -61,7 +65,6 @@ export const mangaMixin = {
           data: { data }
         } = res;
         this.collected = false;
-        console.log('this.collected', this.collected);
       } else {
         this.$message.error('你未登录，请登录后再操作!');
       }

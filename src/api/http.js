@@ -44,7 +44,6 @@ service.interceptors.request.use(
   },
   error => {
     // 对错误进行相应
-    console.log(error);
     return Promise.resolve(error);
   }
 );

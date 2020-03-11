@@ -57,7 +57,9 @@
             :section="section"
           ></Section>
         </div>
-        <div class="more-button" @click="getMore = true" v-if="!getMore">展开全部</div>
+        <div class="more-button" @click="getMore = true" v-if="!getMore">
+          展开全部
+        </div>
         <div class="more-sctions" v-else>
           <Section
             @readManga="readManga"
@@ -70,7 +72,9 @@
           <div class="comment-title">
             <p>
               全部评价
-              <span style="margin-left: 20px;">(共有{{commList.length}}条评论)</span>
+              <span style="margin-left: 20px;"
+                >(共有{{ commList.length }}条评论)</span
+              >
             </p>
           </div>
           <div class="comment-block">
@@ -94,9 +98,12 @@
       <div class="main-right">
         <div class="author">
           <div class="avator">
-            <img src="http://css122us.cdndm5.com/v201910292122/blue/images/header-partner.png" alt />
+            <img
+              src="http://css122us.cdndm5.com/v201910292122/blue/images/header-partner.png"
+              alt
+            />
           </div>
-          <div class="author-name">{{currentManga.mangaAuthor}}</div>
+          <div class="author-name">{{ currentManga.mangaAuthor }}</div>
           <div class="works">
             作品数:
             <span class="red">1</span>
@@ -239,11 +246,13 @@ p {
 .glass-bg::before {
   content: '';
   position: absolute;
+  background-size: cover;
   top: 100px;
   left: 0;
   width: 100%;
   height: 100%;
   max-height: 480px;
+  transform: scale(1.2);
   filter: blur(11px) contrast(0.6);
   background-color: rgba(0, 0, 0, 0.8);
   z-index: -99;

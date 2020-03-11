@@ -48,7 +48,6 @@
             },
             getListData: async function(){
                 this.listData = this.authorManga;
-                console.log(this.listData);
                 let count = 0;
                 if(this.listData.length>0)this.showButton = false;
                 this.listNum.push(0)

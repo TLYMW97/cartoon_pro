@@ -35,6 +35,10 @@ export const getChapter = mangaId => {
 export const getEpisode = chapterId => {
   return service.post('/findEpisode', { chapterId });
 };
+// 获取排行榜
+export const rankList = type => {
+  return service.post('/findRankList', { type });
+};
 // 获取免费排行榜
 export const freePop = () => {
   return service.get('/findFreePop');
@@ -108,18 +112,34 @@ export const checkCommLike = commId => {
 export const replyComm = reply => {
   return service.post('/replyComm', reply);
 };
+// 充值
+export const recharge = manga => {
+  return service.post('/recharge', manga);
+};
+// 查看个人信息
+export const qrySelf = () => {
+  return service.post('/qrySelf');
+};
 
+// 查看账户
+export const qryAccount = accountId => {
+  return service.post('/qryAccount', { accountId });
+};
+
+// 消费
+export const expenditure = object => {
+  return service.post('/expenditure', object);
+};
 /**
  * 作者端接口
  **/
 
 // 获取作者上传漫画
-export const findMyManga = data =>{
+export const findMyManga = data => {
   return service.post('/findMyManga', data);
-}
-
+};
 
 // 获取审核漫画数据
 export const getUnauditManga = unAuditType => {
-  return service.post('/unAudit',unAuditType);
-}
+  return service.post('/unAudit', unAuditType);
+};

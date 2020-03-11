@@ -1,16 +1,19 @@
 <template>
   <li class="operate-item">
-    <a href="#" @mouseover="showPane" @mouseleave="hidePane">
+    <router-link :to="path" @mouseover="showPane" @mouseleave="hidePane">
       <div class="icon">
         <icon-svg :iconHref="icon" />
       </div>
-      <p>{{name}}</p>
-    </a>
-    <div class="dropdown-pane" v-show="id === 1 && this.paneShow">
+      <p>{{ name }}</p>
+    </router-link>
+    <div class="dropdown-pane">
       <div class="history-title">我看过的</div>
       <div class="hisory-manga">
         <div class="manga-img">
-          <img src="https://61539.wang/a377c1ec68644213a235e9637a00df06_300022.jpg" alt />
+          <img
+            src="https://61539.wang/a377c1ec68644213a235e9637a00df06_300022.jpg"
+            alt
+          />
         </div>
         <div class="manga-des">
           <p class="manga-name">航海王</p>
@@ -20,7 +23,10 @@
       </div>
       <div class="hisory-manga">
         <div class="manga-img">
-          <img src="https://61539.wang/a377c1ec68644213a235e9637a00df06_300022.jpg" alt />
+          <img
+            src="https://61539.wang/a377c1ec68644213a235e9637a00df06_300022.jpg"
+            alt
+          />
         </div>
         <div class="manga-des">
           <p class="manga-name">航海王</p>
@@ -55,6 +61,9 @@ export default {
   props: {
     id: {
       type: Number
+    },
+    path: {
+      type: String
     },
     name: {
       type: String,

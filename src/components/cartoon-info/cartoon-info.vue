@@ -4,12 +4,12 @@
       <img :src="mangaEpisode" alt />
     </div>
     <div class="c-des">
-      <h3>{{mangaData.mangaName}}</h3>
-      <p class="composer">作者：{{mangaData.mangaAuthor}}</p>
+      <h3>{{ mangaData.mangaName }} <a-tag color="red">付费</a-tag></h3>
+      <p class="composer">作者：{{ mangaData.mangaAuthor }}</p>
       <div class="status">
         <p>
           <span class="gray-span">状态:</span>
-          {{mangaData.mangaStatus === 0 ? '连载中' : '已完结'}}
+          {{ mangaData.mangaStatus === 0 ? '连载中' : '已完结' }}
         </p>
         <p>
           <span class="gray-span">题材:</span>
@@ -17,23 +17,27 @@
             style="margin-right:5px"
             v-for="tag of mangaData.tags"
             :key="tag.tagId"
-          >{{tag.tagName}}</span>
+            >{{ tag.tagName }}</span
+          >
         </p>
         <p>
           <span class="gray-span">分数:</span>
-          {{mangaData.mangaScore | starFormat}}
+          {{ mangaData.mangaScore | starFormat }}
         </p>
       </div>
       <div class="introduce">
-        <p>{{mangaData.mangaDetail}}</p>
+        <p>{{ mangaData.mangaDetail }}</p>
       </div>
       <div class="operate">
         <a-button
           size="large"
           type="danger"
           @click="collect(mangaData.mangaId)"
-        >{{collected ? '已收藏' : '收藏'}}</a-button>
-        <a-button size="large" type="primary" @click="readStart">开始阅读</a-button>
+          >{{ collected ? '已收藏' : '收藏' }}</a-button
+        >
+        <a-button size="large" type="primary" @click="readStart"
+          >开始阅读</a-button
+        >
       </div>
     </div>
   </div>
