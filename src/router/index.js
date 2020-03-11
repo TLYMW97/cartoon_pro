@@ -141,6 +141,39 @@ const routes = [
         component: () => import('../views/author-system/publish/publish-img')
       }
     ]
+  },
+  {
+    path:'/adminindex',
+    name:'adminindex',
+    redirect: '/adminindex/dataStatistics',
+    meta:{hideHeader: true},
+    component: () => import('../views/admin-system/index'),
+    children:[
+      {
+        path: 'manga',
+        name: 'manga',
+        meta: {hideHeader: true},
+        component: () => import('../views/admin-system/manga/manga'),
+      },
+      {
+        path: 'comments',
+        name: 'comments',
+        meta: {hideHeader: true},
+        component: () => import('../views/admin-system/comments/comments'),
+      },
+      {
+        path: 'dataStatistics',
+        name: 'dataStatistics',
+        meta: {hideHeader: true},
+        component: () => import('../views/admin-system/data-statistics/data-statistics'),
+      },
+      {
+        path: 'user',
+        name: 'user',
+        meta: {hideHeader: true},
+        component: () => import('../views/admin-system/user/user'),
+      }
+    ]
   }
   // {
   //   path: '/about',

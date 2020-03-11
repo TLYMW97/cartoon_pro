@@ -138,3 +138,8 @@ export const expenditure = object => {
 export const findMyManga = data => {
   return service.post('/findMyManga', data);
 };
+
+// 获取审核漫画数据
+export const getUnauditManga = unAuditType => {
+  return service.post('/unAudit', unAuditType);
+};

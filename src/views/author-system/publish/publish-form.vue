@@ -202,4 +202,8 @@ export default {
 .form >>> .ant-form-item {
   margin: 10px 0;
 }
+.form >>> .ant-checkbox-wrapper {
+  margin-left: 11px;
+  margin-top: 8px;
+}
 </style>
