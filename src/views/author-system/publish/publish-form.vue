@@ -37,13 +37,13 @@
                     ]"></a-textarea>
                 </a-form-item>
                 <a-form-item v-bind="formItemLayout" label="创作进程">
-                    <a-radio-group v-decorator="['mangaStatus',{initialValue: '1'}]">
+                    <a-radio-group v-decorator="['mangaStatus']">
                         <a-radio value="1">连载中</a-radio>
                         <a-radio value="2">已完结</a-radio>
                     </a-radio-group>
                 </a-form-item>
                 <a-form-item v-bind="formItemLayout" label="漫画题材">
-                    <a-checkbox-group class="check-box" v-decorator="['mangaClass']" defaultValue="['480']">
+                    <a-checkbox-group class="check-box" v-decorator="['mangaClass']">
                         <a-checkbox v-for="checkItem of classTag" :value="checkItem.value" :key="checkItem.value">{{checkItem.label}}</a-checkbox>
                     </a-checkbox-group>
                 </a-form-item>
