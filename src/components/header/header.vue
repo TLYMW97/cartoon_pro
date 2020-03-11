@@ -13,7 +13,9 @@
             <router-link to>排行</router-link>
           </li>
           <li>
-            <router-link tag="a" target="_blank" to="/authorlogin">我要投稿</router-link>
+            <router-link tag="a" target="_blank" to="/authorlogin"
+              >我要投稿</router-link
+            >
           </li>
           <li>
             <router-link to="/cartoonlist">
@@ -26,15 +28,21 @@
       <div class="header-right">
         <ul class="r-ul">
           <li-icon
-            v-for="(li,index) of lis"
+            v-for="(li, index) of lis"
             :name="li.name"
             :key="index"
+            :path="li.path"
             :icon="li.icon"
             :id="li.id"
           ></li-icon>
         </ul>
         <div class="user">
-          <a-avatar @click="toPersonal" size="large" icon="user" :src="userAvatar" />
+          <a-avatar
+            @click="toPersonal"
+            size="large"
+            icon="user"
+            :src="userAvatar"
+          />
         </div>
       </div>
     </div>
@@ -47,7 +55,6 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'indexHeader',
   created() {
-    console.log(this.userInfo);
   },
   data() {
     return {
@@ -55,12 +62,20 @@ export default {
         {
           id: 1,
           name: '历史',
+          path: '/',
           icon: 'icon-historyrecord'
         },
         {
           id: 2,
           name: '收藏',
+          path: '/',
           icon: 'icon-shoucang'
+        },
+        {
+          id: 3,
+          name: '充值',
+          path: '/pay',
+          icon: 'icon-chongzhi'
         }
       ]
     };
@@ -103,6 +118,7 @@ export default {
   @include flex(space-between);
   padding: 10px 0;
   background: #282828;
+  z-index: 999;
   overflow: hidden;
   a {
     color: #fff;

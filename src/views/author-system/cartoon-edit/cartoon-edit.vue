@@ -60,10 +60,8 @@
         methods:{
             getData(){
                 this.cartoonData = this.getMangaByClick;
-                console.log(this.cartoonData);
             },
             deleteManga(){
-                console.log('delete');
             }
         },
         computed:{

@@ -11,7 +11,7 @@
     import publishForm from './publish-form';
     import publishImg from './publish-img';
     import publishChapter from './publish-chapter';
-    import finish from './finish'
+    import finish from './finish';
     export default {
         name: "publish",
         components: {

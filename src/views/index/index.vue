@@ -3,13 +3,14 @@
     <div class="classify">
       <ul class="classify-ul">
         <li v-for="tag of classes" :key="tag.tagId">
-          <router-link :to="{ path: '/cartoonlist', query: { tagId: tag.tagId } }">{{ tag.tagName }}</router-link>
+          <router-link
+            :to="{ path: '/cartoonlist', query: { tagId: tag.tagId } }"
+            >{{ tag.tagName }}</router-link
+          >
         </li>
       </ul>
       <router-link to="/cartoonlist" class="all-classify">
-        <span>
-          <a-icon type="appstore" />
-        </span>全部分类
+        <span> <a-icon type="appstore" /> </span>全部分类
       </router-link>
     </div>
     <div class="swiper-recommend">
@@ -45,9 +46,23 @@
       </div>
     </div>
     <div class="ranks">
-      <rank-list @toDetail="getDetail" title="人气" :rankList="mostPop"></rank-list>
-      <rank-list @getMore="priceMore(0)" @toDetail="getDetail" title="免费" :rankList="freePop"></rank-list>
-      <rank-list @getMore="priceMore(1)" @toDetail="getDetail" title="付费" :rankList="payPop"></rank-list>
+      <rank-list
+        @toDetail="getDetail"
+        title="人气"
+        :rankList="mostPop"
+      ></rank-list>
+      <rank-list
+        @getMore="priceMore(0)"
+        @toDetail="getDetail"
+        title="免费"
+        :rankList="freePop"
+      ></rank-list>
+      <rank-list
+        @getMore="priceMore(1)"
+        @toDetail="getDetail"
+        title="付费"
+        :rankList="payPop"
+      ></rank-list>
     </div>
     <!-- <div class="month-list">
       <section-title :title="'月票榜'" :icon="'rise'" />
@@ -64,7 +79,9 @@
           <li
             v-for="category of categoryHeader"
             :key="category.tagId"
-            :class="categroyActivited === category.tagId ? 'categroyActivited' : ''"
+            :class="
+              categroyActivited === category.tagId ? 'categroyActivited' : ''
+            "
             @click="getTagList(category.tagId)"
           >
             <span>{{ category.tagName }}</span>
@@ -95,7 +112,8 @@
             v-for="date of dateList"
             :key="date.weekDay"
             @click="getByTime(date.localDate)"
-          >{{ date.weekDay }}</span>
+            >{{ date.weekDay }}</span
+          >
         </div>
       </section-title>
       <div class="update-list">
@@ -132,6 +150,7 @@ import Banner from '@/components/banner/banner';
 import Swiper from '@/components/swiper/swiper';
 import weekDate from '@/utils/WeekDate';
 import { mapActions } from 'vuex';
+import { rankType } from '../../utils/config';
 import IndexBanner from '../../components/index-banner/banner';
 export default {
   name: 'index',
@@ -205,9 +224,9 @@ export default {
       let scrollTop =
         document.documentElement.scrollTop || document.body.scrollTop;
       if (scrollTop > 400 && !this.requestFirst) {
-        this.getPop();
-        this.getFree();
-        this.getPay();
+        this.getRankList(rankType.pop);
+        this.getRankList(rankType.free);
+        this.getRankList(rankType.pay);
         this.requestFirst = true;
       } else if (scrollTop > 1600 && !this.requestTwo) {
         this.getByTime();
@@ -235,26 +254,16 @@ export default {
       this.classes = data.slice(0, 15);
       this.categoryHeader = data.slice(0, 6);
     },
-    getPop: async function() {
-      let res = await this.$api.mostPop();
+    getRankList: async function(type) {
+      let res = await this.$api.rankList(type);
       const {
-        data: { data }
+        data: { code, data }
       } = res;
-      this.mostPop = data;
-    },
-    getFree: async function() {
-      let res = await this.$api.freePop();
-      const {
-        data: { data }
-      } = res;
-      this.freePop = data;
-    },
-    getPay: async function() {
-      let res = await this.$api.payPop();
-      const {
-        data: { data }
-      } = res;
-      this.payPop = data;
+      type === rankType.pop
+        ? (this.mostPop = data)
+        : type === rankType.free
+        ? (this.freePop = data)
+        : (this.payPop = data);
     },
     getByTime: async function(date) {
       date = date || '2020-02-01';

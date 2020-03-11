@@ -3,7 +3,11 @@
     <!--轮播图---写法-->
     <div class="swiper-container2" ref="swiper">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="(item, index) of swipeImgs" :key="index">
+        <div
+          class="swiper-slide"
+          v-for="(item, index) of swipeImgs"
+          :key="index"
+        >
           <!-- <img :src="item.url" />
           <img src="../../assets/01.jpg"/>-->
           <div class="swipe-img">
@@ -25,11 +29,11 @@ export default {
     return {
       //图片路径
       swipeImgs: [
-        require('../../assets/images/swipe1.jpg'),
-        require('../../assets/images/swipe2.jpg'),
-        require('../../assets/images/swipe3.jpg'),
-        require('../../assets/images/swipe4.jpg'),
-        require('../../assets/images/swipe5.jpg')
+        'https://i.loli.net/2020/03/09/AGOL6CqNFlJdErS.jpg',
+        'https://i.loli.net/2020/03/09/fJMihLqRpn1Qzc5.jpg',
+        'https://i.loli.net/2020/03/09/fwjY9iernNE7KaP.jpg',
+        'https://i.loli.net/2020/03/09/rkNZvphPn35iaFt.jpg',
+        'https://i.loli.net/2020/03/09/p7h4snH1FmCMaTW.jpg'
       ]
     };
   },

@@ -62,7 +62,6 @@ export default {
     },
     getMyUpload: async function(){
       let manga = await this.$api.findMyManga();
-      console.log(1);
       this.authorUploadManga(manga.data.data);
       this.$router.push({ path: '/authorindex' });
     },

@@ -2,7 +2,12 @@
   <div class="cartoon-view">
     <div class="view-header">
       <div class="return">
-        <router-link :to="{path: '/detail', query: {mangaId: this.currentManga.mangaId}}">
+        <router-link
+          :to="{
+            path: '/detail',
+            query: { mangaId: this.currentManga.mangaId }
+          }"
+        >
           <a-icon type="close-circle" style="margin-right: 10px" />退出阅读
         </router-link>
       </div>
@@ -10,13 +15,23 @@
         <router-link to="/">首页</router-link>
         <span class="linkIcon">></span>
         <router-link
-          :to="{path: '/detail', query: {mangaId: this.currentManga.mangaId}}"
-        >{{this.currentManga.mangaName}}</router-link>
+          :to="{
+            path: '/detail',
+            query: { mangaId: this.currentManga.mangaId }
+          }"
+          >{{ this.currentManga.mangaName }}</router-link
+        >
         <span class="linkIcon">></span>
-        <span>{{this.$route.query.chapterName}}</span>
+        <span>{{ this.$route.query.chapterName }}</span>
       </div>
       <div class="operate">
-        <a-button class="feedback" @click="allSaw" type="link" style="color: #fff">意见反馈</a-button>
+        <a-button
+          class="feedback"
+          @click="allSaw"
+          type="link"
+          style="color: #fff"
+          >意见反馈</a-button
+        >
         <a-button class="collect" type="link">收藏</a-button>
       </div>
     </div>
@@ -28,17 +43,47 @@
         <div class="section-list" v-show="sectinsShow">
           <router-link
             class="manga-name"
-            :to="{path: '/detail', query: {mangaId: this.currentManga.mangaId}}"
-          >{{this.currentManga.mangaName}}</router-link>
+            :to="{
+              path: '/detail',
+              query: { mangaId: this.currentManga.mangaId }
+            }"
+            >{{ this.currentManga.mangaName }}</router-link
+          >
           <p
             v-for="section of sections"
             @click="handleSection(section)"
             :key="section.chapterId"
-          >{{section.chapterTitle}}</p>
+          >
+            {{ section.chapterTitle }}
+          </p>
         </div>
       </div>
       <div class="content">
-        <img v-for="episode of episodes" :key="episode.episodeId" :src="episode.episodeHref" alt />
+        <div class="manga-list">
+          <img
+            v-for="episode of episodes"
+            :key="episode.episodeId"
+            :src="episode.episodeHref"
+            alt
+          />
+        </div>
+        <div class="pay-box" v-if="payShow">
+          <div class="pay-des">
+            <div class="pay-des-title">此漫画为付费漫画</div>
+            <div class="user-balance">当前余额: {{ accountNum }}万币</div>
+          </div>
+          <div class="pay-operate">
+            <div class="pay-number">
+              <p>购买此章节</p>
+              <p>
+                应付: <span class="number">{{ currentManga.mangaPrice }}</span>
+              </p>
+            </div>
+            <div class="pay-btn">
+              <a-button type="primary" @click="pay">确认支付</a-button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="toTop" v-show="toTop">
@@ -76,7 +121,10 @@ export default {
       sectinsShow: false,
       toTop: false,
       timer: null,
-      timerTwo: null
+      timerTwo: null,
+      payShow: false,
+      qrySelf: {},
+      accountNum: 0
     };
   },
   created() {
@@ -94,6 +142,22 @@ export default {
           this.toTop = false;
         }
       }, 600);
+    },
+    getQrySelf() {
+      let res = this.$api.qrySelf().then(async res => {
+        const {
+          data: { data }
+        } = res;
+        this.qrySelf = data;
+        const { accountId } = data.user;
+        let accountRes = await this.$api.qryAccount(accountId);
+        const {
+          data: {
+            data: { accountNum }
+          }
+        } = accountRes;
+        this.accountNum = accountNum;
+      });
     },
     toElTop() {
       this.timerTwo = setInterval(() => {
@@ -113,13 +177,35 @@ export default {
       const { chapterId, chapterName } = this.$route.query;
       const res = await this.$api.getEpisode(chapterId);
       const {
-        data: { data }
+        data: { data, code, msg }
       } = res;
-      this.episodes = data;
+      if (code === 50031) {
+        // this.$message.error('该内容为付费内容，请先购买');
+        // this.$router.back();
+        this.getQrySelf();
+        this.payShow = true;
+      } else {
+        this.episodes = data.slice(1);
+      }
     },
     allSaw() {
       var elem = document.querySelector('.view-content');
       this.requestFullScreen(elem);
+    },
+    pay: async function() {
+      const manga = {
+        accountdSubject: this.currentManga.mangaName,
+        accountdNum: this.currentManga.mangaPrice,
+        accountId: this.qrySelf.user.accountId,
+        mangaId: this.currentManga.mangaId
+      };
+      let res = await this.$api.expenditure(manga);
+      const {
+        data: { code }
+      } = res;
+      if (code === 200) {
+        this.viewInit();
+      }
     },
     getSections() {
       this.sectinsShow = !this.sectinsShow;
@@ -195,6 +281,7 @@ export default {
 }
 .view-content {
   width: $w_1200;
+  min-height: 100vh;
   border-left: 1px solid rgba(255, 255, 255, 0.2);
   border-right: 1px solid rgba(255, 255, 255, 0.2);
   margin: 0 auto;
@@ -240,6 +327,45 @@ export default {
   .content {
     width: 800px;
     margin: 0 auto;
+    .pay-box {
+      width: 600px;
+      margin: 60px auto;
+      background-color: #fff;
+      padding: 10px;
+      color: rgba(0, 0, 0, 0.8);
+      .pay-des {
+        border: 1px solid #eaeaea;
+        padding: 10px;
+        .pay-des-title {
+          font-size: 22px;
+          margin-bottom: 20px;
+          // font-weight: 600;
+        }
+        .user-balance {
+          border-top: 1px solid #eaeaea;
+          padding-top: 10px;
+        }
+      }
+      .pay-operate {
+        display: flex;
+        margin-top: 20px;
+        border: 1px solid #eaeaea;
+        padding: 10px;
+        .pay-number,
+        .pay-btn {
+          width: 50%;
+        }
+        .pay-btn {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .number {
+          color: #fe2829;
+          font-size: 22px;
+        }
+      }
+    }
   }
 }
 .toTop {

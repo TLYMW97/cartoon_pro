@@ -29,6 +29,15 @@ const routes = [
     component: () => import('../views/login/login.vue')
   },
   {
+    path: '/pay',
+    name: 'Pay',
+    component: () => import('../views/pay-page/page-page.vue')
+  },
+  {
+    path: '/applyText',
+    components: () => import('../views/apply-text/apply-text.vue')
+  },
+  {
     path: '/cartoonview',
     name: 'CartoonView',
     meta: { hideHeader: true },
@@ -71,63 +80,66 @@ const routes = [
         component: () => import('../views/author-system/publish/publish')
       },
       {
-        path:'/review',
+        path: '/review',
         name: 'review',
         meta: { hideHeader: true },
         component: () => import('../views/author-system/review/review')
-
       },
       {
-        path:'/mycartoon',
+        path: '/mycartoon',
         name: 'mycartoon',
         meta: { hideHeader: true },
         component: () => import('../views/author-system/my-cartoon/my-cartoon')
-      },
-    ],
+      }
+    ]
   },
   {
-    path:'/homeedit',
+    path: '/homeedit',
     name: 'homeedit',
     redirect: '/cartoonedit',
     meta: { hideHeader: true },
-    component: ()=> import('../views/author-system/cartoon-edit/home-edit'),
+    component: () => import('../views/author-system/cartoon-edit/home-edit'),
     children: [
       {
-        path:'/cartoonedit',
-        name:'cartoonedit',
+        path: '/cartoonedit',
+        name: 'cartoonedit',
         meta: { hideHeader: true },
-        component: ()=> import('../views/author-system/cartoon-edit/cartoon-edit')
+        component: () =>
+          import('../views/author-system/cartoon-edit/cartoon-edit')
       },
       {
         path: '/chapteredit',
         name: 'chapetredit',
         meta: { hideHeader: true },
-        component: () => import('../views/author-system/cartoon-edit/chapter-edit')
+        component: () =>
+          import('../views/author-system/cartoon-edit/chapter-edit')
       },
       {
         path: '/commentedit',
         name: 'commentedit',
         meta: { hideHeader: true },
-        component: () => import('../views/author-system/cartoon-edit/comment-edit')
+        component: () =>
+          import('../views/author-system/cartoon-edit/comment-edit')
       },
       {
-        path:'/publishform',
+        path: '/publishform',
         name: 'publishform',
         meta: { hideHeader: true },
         component: () => import('../views/author-system/publish/publish-form')
       },
       {
-        path:'/publishchapter',
+        path: '/publishchapter',
         name: 'publishchapter',
         meta: { hideHeader: true },
-        component: () => import('../views/author-system/publish/publish-chapter')
+        component: () =>
+          import('../views/author-system/publish/publish-chapter')
       },
       {
-        path:'/publishimg',
+        path: '/publishimg',
         name: 'publishimg',
         meta: { hideHeader: true },
         component: () => import('../views/author-system/publish/publish-img')
-      },
+      }
     ]
   }
   // {
