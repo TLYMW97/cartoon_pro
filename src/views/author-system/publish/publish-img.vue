@@ -81,6 +81,7 @@
                 return false;
             },
             next(){
+                console.log(this.img);
                 this.setMangaTitlePage(this.img);
                 this.$emit('next','publishChapter');
             },

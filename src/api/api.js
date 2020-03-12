@@ -143,3 +143,7 @@ export const findMyManga = data => {
 export const getUnauditManga = unAuditType => {
   return service.post('/unAudit', unAuditType);
 };
+
+export const addManga = mangaData => {
+  return service.post('/addManga', mangaData);
+}

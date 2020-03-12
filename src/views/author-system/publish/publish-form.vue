@@ -4,77 +4,81 @@
       <h3>发布漫画</h3>
     </div>
     <div class="form">
-      <a-form :layout="formLayout" :form="mangaForm">
+      <a-form :layout="formLayout" :form="mangaForm"  @submit="next">
         <a-form-item
           :wrapper-col="{ span: 7 }"
           :label-col="{ span: 4 }"
-          label="*漫画名"
+          label="漫画名"
         >
           <a-input
             placeholder="请输入漫画名称"
-            v-decorator="['mangaName']"
+            v-decorator="[
+            'mangaName',
+              {
+                rules: [{
+                    required: true, message:'您还未填写漫画名称',
+                }]
+              }
+            ]"
           ></a-input>
         </a-form-item>
         <a-form-item
           :wrapper-col="{ span: 7 }"
           :label-col="{ span: 4 }"
-          label="*作者名"
+          label="作者名"
         >
           <a-input
             placeholder="请输入作者名称"
-            v-decorator="['authorName']"
+            v-decorator="[
+            'authorName',
+              {
+                rules: [{
+                    required: true, message:'您还未填写作者名称',
+                }]
+              }
+            ]"
           ></a-input>
         </a-form-item>
         <a-form-item v-bind="formItemLayout" label="作品简介">
           <a-textarea
             placeholder="请输入作品简介"
             :rows="5"
-            v-decorator="['mangaDetail']"
+            v-decorator="[
+            'mangaDetail',
+              {
+                rules: [{
+                    required: true, message:'您还未填写作者名称',
+                }]
+              }
+            ]"
           ></a-textarea>
         </a-form-item>
-        <a-form-item v-bind="formItemLayout" label="*阅读顺序">
-          <a-radio-group v-decorator="['radio-group1']">
-            <a-radio value="left">从左到右</a-radio>
-            <a-radio value="right">从右到左</a-radio>
-          </a-radio-group>
-        </a-form-item>
-        <a-form-item v-bind="formItemLayout" label="*作品性质">
-          <a-radio-group v-decorator="['radio-group2']">
-            <a-radio value="1">原创</a-radio>
-            <a-radio value="2">转载</a-radio>
-          </a-radio-group>
-        </a-form-item>
         <a-form-item v-bind="formItemLayout" label="*创作进程">
-          <a-radio-group v-decorator="['radio-group3']">
+          <a-radio-group v-decorator="[
+          'mangaStatus',
+            {
+              initialValue: '1',
+            }
+          ]">
             <a-radio value="1">连载中</a-radio>
             <a-radio value="2">已完结</a-radio>
           </a-radio-group>
         </a-form-item>
-        <a-form-item v-bind="formItemLayout" label="*用户群体">
-          <a-radio-group v-decorator="['radio-group4']">
-            <a-radio value="1">少年向</a-radio>
-            <a-radio value="2">少女向</a-radio>
-            <a-radio value="3">青年向</a-radio>
-            <a-radio value="4">一般向</a-radio>
+        <a-form-item v-bind="formItemLayout" label="*是否付费">
+          <a-radio-group v-decorator="[
+          'mangaPrice',
+            {
+              initialValue: '0',
+            }
+          ]">
+            <a-radio value="0">免费</a-radio>
+            <a-radio value="1">付费</a-radio>
           </a-radio-group>
         </a-form-item>
         <a-form-item v-bind="formItemLayout" label="*漫画题材">
-          <a-radio-group v-decorator="['radio-group5']">
-            <a-radio
-              v-for="item in classTag"
-              :value="item.value"
-              :key="item.label"
-              >{{ item.label }}</a-radio
-            >
-          </a-radio-group>
-        </a-form-item>
-        <a-form-item v-bind="formItemLayout" label="*漫画地区">
-          <a-radio-group v-decorator="['radio-group6']">
-            <a-radio value="1">港台</a-radio>
-            <a-radio value="2">大陆</a-radio>
-            <a-radio value="3">日韩</a-radio>
-            <a-radio value="4">欧美</a-radio>
-          </a-radio-group>
+          <a-checkbox-group class="check-box" v-decorator="['tags',{initialValue:[480]}]">
+            <a-checkbox v-for="checkItem of classTag" :value="checkItem.value" :key="checkItem.value">{{checkItem.label}}</a-checkbox>
+          </a-checkbox-group>
         </a-form-item>
         <div
           style="width: 80%;padding-top:10px;border-top:#d6d6d6 solid 1px;margin-left: 10%;"
@@ -118,13 +122,10 @@
             <router-link to="">漫画内容上传协议</router-link>
           </a-radio>
         </div>
+        <a-form-item>
+          <a-button html-type="submit" type="primary" style="display:block;margin:0 auto;">填完了，下一步</a-button>
+        </a-form-item>
       </a-form>
-      <a-button
-        @click="next"
-        type="primary"
-        style="display:block;margin:0 auto;"
-        >填完了，下一步</a-button
-      >
     </div>
   </div>
 </template>
@@ -144,11 +145,30 @@ export default {
         wrapperCol: { span: 18 }
       },
       // 获取分类题材
+      defaultValue: 480,
       classTag: null,
       check: false
     };
   },
   methods: {
+    addManga: async function(mangaId, mangaData){
+      if(mangaId === 0){
+        mangaData.tags = this.tags(mangaData.tags);
+        mangaData.mangaPrice = parseInt(mangaData.mangaPrice);
+        let dataToJson = JSON.stringify(mangaData);
+        console.log(dataToJson);
+        await this.$api.addManga(dataToJson);
+      }
+    },
+    tags(tagData){
+      let tags = []
+      tagData.map(index=>{
+        let tagId = {}
+        tagId.tagId = index;
+        tags.push(tagId);
+      });
+      return tags;
+    },
     getClassTag: async function() {
       let classes = await this.$api.classes();
       this.classTag = classes.data.data.map(value => {
@@ -159,12 +179,15 @@ export default {
         return obj;
       });
     },
-    next() {
+    next(e) {
+      e.preventDefault();
       this.mangaForm.validateFields((err, value) => {
-        console.log('this.$refs.radioCheck :', this.$refs.radioCheck);
-        console.log('value :', value);
-        this.setCreateMangaForm(value);
-        this.$emit('next', 'publishImg');
+        if(!err&&this.$refs.radioCheck.checked){
+          console.log(value);
+          this.setCreateMangaForm(value);
+          this.addManga(0,value);
+          // this.$emit('next', 'publishImg');
+        }
       });
     },
     ...mapActions(['setCreateMangaForm'])
