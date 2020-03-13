@@ -4,7 +4,7 @@
       <h3>发布漫画</h3>
     </div>
     <div class="form">
-      <a-form :layout="formLayout" :form="mangaForm"  @submit="next">
+      <a-form :layout="formLayout" :form="mangaForm" @submit="next">
         <a-form-item
           :wrapper-col="{ span: 7 }"
           :label-col="{ span: 4 }"
@@ -13,11 +13,14 @@
           <a-input
             placeholder="请输入漫画名称"
             v-decorator="[
-            'mangaName',
+              'mangaName',
               {
-                rules: [{
-                    required: true, message:'您还未填写漫画名称',
-                }]
+                rules: [
+                  {
+                    required: true,
+                    message: '您还未填写漫画名称'
+                  }
+                ]
               }
             ]"
           ></a-input>
@@ -30,11 +33,14 @@
           <a-input
             placeholder="请输入作者名称"
             v-decorator="[
-            'authorName',
+              'mangaAuthor',
               {
-                rules: [{
-                    required: true, message:'您还未填写作者名称',
-                }]
+                rules: [
+                  {
+                    required: true,
+                    message: '您还未填写作者名称'
+                  }
+                ]
               }
             ]"
           ></a-input>
@@ -44,40 +50,55 @@
             placeholder="请输入作品简介"
             :rows="5"
             v-decorator="[
-            'mangaDetail',
+              'mangaDetail',
               {
-                rules: [{
-                    required: true, message:'您还未填写作者名称',
-                }]
+                rules: [
+                  {
+                    required: true,
+                    message: '您还未填写作者名称'
+                  }
+                ]
               }
             ]"
           ></a-textarea>
         </a-form-item>
         <a-form-item v-bind="formItemLayout" label="*创作进程">
-          <a-radio-group v-decorator="[
-          'mangaStatus',
-            {
-              initialValue: '1',
-            }
-          ]">
+          <a-radio-group
+            v-decorator="[
+              'mangaStatus',
+              {
+                initialValue: '1'
+              }
+            ]"
+          >
             <a-radio value="1">连载中</a-radio>
             <a-radio value="2">已完结</a-radio>
           </a-radio-group>
         </a-form-item>
         <a-form-item v-bind="formItemLayout" label="*是否付费">
-          <a-radio-group v-decorator="[
-          'mangaPrice',
-            {
-              initialValue: '0',
-            }
-          ]">
+          <a-radio-group
+            v-decorator="[
+              'mangaPrice',
+              {
+                initialValue: '0'
+              }
+            ]"
+          >
             <a-radio value="0">免费</a-radio>
             <a-radio value="1">付费</a-radio>
           </a-radio-group>
         </a-form-item>
         <a-form-item v-bind="formItemLayout" label="*漫画题材">
-          <a-checkbox-group class="check-box" v-decorator="['tags',{initialValue:[480]}]">
-            <a-checkbox v-for="checkItem of classTag" :value="checkItem.value" :key="checkItem.value">{{checkItem.label}}</a-checkbox>
+          <a-checkbox-group
+            class="check-box"
+            v-decorator="['tags', { initialValue: [480] }]"
+          >
+            <a-checkbox
+              v-for="checkItem of classTag"
+              :value="checkItem.value"
+              :key="checkItem.value"
+              >{{ checkItem.label }}</a-checkbox
+            >
           </a-checkbox-group>
         </a-form-item>
         <div
@@ -123,7 +144,12 @@
           </a-radio>
         </div>
         <a-form-item>
-          <a-button html-type="submit" type="primary" style="display:block;margin:0 auto;">填完了，下一步</a-button>
+          <a-button
+            html-type="submit"
+            type="primary"
+            style="display:block;margin:0 auto;"
+            >填完了，下一步</a-button
+          >
         </a-form-item>
       </a-form>
     </div>
@@ -151,21 +177,16 @@ export default {
     };
   },
   methods: {
-    addManga: async function(mangaId, mangaData){
-      if(mangaId === 0){
+    addManga: async function(mangaId, mangaData) {
+      if (mangaId === 0) {
         mangaData.tags = this.tags(mangaData.tags);
-        mangaData.mangaPrice = parseInt(mangaData.mangaPrice);
-        let dataToJson = JSON.stringify(mangaData);
-        console.log(dataToJson);
-        await this.$api.addManga(dataToJson);
+        await this.$api.addManga(mangaData);
       }
     },
-    tags(tagData){
-      let tags = []
-      tagData.map(index=>{
-        let tagId = {}
-        tagId.tagId = index;
-        tags.push(tagId);
+    tags(tagData) {
+      let tags = [];
+      tagData.map(index => {
+        tags.push({ tagId: index });
       });
       return tags;
     },
@@ -182,10 +203,10 @@ export default {
     next(e) {
       e.preventDefault();
       this.mangaForm.validateFields((err, value) => {
-        if(!err&&this.$refs.radioCheck.checked){
+        if (!err && this.$refs.radioCheck.checked) {
           console.log(value);
           this.setCreateMangaForm(value);
-          this.addManga(0,value);
+          this.addManga(0, value);
           // this.$emit('next', 'publishImg');
         }
       });
@@ -200,32 +221,33 @@ export default {
 </script>
 
 <style scoped>
-    .publish-form{
-        margin: 25px 0;
-        border: #d6d6d6 solid 1px;
-    }
-    .publish-form .header{
-        width: 100%;
-        height: 30px;
-        padding-bottom: 40px;
-        background: url("http://css99tel.cdndm5.com/v201910292122/cartoonupload/images/topbg.png") repeat-x top left;
-    }
-    .header h3{
-        width: 200px;
-        padding: 10px 30px 0;
-        background: #fff;
-        height: 38px;
-        border-right: 1px solid #dadada;
-        border-top: 1px solid #292929;
-    }
-    .publish-form .form{
-        margin: 25px 0;
-    }
-    .form>>>.ant-form-item{
-        margin: 10px 0;
-    }
-    .form>>>.ant-checkbox-wrapper{
-        margin-left: 11px;
-        margin-top: 8px;
-    }
+.publish-form {
+  margin: 25px 0;
+  border: #d6d6d6 solid 1px;
+}
+.publish-form .header {
+  width: 100%;
+  height: 30px;
+  padding-bottom: 40px;
+  background: url('http://css99tel.cdndm5.com/v201910292122/cartoonupload/images/topbg.png')
+    repeat-x top left;
+}
+.header h3 {
+  width: 200px;
+  padding: 10px 30px 0;
+  background: #fff;
+  height: 38px;
+  border-right: 1px solid #dadada;
+  border-top: 1px solid #292929;
+}
+.publish-form .form {
+  margin: 25px 0;
+}
+.form >>> .ant-form-item {
+  margin: 10px 0;
+}
+.form >>> .ant-checkbox-wrapper {
+  margin-left: 11px;
+  margin-top: 8px;
+}
 </style>
