@@ -84,9 +84,11 @@
                 console.log(this.img);
                 this.setMangaTitlePage(this.img);
                 this.$emit('next','publishChapter');
+                this.$router.push({path:'/publish/publishChapter'});
             },
             back(){
                 this.$emit('back', 'publishForm');
+                this.$router.push({path:'/publish/publishForm'});
             },
             ...mapActions(['setMangaTitlePage'])
         }

@@ -13,14 +13,11 @@
           <a-input
             placeholder="请输入漫画名称"
             v-decorator="[
-              'mangaName',
+            'mangaName',
               {
-                rules: [
-                  {
-                    required: true,
-                    message: '您还未填写漫画名称'
-                  }
-                ]
+                rules: [{
+                    required: true, message:'您还未填写漫画名称',
+                }]
               }
             ]"
           ></a-input>
@@ -50,27 +47,22 @@
             placeholder="请输入作品简介"
             :rows="5"
             v-decorator="[
-              'mangaDetail',
+            'mangaDetail',
               {
-                rules: [
-                  {
-                    required: true,
-                    message: '您还未填写作者名称'
-                  }
-                ]
+                rules: [{
+                    required: true, message:'您还未填写作者名称',
+                }]
               }
             ]"
           ></a-textarea>
         </a-form-item>
         <a-form-item v-bind="formItemLayout" label="*创作进程">
-          <a-radio-group
-            v-decorator="[
-              'mangaStatus',
-              {
-                initialValue: '1'
-              }
-            ]"
-          >
+          <a-radio-group v-decorator="[
+          'mangaStatus',
+            {
+              initialValue: '1',
+            }
+          ]">
             <a-radio value="1">连载中</a-radio>
             <a-radio value="2">已完结</a-radio>
           </a-radio-group>
@@ -89,16 +81,8 @@
           </a-radio-group>
         </a-form-item>
         <a-form-item v-bind="formItemLayout" label="*漫画题材">
-          <a-checkbox-group
-            class="check-box"
-            v-decorator="['tags', { initialValue: [480] }]"
-          >
-            <a-checkbox
-              v-for="checkItem of classTag"
-              :value="checkItem.value"
-              :key="checkItem.value"
-              >{{ checkItem.label }}</a-checkbox
-            >
+          <a-checkbox-group class="check-box" v-decorator="['tags',{initialValue:[480]}]">
+            <a-checkbox v-for="checkItem of classTag" :value="checkItem.value" :key="checkItem.value">{{checkItem.label}}</a-checkbox>
           </a-checkbox-group>
         </a-form-item>
         <div
@@ -138,18 +122,13 @@
         <div
           style="background: #f0f0f0;width: 80%;padding: 25px;margin: 20px 0 20px 10%;border-top: #767676 1px dashed;border-bottom: #767676 1px dashed;"
         >
-          <a-radio ref="radioCheck" v-model="check" @click="check = !check"
+          <a-radio ref="radioCheck" :defaultChecked="check" @click="check = !check"
             >我已阅读并接受
             <router-link to="">漫画内容上传协议</router-link>
           </a-radio>
         </div>
         <a-form-item>
-          <a-button
-            html-type="submit"
-            type="primary"
-            style="display:block;margin:0 auto;"
-            >填完了，下一步</a-button
-          >
+          <a-button html-type="submit" type="primary" style="display:block;margin:0 auto;">填完了，下一步</a-button>
         </a-form-item>
       </a-form>
     </div>
@@ -177,10 +156,14 @@ export default {
     };
   },
   methods: {
+    getFormData() {
+    },
     addManga: async function(mangaId, mangaData) {
       if (mangaId === 0) {
         mangaData.tags = this.tags(mangaData.tags);
-        await this.$api.addManga(mangaData);
+        // await this.$api.addManga(mangaData);
+        this.$emit('next', 'publishImg');
+        this.$router.push({path:'/publish/publishImg'});
       }
     },
     tags(tagData) {
@@ -203,18 +186,20 @@ export default {
     next(e) {
       e.preventDefault();
       this.mangaForm.validateFields((err, value) => {
-        if (!err && this.$refs.radioCheck.checked) {
+        if (!err && this.check) {
           console.log(value);
           this.setCreateMangaForm(value);
           this.addManga(0, value);
-          // this.$emit('next', 'publishImg');
         }
       });
     },
     ...mapActions(['setCreateMangaForm'])
   },
-  created() {},
+  created() {
+
+  },
   mounted() {
+      this.getFormData();
     this.getClassTag();
   }
 };

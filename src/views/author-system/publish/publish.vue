@@ -3,26 +3,20 @@
         <div class="steps">
             <img v-for="item of stepimg" :src="item.img" :key="item.id" alt="">
         </div>
-        <component :is="comName" @next="next" @back="back"></component>
+        <keep-alive>
+            <router-view @next="next" @back="back"></router-view>
+        </keep-alive>
     </div>
 </template>
 
 <script>
-    import publishForm from './publish-form';
-    import publishImg from './publish-img';
-    import publishChapter from './publish-chapter';
-    import finish from './finish';
     export default {
         name: "publish",
         components: {
-            publishForm,
-            publishImg,
-            publishChapter,
-            finish
         },
         data(){
             return{
-                comName: publishForm,
+                comName: 'publishForm',
                 // 步骤图片
                 stepimg: [
                     {

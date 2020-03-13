@@ -76,8 +76,35 @@ const routes = [
       {
         path: '/publish',
         name: 'publish',
+        redirect: '/publish/publishForm',
         meta: { hideHeader: true },
-        component: () => import('../views/author-system/publish/publish')
+        component: () => import('../views/author-system/publish/publish'),
+        children: [
+          {
+            path: 'publishForm',
+            name: 'publishForm',
+            meta: { hideHeader: true },
+            component: () => import('../views/author-system/publish/publish-form'),
+          },
+          {
+            path: 'publishImg',
+            name: 'publishImg',
+            meta: { hideHeader: true },
+            component: () => import('../views/author-system/publish/publish-img'),
+          },
+          {
+            path: 'publishChapter',
+            name: 'publishChapter',
+            meta: { hideHeader: true },
+            component: () => import('../views/author-system/publish/publish-chapter'),
+          },
+          {
+            path: 'finish',
+            name: 'finish',
+            meta: { hideHeader: true },
+            component: () => import('../views/author-system/publish/finish'),
+          }
+        ]
       },
       {
         path: '/review',

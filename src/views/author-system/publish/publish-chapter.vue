@@ -141,10 +141,12 @@ export default {
     // 返回上一页
     back() {
       this.$emit('back', 'publishImg');
+      this.$router.push({path:'/publish/publishImg'});
     },
     // 提交审核
     push() {
       this.$emit('next', 'finish');
+      this.$router.push({path:'/publish/finish'});
     },
     //
     deleteImg(img) {
