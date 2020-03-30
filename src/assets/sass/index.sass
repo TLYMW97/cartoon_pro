@@ -31,5 +31,12 @@ $w_1200: 1200px
   width: $w_1200
   margin: $mt auto
 
+@mixin grid( $min, $gap:10px ,$max: 10vw)
+  display: grid
+  grid-gap: $gap
+  grid-template-columns: repeat(auto-fit, minmax($min, 1fr))
+  grid-template-rows: repeat(auto-fit, minmax($max, 1fr))
+
+
   
       

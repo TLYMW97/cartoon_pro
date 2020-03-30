@@ -4,17 +4,22 @@
       <img :src="mangaData.episode[0].episodeHref" alt />
     </div>
     <div class="title-text">
-      <router-link to class="title">{{mangaData.mangaName}}</router-link>
+      <router-link to class="title">{{ mangaData.mangaName }}</router-link>
     </div>
     <div class="star">
-      <p>评分:{{mangaData.mangaScore | starFormat}}</p>
+      <p>评分:{{ mangaData.mangaScore | starFormat }}</p>
       <a-rate class="rate" allow-half :value="stars | starFormat" disabled />
     </div>
     <div class="renew">
       <p>最新:</p>
-      <router-link to class="new">{{mangaData.chapterNew.chapterTitle}}</router-link>
+      <router-link to class="new">{{
+        mangaData.chapterNew.chapterTitle
+      }}</router-link>
     </div>
-    <cartoonAnimated @toDetail="toDetail" :mangaData="mangaData"></cartoonAnimated>
+    <cartoonAnimated
+      @toDetail="toDetail"
+      :mangaData="mangaData"
+    ></cartoonAnimated>
   </div>
 </template>
 
@@ -45,6 +50,7 @@ export default {
 .card {
   width: 167px;
   position: relative;
+  margin-right: 10px;
   background-color: #fff;
   @include flex(space-between, null, null, column);
 }

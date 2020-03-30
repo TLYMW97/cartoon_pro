@@ -8,6 +8,10 @@ export const code = () => {
 export const login = reqBody => {
   return service.post('/login', reqBody);
 };
+// 获取个人信息
+export const qrySelf = () => {
+  return service.post('/qrySelf');
+};
 // 注册
 export const register = reqBody => {
   return service.post('/register', reqBody);
@@ -30,6 +34,10 @@ export const findBySearch = (search, page, size) => {
 // 获取漫画详情
 export const getChapter = mangaId => {
   return service.post('/findChapter', { mangaId });
+};
+// 根据Id获取漫画信息
+export const getById = mangaId => {
+  return service.post('/findByMangaId', { mangaId });
 };
 // 获取漫画图
 export const getEpisode = chapterId => {
@@ -108,6 +116,10 @@ export const checkCommLike = commId => {
     commId
   });
 };
+// 历史记录
+export const qryHistory = pagination => {
+  return service.post('/qryHistory', pagination);
+};
 // 回复评论
 export const replyComm = reply => {
   return service.post('/replyComm', reply);
@@ -115,10 +127,6 @@ export const replyComm = reply => {
 // 充值
 export const recharge = manga => {
   return service.post('/recharge', manga);
-};
-// 查看个人信息
-export const qrySelf = () => {
-  return service.post('/qrySelf');
 };
 
 // 查看账户
@@ -146,4 +154,11 @@ export const getUnauditManga = unAuditType => {
 
 export const addManga = mangaData => {
   return service.post('/addManga', mangaData);
-}
+};
+
+/**
+ * 管理端端接口
+ **/
+export const unAudit = param => {
+  return service.post('/unAudit', param);
+};

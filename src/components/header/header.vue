@@ -34,6 +34,7 @@
             :path="li.path"
             :icon="li.icon"
             :id="li.id"
+            :userInfo="userInfo"
           ></li-icon>
         </ul>
         <div class="user">
@@ -54,8 +55,7 @@ import LiIcon from '../li-icon/li-icon';
 import { mapGetters } from 'vuex';
 export default {
   name: 'indexHeader',
-  created() {
-  },
+  created() {},
   data() {
     return {
       lis: [
@@ -83,8 +83,9 @@ export default {
   computed: {
     ...mapGetters(['userInfo']),
     userAvatar() {
-      if (this.userInfo.userId) {
-        return this.userInfo.user.attach.attachUrl;
+      if (this.userInfo.token) {
+        // console.log('this.userInfo :', this.userInfo);
+        return this.userInfo.user.user.attach.attachUrl;
       }
       return null;
     }
@@ -92,14 +93,13 @@ export default {
   components: { LiIcon },
   methods: {
     toPersonal() {
-      alert('d');
       const { token } = this.userInfo;
       if (!token) {
-        alert('ddd');
         this.$router.push('/login');
         return;
       } else {
-        this.$message.success('已登录');
+        // this.$message.success('已登录');
+        this.$router.push('/personal');
       }
     }
   }
@@ -115,6 +115,7 @@ export default {
 .header {
   @include w1200();
   max-height: 70px;
+  z-index: 9999;
   @include flex(space-between);
   padding: 10px 0;
   background: #282828;
@@ -147,6 +148,7 @@ export default {
 .header-right .r-ul {
   width: 100%;
   display: flex;
+  position: relative;
   font-size: $large-font;
 }
 .l-ul li {
