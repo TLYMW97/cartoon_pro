@@ -11,6 +11,11 @@ const routes = [
     component: () => import('../views/index/index.vue')
   },
   {
+    path: '/personal',
+    name: 'Personal',
+    component: () => import('../views/personal/personal.vue')
+  },
+  {
     path: '/detail',
     name: 'Detail',
     meta: { hideHeader: false },
@@ -84,25 +89,28 @@ const routes = [
             path: 'publishForm',
             name: 'publishForm',
             meta: { hideHeader: true },
-            component: () => import('../views/author-system/publish/publish-form'),
+            component: () =>
+              import('../views/author-system/publish/publish-form')
           },
           {
             path: 'publishImg',
             name: 'publishImg',
             meta: { hideHeader: true },
-            component: () => import('../views/author-system/publish/publish-img'),
+            component: () =>
+              import('../views/author-system/publish/publish-img')
           },
           {
             path: 'publishChapter',
             name: 'publishChapter',
             meta: { hideHeader: true },
-            component: () => import('../views/author-system/publish/publish-chapter'),
+            component: () =>
+              import('../views/author-system/publish/publish-chapter')
           },
           {
             path: 'finish',
             name: 'finish',
             meta: { hideHeader: true },
-            component: () => import('../views/author-system/publish/finish'),
+            component: () => import('../views/author-system/publish/finish')
           }
         ]
       },
@@ -170,35 +178,36 @@ const routes = [
     ]
   },
   {
-    path:'/adminindex',
-    name:'adminindex',
+    path: '/adminindex',
+    name: 'adminindex',
     redirect: '/adminindex/dataStatistics',
-    meta:{hideHeader: true},
+    meta: { hideHeader: true },
     component: () => import('../views/admin-system/index'),
-    children:[
+    children: [
       {
         path: 'manga',
         name: 'manga',
-        meta: {hideHeader: true},
-        component: () => import('../views/admin-system/manga/manga'),
+        meta: { hideHeader: true },
+        component: () => import('../views/admin-system/manga/manga')
       },
       {
         path: 'comments',
         name: 'comments',
-        meta: {hideHeader: true},
-        component: () => import('../views/admin-system/comments/comments'),
+        meta: { hideHeader: true },
+        component: () => import('../views/admin-system/comments/comments')
       },
       {
         path: 'dataStatistics',
         name: 'dataStatistics',
-        meta: {hideHeader: true},
-        component: () => import('../views/admin-system/data-statistics/data-statistics'),
+        meta: { hideHeader: true },
+        component: () =>
+          import('../views/admin-system/data-statistics/data-statistics')
       },
       {
         path: 'user',
         name: 'user',
-        meta: {hideHeader: true},
-        component: () => import('../views/admin-system/user/user'),
+        meta: { hideHeader: true },
+        component: () => import('../views/admin-system/user/user')
       }
     ]
   }

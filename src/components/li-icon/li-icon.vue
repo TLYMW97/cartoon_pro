@@ -1,49 +1,70 @@
 <template>
-  <li class="operate-item">
-    <router-link :to="path" @mouseover="showPane" @mouseleave="hidePane">
-      <div class="icon">
-        <icon-svg :iconHref="icon" />
-      </div>
-      <p>{{ name }}</p>
-    </router-link>
-    <div class="dropdown-pane">
-      <div class="history-title">我看过的</div>
-      <div class="hisory-manga">
-        <div class="manga-img">
-          <img
-            src="https://61539.wang/a377c1ec68644213a235e9637a00df06_300022.jpg"
-            alt
-          />
+  <div>
+    <a-popover
+      title="我看过的"
+      trigger="hover"
+      placement="bottom"
+      v-if="icon === 'icon-historyrecord'"
+    >
+      <template slot="content">
+        <div class="dropdown-pane">
+          <!-- <div class="history-title">我看过的</div> -->
+          <div class="no-login" v-if="!userInfo.token">
+            <p>你还未登录!</p>
+          </div>
+          <div
+            class="hisory-manga"
+            v-for="manga of historyReads"
+            :key="manga.hisId"
+            @click="toDetail(manga)"
+            v-else
+          >
+            <div class="manga-img">
+              <img :src="manga.episode[0].episodeHref" alt />
+            </div>
+            <div class="manga-des">
+              <p class="manga-name">{{ manga.mangaName }}</p>
+              <p class="last-read">阅读至: {{ manga.chapterTitle }}</p>
+              <p class="renew">更新至: {{ manga.chapterNew.chapterTitle }}</p>
+            </div>
+          </div>
         </div>
-        <div class="manga-des">
-          <p class="manga-name">航海王</p>
-          <p class="last-read">阅读至: 第一回</p>
-          <p class="renew">更新至: 第一回</p>
+      </template>
+      <li class="operate-item">
+        <router-link :to="path" @mouseover="showPane" @mouseleave="hidePane">
+          <div class="icon">
+            <icon-svg :iconHref="icon" />
+          </div>
+          <p>{{ name }}</p>
+        </router-link>
+      </li>
+    </a-popover>
+    <li class="operate-item" v-else>
+      <router-link :to="path" @mouseover="showPane" @mouseleave="hidePane">
+        <div class="icon">
+          <icon-svg :iconHref="icon" />
         </div>
-      </div>
-      <div class="hisory-manga">
-        <div class="manga-img">
-          <img
-            src="https://61539.wang/a377c1ec68644213a235e9637a00df06_300022.jpg"
-            alt
-          />
-        </div>
-        <div class="manga-des">
-          <p class="manga-name">航海王</p>
-          <p class="last-read">阅读至: 第一回</p>
-          <p class="renew">更新至: 第一回</p>
-        </div>
-      </div>
-    </div>
-  </li>
+        <p>{{ name }}</p>
+      </router-link>
+    </li>
+  </div>
 </template>
 
 <script>
 import IconSvg from '../icon-svg/icon-svg';
+import { mapActions } from 'vuex';
 export default {
   name: 'li-icon',
   components: {
     IconSvg
+  },
+  computed: {
+    historyReads() {
+      if (this.userInfo.token) {
+        return this.userInfo.user.historyReads;
+      }
+      return null;
+    }
   },
   data() {
     return {
@@ -56,11 +77,27 @@ export default {
     },
     hidePane() {
       this.paneShow = false;
-    }
+    },
+    toDetail: async function(manga) {
+      const { mangaId } = manga;
+      let res = await this.$api.getById(mangaId);
+      // console.log('res :', res);
+      let {
+        data: { data }
+      } = res;
+      this.setCurManga(data);
+      // this.$emit('toDetail', manga.mangaId);
+      this.$router.push({ path: '/detail', query: { mangaId } });
+    },
+    ...mapActions(['setCurManga'])
   },
   props: {
     id: {
       type: Number
+    },
+    userInfo: {
+      type: Object,
+      default: () => {}
     },
     path: {
       type: String
@@ -81,6 +118,8 @@ export default {
 @import '../../assets/sass/index';
 .operate-item {
   position: relative;
+  display: inline-block;
+  // z-index: 9999;
   margin-left: 30px !important;
   a {
     color: #999;
@@ -92,7 +131,7 @@ export default {
     left: -94px;
     width: 220px;
     background: #fff;
-    z-index: 99;
+    z-index: 9999 !important;
     padding: 10px 15px;
     .history-title {
       font-size: $medium-x-font;

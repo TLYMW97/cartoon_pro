@@ -198,6 +198,14 @@ export default {
     RankList,
     IndexBanner
   },
+  watch: {
+    $route(to, from) {
+      // console.log('from :', from);
+      if (from.path === '/login') {
+        this.$router.go(0);
+      }
+    }
+  },
   methods: {
     indexInit: async function() {
       window.scrollTo(0, 0);

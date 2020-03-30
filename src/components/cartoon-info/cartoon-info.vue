@@ -4,7 +4,10 @@
       <img :src="mangaEpisode" alt />
     </div>
     <div class="c-des">
-      <h3>{{ mangaData.mangaName }} <a-tag color="red">付费</a-tag></h3>
+      <h3>
+        {{ mangaData.mangaName }}
+        <a-tag color="red" v-if="mangaData.mangaPrice > 0">付费</a-tag>
+      </h3>
       <p class="composer">作者：{{ mangaData.mangaAuthor }}</p>
       <div class="status">
         <p>

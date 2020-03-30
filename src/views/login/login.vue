@@ -1,7 +1,10 @@
 <template>
   <div class="login-form">
     <div class="form-l">
-      <img src="http://css99tel.cdndm5.com/v202001161319/blue/images/login.png" alt />
+      <img
+        src="http://css99tel.cdndm5.com/v202001161319/blue/images/login.png"
+        alt
+      />
     </div>
     <div class="form-r">
       <a-tabs v-model="activeKey">
@@ -58,8 +61,34 @@ export default {
       } = res;
       this.code = code;
     },
-    login(val) {
-      this.userLogin(val);
+    login: async function(val) {
+      // console.log('object :', await this.userLogin(val));
+      let res = await this.userLogin(val);
+      if (res.token) {
+        let historyReads = await this.getHistoryRead();
+        let userInfo = await this.getUserInfo();
+        userInfo.historyReads = historyReads;
+        this.setInfo(userInfo);
+        // console.log('userInfo :', userInfo);
+        this.$router.go(-1);
+      }
+    },
+    getHistoryRead: async function() {
+      let res = await this.$api.qryHistory({ page: 1, size: 3 });
+      let qres = await this.$api.qrySelf();
+      let {
+        data: {
+          data: { list }
+        }
+      } = res;
+      return list;
+    },
+    getUserInfo: async function() {
+      let res = await this.$api.qrySelf();
+      let {
+        data: { data }
+      } = res;
+      return data;
     },
     register: async function(val) {
       let res = await this.$api.register(val);
@@ -71,7 +100,7 @@ export default {
         this.activeKey = '1';
       }
     },
-    ...mapActions(['userLogin'])
+    ...mapActions(['userLogin', 'setInfo'])
   }
 };
 </script>

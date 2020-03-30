@@ -186,6 +186,7 @@ export default {
         this.payShow = true;
       } else {
         this.episodes = data.slice(1);
+        this.payShow = false;
       }
     },
     allSaw() {

@@ -3,6 +3,13 @@ import { message } from 'ant-design-vue';
 import router from '@/router/index';
 const mutations = {
   [types.SET_USER_INFO](state, user) {
+    let { user: userInfo } = state;
+    if (userInfo.token) {
+      userInfo.user = user;
+      sessionStorage.setItem('user', JSON.stringify(userInfo));
+      state.user = userInfo;
+      return;
+    }
     sessionStorage.setItem('user', JSON.stringify(user));
     state.user = user;
   },
@@ -37,14 +44,15 @@ const mutations = {
     state.authorManga = authorManga;
     sessionStorage.setItem('authorManga', JSON.stringify(authorManga));
   },
-  [types.SET_MANGA_DATA](state, mangaData){
+  [types.SET_MANGA_DATA](state, mangaData) {
     state.mangaData = mangaData;
     sessionStorage.setItem('mangaData', JSON.stringify(mangaData));
   },
-  [types.SET_CREATE_MANGA_FORM](state, mangaForm){
+  [types.SET_CREATE_MANGA_FORM](state, mangaForm) {
     state.mangaForm = mangaForm;
     sessionStorage.setItem('mangaForm', JSON.stringify(mangaForm));
   },
+  [types.SET_MANGA_TITLE_PAGE](state, mangaTitlePage) {
   [types.SET_CREATE_MANGA_ID](state, mangaId){
     state.mangaId = mangaId;
     sessionStorage.setItem('mangaId', JSON.stringify(mangaId));
@@ -53,6 +61,7 @@ const mutations = {
     state.mangaTitlePage = mangaTitlePage;
     sessionStorage.setItem('mangaTitlePage', JSON.stringify(mangaTitlePage));
   },
+  [types.SET_CHAPTER_DATA](state, chapterData) {
   [types.SET_CHAPTER_DATA](state, chapterData){
     state.chapterData = chapterData;
     sessionStorage.setItem('chapterData', JSON.stringify(chapterData));

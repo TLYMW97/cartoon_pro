@@ -4,6 +4,7 @@ const productionGzipExtensions = ['js', 'css'];
 const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
+  publicPath: './',
   configureWebpack: config => {
     config.externals = {
       vue: 'Vue',
