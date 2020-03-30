@@ -158,14 +158,27 @@ export default {
   methods: {
     getFormData() {
     },
-    addManga: async function(mangaId, mangaData) {
+    addMangaData: async function(mangaId, mangaData) {
       if (mangaId === 0) {
         mangaData.tags = this.tags(mangaData.tags);
-        let mangaId = await this.$api.addManga(mangaData);
         console.log(mangaId);
-        this.setCreateMangaId('111');
-        this.$emit('next', 'publishImg');
-        this.$router.push({path:'/publish/publishImg'});
+        console.log(this.getCreateMangaId);
+        if(this.getCreateMangaId.length !== 0){
+          console.log(1);
+          this.$emit('next', 'publishImg');
+          this.$router.push({path:'/publish/publishImg'});
+        }else {
+          console.log(2);
+          let mangaId = await this.$api.addManga(mangaData);
+          console.log(mangaId);
+          if(mangaId.data.code === 50009){
+            console.log('存在');
+          } else {
+            this.setCreateMangaId(mangaId.data.data.mangaId);
+            this.$emit('next', 'publishImg');
+            this.$router.push({path:'/publish/publishImg'});
+          }
+        }
       }
     },
     tags(tagData) {
@@ -192,7 +205,7 @@ export default {
         if (!err && this.check) {
           console.log(value);
           this.setCreateMangaForm(value);
-          this.addManga(0, value);
+          this.addMangaData(0, value);
         }
       });
     },
@@ -200,6 +213,9 @@ export default {
   },
   created() {
 
+  },
+  computed: {
+    ...mapGetters(['getCreateMangaId'])
   },
   mounted() {
       this.getFormData();

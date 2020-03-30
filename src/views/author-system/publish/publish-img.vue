@@ -83,9 +83,14 @@
             next(){
                 console.log(this.img);
                 console.log(this.getCreateMangaId);
-                this.setMangaTitlePage(this.img);
-                this.$emit('next','publishChapter');
-                this.$router.push({path:'/publish/publishChapter'});
+                let mangaImg = this.$api.addEpisodeList([{
+                    mangaId: this.getCreateMangaId,
+                    episodeCategory: 0,
+                    episodeBase64: this.img.img.substring(27),
+                }]) ;
+                // this.setMangaTitlePage(this.img);
+                // this.$emit('next','publishChapter');
+                // this.$router.push({path:'/publish/publishChapter'});
             },
             back(){
                 this.$emit('back', 'publishForm');
