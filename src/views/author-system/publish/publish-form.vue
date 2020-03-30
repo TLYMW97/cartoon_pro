@@ -81,7 +81,7 @@
           </a-radio-group>
         </a-form-item>
         <a-form-item v-bind="formItemLayout" label="*漫画题材">
-          <a-checkbox-group class="check-box" v-decorator="['tags',{initialValue:[480]}]">
+          <a-checkbox-group class="check-box" v-decorator="['tags',{initialValue:[479]}]">
             <a-checkbox v-for="checkItem of classTag" :value="checkItem.value" :key="checkItem.value">{{checkItem.label}}</a-checkbox>
           </a-checkbox-group>
         </a-form-item>
@@ -161,7 +161,9 @@ export default {
     addManga: async function(mangaId, mangaData) {
       if (mangaId === 0) {
         mangaData.tags = this.tags(mangaData.tags);
-        // await this.$api.addManga(mangaData);
+        let mangaId = await this.$api.addManga(mangaData);
+        console.log(mangaId);
+        this.setCreateMangaId('111');
         this.$emit('next', 'publishImg');
         this.$router.push({path:'/publish/publishImg'});
       }
@@ -175,6 +177,7 @@ export default {
     },
     getClassTag: async function() {
       let classes = await this.$api.classes();
+      console.log(classes);
       this.classTag = classes.data.data.map(value => {
         let obj = {
           label: value.tagName,
@@ -193,7 +196,7 @@ export default {
         }
       });
     },
-    ...mapActions(['setCreateMangaForm'])
+    ...mapActions(['setCreateMangaForm','setCreateMangaId'])
   },
   created() {
 

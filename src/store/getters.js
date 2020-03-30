@@ -10,3 +10,4 @@ export const getMangaByClick = state => state.mangaData;
 export const getCreateMangaForm = state => state.mangaForm;
 export const getMangaTitlePage = state => state.mangaTitlePage;
 export const getChapterData = state => state.chapterData;
+export const getCreateMangaId = state => state.mangaId;

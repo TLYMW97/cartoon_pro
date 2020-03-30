@@ -46,7 +46,7 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
+    import {mapActions,mapGetters} from 'vuex';
     export default {
         name: "publish-img",
         data(){
@@ -82,6 +82,7 @@
             },
             next(){
                 console.log(this.img);
+                console.log(this.getCreateMangaId);
                 this.setMangaTitlePage(this.img);
                 this.$emit('next','publishChapter');
                 this.$router.push({path:'/publish/publishChapter'});
@@ -91,6 +92,9 @@
                 this.$router.push({path:'/publish/publishForm'});
             },
             ...mapActions(['setMangaTitlePage'])
+        },
+        computed: {
+            ...mapGetters(['getCreateMangaId'])
         }
     };
 </script>

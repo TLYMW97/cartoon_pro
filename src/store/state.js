@@ -9,6 +9,7 @@ const sessionData = {
   authorManga: JSON.parse(sessionStorage.getItem('authorManga')),
   mangaData: JSON.parse(sessionStorage.getItem('mangaData')),
   mangaForm: JSON.parse(sessionStorage.getItem('mangaForm')),
+  mangeId: JSON.parse(sessionStorage.getItem('mangaId')),
   mangaTitlePage: JSON.parse(sessionStorage.getItem('mangaTitlePage')),
   chapterData: JSON.parse(sessionStorage.getItem('chapterData')),
 };
@@ -23,6 +24,7 @@ const state = {
   authorManga: sessionData.authorManga || [],
   mangaData: sessionData.mangaData || [],
   mangaForm: sessionData.mangaForm || [],
+  mangaId: sessionData.mangaId || [],
   mangaTitlePage: sessionData.mangaTitlePage || [],
   chapterData: sessionData.chapterData || [],
 };

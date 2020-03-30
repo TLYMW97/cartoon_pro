@@ -90,6 +90,11 @@ export const setCreateMangaForm = async ({commit}, form) =>{
   commit(types.SET_CREATE_MANGA_FORM, form);
 }
 
+// 存入当前创建的漫画ID
+export const setCreateMangaId = async ({commit}, mangaId) => {
+  commit(types.SET_CREATE_MANGA_ID, mangaId);
+}
+
 // 存入漫画封面图片
 export const setMangaTitlePage = async ({commit}, titlePage) => {
   commit(types.SET_MANGA_TITLE_PAGE, titlePage);

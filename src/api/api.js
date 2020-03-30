@@ -144,6 +144,12 @@ export const getUnauditManga = unAuditType => {
   return service.post('/unAudit', unAuditType);
 };
 
+// 添加漫画信息
 export const addManga = mangaData => {
   return service.post('/addManga', mangaData);
+}
+
+// 添加漫画内容图片和封面图片
+export const addEpisodeList = episodeListData => {
+  return service.post('/addEpisodeList', episodeListData);
 }
