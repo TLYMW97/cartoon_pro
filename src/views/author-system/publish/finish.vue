@@ -13,12 +13,17 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
     export default {
         name: "finish",
         methods:{
             back(){
-                this.$router.push('/home')
-            }
+                this.$api.findMyManga().then(res=>{
+                    this.authorUploadManga(res.data.data);
+                    this.$router.push({path:'/home',replace: true})
+                });
+            },
+            ...mapActions(['authorUploadManga'])
         }
     }
 </script>

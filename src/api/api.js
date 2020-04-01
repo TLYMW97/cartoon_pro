@@ -168,3 +168,13 @@ export const unAudit = param => {
 export const addEpisodeList = episodeListData => {
   return service.post('/addEpisodeList', episodeListData);
 }
+
+// 添加章节信息
+export const addChapter = chapterData => {
+  return service.post('/addChapter', chapterData);
+}
+
+// 删除整部漫画
+export const deleteManga = mangaId => {
+  return service.post('/deleteManga', mangaId);
+}

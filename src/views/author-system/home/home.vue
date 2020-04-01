@@ -20,6 +20,7 @@
             myCartoonList,
         },
         created(){
+
         },
         methods:{
         }

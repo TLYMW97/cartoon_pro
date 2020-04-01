@@ -1,7 +1,7 @@
 <template>
     <div class="edit-list">
         <div class="title">
-            <h3>123</h3>
+            <h3>{{mangaTitle}}</h3>
         </div>
         <div class="list-tab">
             <div class="menu-title">
@@ -18,11 +18,12 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
     export default {
         name: "edit-list",
         data(){
             return{
-              listData:[
+                listData:[
                   {
                       text:'作品概要',
                       router: '/cartoonedit',
@@ -47,9 +48,18 @@
                       text:'评论管理',
                       router: '/commentedit',
                   },
-              ]
+                ],
+                mangaTitle: null,
             };
-        }
+        },
+        created() {
+            this.mangaTitle = this.getMangaByClick.mangaName;
+        },
+        methods:{
+        },
+        computed: {
+            ...mapGetters(['getMangaByClick'])
+        },
     };
 </script>
 
@@ -61,18 +71,25 @@
         background: #f7f7f7;
     }
     .edit-list .title{
+        width: 100%;
         height: 60px;
         border-bottom: #d6d6d6 solid 1px;
         background: #7451ca;
         border-radius: 15px 0 0 0;
+        display: flex;
+        justify-content: center;
     }
     .title h3{
+        width: 80%;
         border-radius: 15px 0 0 0;
         line-height: 60px;
+        height: 60px;
         text-align: center;
-        font-size: 18px;
+        font-size: 16px;
         color: white;
-        margin-bottom: 0;
+        display: block;
+        overflow:hidden;
+        text-overflow:ellipsis;
     }
     .edit-list .list-tab{
     }

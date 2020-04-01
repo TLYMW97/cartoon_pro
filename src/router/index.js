@@ -150,6 +150,12 @@ const routes = [
           import('../views/author-system/cartoon-edit/chapter-edit')
       },
       {
+        path: '/chapterlist',
+        name: 'chapterlist',
+        meta:{hideHeader:true},
+        component: () => import('../views/author-system/components/chapter-list')
+      },
+      {
         path: '/commentedit',
         name: 'commentedit',
         meta: { hideHeader: true },

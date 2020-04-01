@@ -31,7 +31,7 @@
                     <div class="cartoon-edit">
                         <a-button type="primary" icon="file-add" @click="$router.push('/publishchapter')">新建章节</a-button>
                         <a-button type="primary" icon="picture" @click="$router.push('/publishimg')">修改封面</a-button>
-                        <a-button type="primary" icon="edit" @click="$router.push('/chapteredit')">章节管理</a-button>
+                        <a-button type="primary" icon="edit" @click="$router.push('/chapterlist')">章节管理</a-button>
                         <a-button type="primary" icon="delete" @click="deleteManga">删除</a-button>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
+    import {mapGetters,mapActions} from 'vuex';
     export default {
         name: "cartoon-edit",
         components:{
@@ -62,7 +62,14 @@
                 this.cartoonData = this.getMangaByClick;
             },
             deleteManga(){
-            }
+                this.$api.deleteManga({mangaId:this.cartoonData.mangaId}).then(res=>{
+                    this.$api.findMyManga().then(res=>{
+                        this.authorUploadManga(res.data.data);
+                        this.$router.push({path:'/home'});
+                    });
+                })
+            },
+            ...mapActions(['authorUploadManga'])
         },
         computed:{
             ...mapGetters(['getMangaByClick'])

@@ -38,6 +38,11 @@
                 listNum: [],
             };
         },
+        watch:{
+            '$store.state.authorManga':function(newFlag, oldFlag){
+                this.listData = this.authorManga;
+            }
+        },
         methods:{
             getCartoon(data){
                 this.setMangaByClick(data);
@@ -66,8 +71,6 @@
             ...mapGetters(['authorManga'])
         },
         created() {
-        },
-        mounted() {
             this.getListData();
         }
     };

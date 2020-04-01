@@ -38,7 +38,7 @@
         </div>
         <div class="btn">
             <div class="btn-middle">
-                <a-button type="primary" @click="back">上一步</a-button>
+                <!--<a-button type="primary" @click="back">上一步</a-button>-->
                 <a-button type="primary" @click="next">下一步</a-button>
             </div>
         </div>
@@ -83,14 +83,15 @@
             next(){
                 console.log(this.img);
                 console.log(this.getCreateMangaId);
+                console.log(this.getMangaTitlePage);
                 let mangaImg = this.$api.addEpisodeList([{
                     mangaId: this.getCreateMangaId,
                     episodeCategory: 0,
-                    episodeBase64: this.img.img.substring(27),
+                    episodeBase64: this.img.img.substring(23),
                 }]) ;
-                // this.setMangaTitlePage(this.img);
-                // this.$emit('next','publishChapter');
-                // this.$router.push({path:'/publish/publishChapter'});
+                this.setMangaTitlePage(this.img);
+                this.$emit('next','publishChapter');
+                this.$router.push({path:'/publish/publishChapter'});
             },
             back(){
                 this.$emit('back', 'publishForm');
@@ -99,7 +100,7 @@
             ...mapActions(['setMangaTitlePage'])
         },
         computed: {
-            ...mapGetters(['getCreateMangaId'])
+            ...mapGetters(['getCreateMangaId','getMangaTitlePage'])
         }
     };
 </script>

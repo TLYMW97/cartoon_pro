@@ -4,32 +4,34 @@
       <h3>发布章节</h3>
     </div>
     <div class="form">
-      <a-form :layout="formLayout">
+      <a-form :layout="formLayout" :form="chapterForm" @submit="push">
+        <!--<a-form-item v-bind="formItemLayout" label="*阅读顺序">-->
+          <!--<a-radio-group v-decorator="['readRadio']">-->
+            <!--<a-radio value="1">话</a-radio>-->
+            <!--<a-radio value="2">卷</a-radio>-->
+            <!--<a-radio value="3">外传</a-radio>-->
+            <!--<a-radio value="4">其他</a-radio>-->
+          <!--</a-radio-group>-->
+        <!--</a-form-item>-->
         <a-form-item
           :wrapper-col="{ span: 7 }"
           :label-col="{ span: 4 }"
-          label="*章节排序"
+          label="*章节名称"
         >
-          <a-input></a-input>
+          <a-input placeholder="请按填写章节号与章节标题"
+            v-decorator="[
+            'chapterTitle',
+              {
+                  rules: [{
+                    required: true, message: '请求输入章节号与章节标题',
+                  }]
+              }
+            ]"
+          ></a-input>
         </a-form-item>
-        <a-form-item v-bind="formItemLayout" label="*阅读顺序">
-          <a-radio-group v-decorator="['radio-group']">
-            <a-radio value="1">话</a-radio>
-            <a-radio value="2">卷</a-radio>
-            <a-radio value="3">外传</a-radio>
-            <a-radio value="4">其他</a-radio>
-          </a-radio-group>
-        </a-form-item>
-        <a-form-item
-          :wrapper-col="{ span: 7 }"
-          :label-col="{ span: 4 }"
-          label="*章节详情"
-        >
-          <a-input placeholder="请按填写章节号与章节标题"></a-input>
-        </a-form-item>
-        <a-form-item v-bind="formItemLayout" label="特殊说明">
-          <a-textarea placeholder="请输入作品简介" :rows="5"></a-textarea>
-        </a-form-item>
+        <!--<a-form-item v-bind="formItemLayout" label="特殊说明">-->
+          <!--<a-textarea placeholder="请输入作品简介" :rows="5"></a-textarea>-->
+        <!--</a-form-item>-->
         <a-form-item v-bind="formItemLayout" label="图片上传">
           <div class="img-div">
             <div class="img-upload">
@@ -46,7 +48,7 @@
                     icon="zoom-in"
                   />
                 </div>
-                <img :src="item.img" alt="" />
+                <img :src="item.episodeBase64" alt="" />
               </div>
               <a-upload
                 listType="picture-card"
@@ -70,9 +72,9 @@
               </a-upload>
             </div>
             <div class="upload">
-              <div class="left">
-                <a-button type="primary" @click="upLoadImg">开始上传</a-button>
-              </div>
+              <!--<div class="left">-->
+                <!--<a-button type="primary" @click="upLoadImg">开始上传</a-button>-->
+              <!--</div>-->
               <div class="right">
                 <p>1.漫画请按照顺序上传。</p>
                 <p>2.选择图片时可用鼠标批量框选上传。</p>
@@ -81,87 +83,118 @@
             </div>
           </div>
         </a-form-item>
+        <a-form-item class="btn">
+          <div class="btn-middle">
+            <!--<a-button type="primary" @click="back">上一步</a-button>-->
+            <a-button type="primary" html-type="submit">提交审核</a-button>
+          </div>
+        </a-form-item>
       </a-form>
-      <div class="btn">
-        <div class="btn-middle">
-          <a-button type="primary" @click="back">上一步</a-button>
-          <a-button type="primary" @click="push">提交审核</a-button>
-        </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'publish-chapter',
-  data() {
-    return {
-      // form-item布局类型
-      formLayout: 'horizontal',
-      // form-item布局格式
-      formItemLayout: {
-        labelCol: { span: 4 },
-        wrapperCol: { span: 18 }
-      },
-      // 图片列表
-      showUploadList: false,
-      imgList: [],
-      fileList: [],
-      previewImage: '',
-      previewVisible: false,
-      multiple: true
-    };
-  },
-  methods: {
-    // 上传图片
-    upLoadImg() {},
-    // 上传前处理
-    beforeUpload(file) {
-      let r = new FileReader();
-      r.readAsDataURL(file);
-      r.onload = e => {
-        file.thumbUrl = e.target.result;
-        let img = {
-          img: file.thumbUrl,
-          id: file.uid
-        };
-        this.imgList.push(img);
+  import {mapGetters} from 'vuex'
+  export default {
+    name: 'publish-chapter',
+    data() {
+      return {
+        chapterForm: this.$form.createForm(this),
+        // form-item布局类型
+        formLayout: 'horizontal',
+        // form-item布局格式
+        formItemLayout: {
+          labelCol: { span: 4 },
+          wrapperCol: { span: 18 }
+        },
+        // 图片列表
+        showUploadList: false,
+        imgList: [],
+        fileList: [],
+        previewImage: '',
+        previewVisible: false,
+        multiple: true
       };
-      return false;
     },
-    // 关闭大图预览（点击空白处）
-    handleCancel() {
-      this.previewVisible = false;
+    methods: {
+      // 上传图片
+      upLoadImg(e) {
+      },
+      // 上传前处理
+      beforeUpload(file) {
+        let r = new FileReader();
+        r.readAsDataURL(file);
+        r.onload = e => {
+          file.thumbUrl = e.target.result;
+          let img = {
+            episodeBase64: file.thumbUrl,
+            id: file.uid
+          };
+          this.imgList.push(img);
+        };
+        return false;
+      },
+      // 关闭大图预览（点击空白处）
+      handleCancel() {
+        this.previewVisible = false;
+      },
+      // 改变图片钩子
+      handleChange({ fileList }) {
+        this.fileList = fileList;
+      },
+      // 返回上一页
+      back() {
+        this.$emit('back', 'publishImg');
+        this.$router.push({path:'/publish/publishImg'});
+      },
+      // 提交审核
+      push(e) {
+        console.log(this.imgList);
+        e.preventDefault();
+        this.chapterForm.validateFields((err,value) => {
+          // console.log(value);
+          // console.log(this.getCreateMangaId);
+          this.$api.addChapter({
+            chapterTitle:value.chapterTitle,
+            mangaId: this.getCreateMangaId,
+          }).then(res=>{
+            console.log(res);
+            let chapterId = res.data.data;
+            let ary = this.imgList.map(value => {
+              let array = {
+                episodeBase64: value.episodeBase64.substring(23),
+                chapterId:res.data.data.chapterId,
+                episodeCategory: 1,
+              }
+              return array;
+            })
+            console.log(ary);
+            this.$api.addEpisodeList(ary).then(res=>{
+              console.log(res);
+              this.$emit('next', 'finish');
+              this.$router.push({path:'/publish/finish'});
+            });
+          })
+        })
+      },
+      //
+      deleteImg(img) {
+        this.imgList.some((value, index) => {
+          if (img.id === value.id) {
+            this.fileList.splice(index, 1);
+            this.imgList.splice(index, 1);
+          }
+        });
+      },
+      zoomIn(img) {
+        this.previewVisible = true;
+        this.previewImage = img.episodeBase64;
+      }
     },
-    // 改变图片钩子
-    handleChange({ fileList }) {
-      this.fileList = fileList;
-    },
-    // 返回上一页
-    back() {
-      this.$emit('back', 'publishImg');
-      this.$router.push({path:'/publish/publishImg'});
-    },
-    // 提交审核
-    push() {
-      this.$emit('next', 'finish');
-      this.$router.push({path:'/publish/finish'});
-    },
-    //
-    deleteImg(img) {
-      this.imgList.some((value, index) => {
-        if (img.id === value.id) {
-          this.fileList.splice(index, 1);
-          this.imgList.splice(index, 1);
-        }
-      });
-    },
-    zoomIn(img) {
-      this.previewVisible = true;
-      this.previewImage = img.img;
+    computed: {
+      ...mapGetters(['getCreateMangaId'])
     }
-  }
 };
 </script>
 

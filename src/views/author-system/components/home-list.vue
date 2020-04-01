@@ -25,7 +25,7 @@
                     <router-link to="/mycartoon">我的漫画</router-link>
                 </li>
                 <li class="manga-list" v-for="list of listData" :key="list.mangaId">
-                    <router-link to="">{{list.mangaName}}</router-link>
+                    <router-link to="" @click.native="getCartoon(list)">{{list.mangaName}}</router-link>
                 </li>
             </ul>
         </div>
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
+    import {mapGetters,mapActions} from 'vuex';
     export default {
         name: "home-list",
         data(){
@@ -41,10 +41,21 @@
                 listData: [],
             };
         },
+        watch:{
+            '$store.state.authorManga':function(newFlag, oldFlag){
+                this.listData = this.authorManga;
+            }
+        },
         methods:{
             getListData(){
                 this.listData = this.authorManga;
-            }
+            },
+            getCartoon(data){
+                console.log(data);
+                this.setMangaByClick(data);
+                this.$router.push("/homeedit");
+            },
+            ...mapActions(['setMangaByClick'])
         },
         computed: {
             ...mapGetters(['authorManga'])
