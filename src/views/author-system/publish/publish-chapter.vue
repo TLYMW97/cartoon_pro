@@ -16,15 +16,16 @@
         <a-form-item
           :wrapper-col="{ span: 7 }"
           :label-col="{ span: 4 }"
-          label="*章节名称"
+          label="章节名称"
         >
           <a-input placeholder="请按填写章节号与章节标题"
             v-decorator="[
             'chapterTitle',
               {
-                  rules: [{
-                    required: true, message: '请求输入章节号与章节标题',
-                  }]
+                initialValue: chapterTitle,
+                rules: [{
+                  required: true, message: '请求输入章节号与章节标题',
+                }]
               }
             ]"
           ></a-input>
@@ -95,7 +96,7 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+  import {mapGetters,mapActions} from 'vuex';
   export default {
     name: 'publish-chapter',
     data() {
@@ -114,10 +115,20 @@
         fileList: [],
         previewImage: '',
         previewVisible: false,
-        multiple: true
+        multiple: true,
+        chapterTitle: '',
       };
     },
+    created(){
+      this.editChapter();
+    },
+    beforeDestroy(){
+      this.deleteTableByEdit();
+    },
     methods: {
+      createChapter(){
+        console.log(this.getMangaByClick);
+      },
       // 上传图片
       upLoadImg(e) {
       },
@@ -152,12 +163,18 @@
       push(e) {
         console.log(this.imgList);
         e.preventDefault();
+        let theMangaId
+        if(this.getMangaByClick){
+          theMangaId = this.getMangaByClick.mangaId;
+        }else {
+          theMangaId = this.getCreateMangaId;
+        }
         this.chapterForm.validateFields((err,value) => {
           // console.log(value);
           // console.log(this.getCreateMangaId);
           this.$api.addChapter({
             chapterTitle:value.chapterTitle,
-            mangaId: this.getCreateMangaId,
+            mangaId: theMangaId,
           }).then(res=>{
             console.log(res);
             let chapterId = res.data.data;
@@ -166,17 +183,21 @@
                 episodeBase64: value.episodeBase64.substring(23),
                 chapterId:res.data.data.chapterId,
                 episodeCategory: 1,
-              }
+              };
               return array;
-            })
+            });
             console.log(ary);
             this.$api.addEpisodeList(ary).then(res=>{
               console.log(res);
-              this.$emit('next', 'finish');
-              this.$router.push({path:'/publish/finish'});
+              if(this.getMangaByClick){
+                this.$router.back(-1);
+              }else {
+                this.$emit('next', 'finish');
+                this.$router.push({path:'/publish/finish'});
+              }
             });
-          })
-        })
+          });
+        });
       },
       //
       deleteImg(img) {
@@ -190,10 +211,33 @@
       zoomIn(img) {
         this.previewVisible = true;
         this.previewImage = img.episodeBase64;
-      }
+      },
+      // 编辑章节
+      editChapter(){
+        let data = this.getTableByEdit;
+        if(data){
+          console.log(data);
+          this.chapterTitle = data.chapterTitle;
+          this.$api.findEpisodeByAuthor({chapterId:data.chapterId}).then(res=>{
+            res.data.data.map(value=>{
+              let img = {
+                episodeBase64: value.episodeHref,
+                id: value.episodeId
+              };
+              this.imgList.push(img);
+              // console.log(res.data.data);
+              // console.log(this.imgList);
+            });
+          });
+        }
+      },
+      deleteTableByEdit(){
+        this.setTableByEdit(0);
+      },
+      ...mapActions(['setTableByEdit'])
     },
     computed: {
-      ...mapGetters(['getCreateMangaId'])
+      ...mapGetters(['getCreateMangaId','getTableByEdit','getMangaByClick'])
     }
 };
 </script>

@@ -138,6 +138,8 @@ export const qryAccount = accountId => {
 export const expenditure = object => {
   return service.post('/expenditure', object);
 };
+
+
 /**
  * 作者端接口
  **/
@@ -157,24 +159,39 @@ export const addManga = mangaData => {
   return service.post('/addManga', mangaData);
 };
 
+// 添加漫画内容图片和封面图片
+export const addEpisodeList = episodeListData => {
+    return service.post('/addEpisodeList', episodeListData);
+}
+
+// 添加章节信息
+export const addChapter = chapterData => {
+    return service.post('/addChapter', chapterData);
+}
+
+// 删除整部漫画
+export const deleteManga = mangaId => {
+    return service.post('/deleteManga', mangaId);
+}
+
+// 获取章节信息
+export const findChapterByAuthor = mangaId => {
+    return service.post('/findChapterByAuthor', mangaId);
+}
+
+// 获取漫画章节内容图片
+export const findEpisodeByAuthor = chapterId => {
+    return service.post('/findEpisodeByAuthor',chapterId);
+}
+
+// 删除章节
+export const deleteChapter = chapterId => {
+  return service.post('/deleteChapter', chapterId);
+}
+
 /**
  * 管理端端接口
  **/
 export const unAudit = param => {
   return service.post('/unAudit', param);
 };
-
-// 添加漫画内容图片和封面图片
-export const addEpisodeList = episodeListData => {
-  return service.post('/addEpisodeList', episodeListData);
-}
-
-// 添加章节信息
-export const addChapter = chapterData => {
-  return service.post('/addChapter', chapterData);
-}
-
-// 删除整部漫画
-export const deleteManga = mangaId => {
-  return service.post('/deleteManga', mangaId);
-}

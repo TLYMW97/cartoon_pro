@@ -12,6 +12,9 @@ const sessionData = {
   mangeId: JSON.parse(sessionStorage.getItem('mangaId')),
   mangaTitlePage: JSON.parse(sessionStorage.getItem('mangaTitlePage')),
   chapterData: JSON.parse(sessionStorage.getItem('chapterData')),
+  tableData: JSON.parse(sessionStorage.getItem('tableData')),
+  tableColums: JSON.parse(sessionStorage.getItem('tableColums')),
+  tableRowData: JSON.parse(sessionStorage.getItem('tableRowData')),
 };
 const state = {
   user: sessionData.user || {},
@@ -27,5 +30,8 @@ const state = {
   mangaId: sessionData.mangaId || [],
   mangaTitlePage: sessionData.mangaTitlePage || [],
   chapterData: sessionData.chapterData || [],
+  tableData: sessionData.tableData || [],
+  tableColums: sessionData.tableColums || [],
+  tableRowData: sessionData.tableRowData || [],
 };
 export default state;

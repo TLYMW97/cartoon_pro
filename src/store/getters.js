@@ -11,3 +11,7 @@ export const getCreateMangaForm = state => state.mangaForm;
 export const getMangaTitlePage = state => state.mangaTitlePage;
 export const getChapterData = state => state.chapterData;
 export const getCreateMangaId = state => state.mangaId;
+// 获取table数据
+export const getTableColums = state => state.tableColums;
+export const getTableData = state => state.tableData;
+export const getTableByEdit = state => state.tableRowData;

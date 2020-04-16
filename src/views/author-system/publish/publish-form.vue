@@ -163,13 +163,12 @@ export default {
         mangaData.tags = this.tags(mangaData.tags);
         console.log(mangaId);
         console.log(this.getCreateMangaId);
-        let mangaId = await this.$api.addManga(mangaData);
-        console.log(mangaId);
-        if(mangaId.data.code === 50009){
+        let Id = await this.$api.addManga(mangaData);
+        console.log(Id);
+        if(Id.data.code === 50009){
           console.log('存在');
-
         } else {
-          this.setCreateMangaId(mangaId.data.data.mangaId);
+          this.setCreateMangaId(Id.data.data.mangaId);
           this.$emit('next', 'publishImg');
           this.$router.push({path:'/publish/publishImg'});
         }

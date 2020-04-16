@@ -11,7 +11,7 @@
                     <router-link to="">漫画管理</router-link>
                 </li>
                 <li class="child-list">
-                    <router-link to="/publish">发表漫画</router-link>
+                    <router-link  to="/publish" @click.native="toPublish">发表漫画</router-link>
                 </li>
                 <li class="child-list">
                     <router-link to="/review">漫画审核列表</router-link>
@@ -47,6 +47,9 @@
             }
         },
         methods:{
+            toPublish(){
+                this.setTableByEdit(0);
+            },
             getListData(){
                 this.listData = this.authorManga;
             },
@@ -55,7 +58,7 @@
                 this.setMangaByClick(data);
                 this.$router.push("/homeedit");
             },
-            ...mapActions(['setMangaByClick'])
+            ...mapActions(['setMangaByClick','setTableByEdit'])
         },
         computed: {
             ...mapGetters(['authorManga'])

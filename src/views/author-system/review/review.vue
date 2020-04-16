@@ -4,18 +4,18 @@
             <h3>章节审核</h3>
         </div>
         <div class="review-list">
-            <chapterList v-if="listShow"></chapterList>
+            <reviewList v-if="listShow"></reviewList>
             <img src="http://css99tel.cdndm5.com/v202002212048/cartoonupload/images/noData.png" v-else alt="">
         </div>
     </div>
 </template>
 
 <script>
-    import chapterList from '../components/chapter-list';
+    import reviewList from './components/review-list';
     export default {
         name: "review",
         components:{
-            chapterList,
+            reviewList,
         },
         data(){
             return{

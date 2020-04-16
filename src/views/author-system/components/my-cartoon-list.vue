@@ -52,7 +52,9 @@
                 this.$router.push("/publish");
             },
             getListData: async function(){
-                this.listData = this.authorManga;
+                let manga = await this.$api.findMyManga({type:3});
+                this.authorUploadManga(manga.data.data);
+                this.listData = manga.data.data;
                 let count = 0;
                 if(this.listData.length>0)this.showButton = false;
                 this.listNum.push(0)
@@ -65,7 +67,7 @@
                     }
                 })
             },
-            ...mapActions(['setMangaByClick'])
+            ...mapActions(['setMangaByClick','authorUploadManga'])
         },
         computed: {
             ...mapGetters(['authorManga'])

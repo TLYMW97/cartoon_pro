@@ -29,9 +29,9 @@
                         <p>人气值：{{cartoonData.mangaPopularity}}</p>
                     </div>
                     <div class="cartoon-edit">
-                        <a-button type="primary" icon="file-add" @click="$router.push('/publishchapter')">新建章节</a-button>
+                        <a-button type="primary" icon="file-add" @click="addManga">新建章节</a-button>
                         <a-button type="primary" icon="picture" @click="$router.push('/publishimg')">修改封面</a-button>
-                        <a-button type="primary" icon="edit" @click="$router.push('/chapterlist')">章节管理</a-button>
+                        <a-button type="primary" icon="edit" @click="$router.push('/chapteredit')">章节管理</a-button>
                         <a-button type="primary" icon="delete" @click="deleteManga">删除</a-button>
                     </div>
                 </div>
@@ -58,12 +58,16 @@
             this.getData();
         },
         methods:{
+            addManga(){
+
+                this.$router.push('/publishchapter')
+            },
             getData(){
                 this.cartoonData = this.getMangaByClick;
             },
             deleteManga(){
                 this.$api.deleteManga({mangaId:this.cartoonData.mangaId}).then(res=>{
-                    this.$api.findMyManga().then(res=>{
+                    this.$api.findMyManga({type:3}).then(res=>{
                         this.authorUploadManga(res.data.data);
                         this.$router.push({path:'/home'});
                     });

@@ -108,3 +108,18 @@ export const setMangaTitlePage = async ({ commit }, titlePage) => {
 export const setChapterData = async ({ commit }, chapterData) => {
   commit(types.SET_CHAPTER_DATA, chapterData);
 };
+
+// 存入table表头
+export const setTableColums = async ({commit}, tableColums) => {
+  commit(types.SET_TABLE_COLUMS, tableColums);
+}
+
+// 存入table数据
+export const setTableData = async ({commit}, tableData) => {
+  commit(types.SET_TABLE_DATA, tableData);
+}
+
+// 存入编辑表格行数据
+export const setTableByEdit = async ({commit}, tableRowData) => {
+  commit(types.SET_TABLE_BY_EDIT, tableRowData);
+}

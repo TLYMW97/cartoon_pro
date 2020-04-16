@@ -1,14 +1,15 @@
 <template>
     <div class="home">
         <div class="top">
-            <div class="left-info">111</div>
-            <div class="right-msg">11</div>
+            <div class="left-info"></div>
+            <div class="right-msg"></div>
         </div>
         <myCartoonList></myCartoonList>
     </div>
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
     import myCartoonList from '../components/my-cartoon-list'
     export default {
         name: "home",
@@ -20,10 +21,14 @@
             myCartoonList,
         },
         created(){
-
+            this.deleteMangaByClick();
         },
         methods:{
-        }
+            deleteMangaByClick(){
+                this.setMangaByClick(0);
+            },
+            ...mapActions(['setMangaByClick'])
+        },
     };
 </script>
 

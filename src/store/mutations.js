@@ -63,6 +63,18 @@ const mutations = {
   [types.SET_CHAPTER_DATA](state, chapterData){
     state.chapterData = chapterData;
     sessionStorage.setItem('chapterData', JSON.stringify(chapterData));
+  },
+  [types.SET_TABLE_COLUMS](state,tableColums){
+    state.tabeleColums = tableColums;
+    sessionStorage.setItem('tableColums', JSON.stringify(tableColums));
+  },
+  [types.SET_TABLE_DATA](state,tableData){
+    state.tableData = tableData;
+    sessionStorage.setItem('tableData', JSON.stringify(tableData));
+  },
+  [types.SET_TABLE_BY_EDIT](state,tableRowData){
+    state.tableRowData = tableRowData;
+    sessionStorage.setItem('tableRowData', JSON.stringify(tableRowData));
   }
 };
 export default mutations;

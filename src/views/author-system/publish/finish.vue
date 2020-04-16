@@ -18,7 +18,7 @@
         name: "finish",
         methods:{
             back(){
-                this.$api.findMyManga().then(res=>{
+                this.$api.findMyManga({type:3}).then(res=>{
                     this.authorUploadManga(res.data.data);
                     this.$router.push({path:'/home',replace: true})
                 });
