@@ -123,3 +123,30 @@ export const setTableData = async ({commit}, tableData) => {
 export const setTableByEdit = async ({commit}, tableRowData) => {
   commit(types.SET_TABLE_BY_EDIT, tableRowData);
 }
+
+// 存入管理员token
+// export const setAdminToken = async ({commit}, token) => {
+//   commit(types.SET_ADMIN_TOKEN, token);
+// }
+
+// 管理员登录
+export const adminLogin = async ({commit}, reqBody) =>{
+  console.log(reqBody);
+  const res = await api.adminLogin(reqBody);
+  console.log(res);
+  const {
+    data: { code, data, msg }
+  } = res;
+  console.log(res);
+  if (code === 200) {
+    commit(types.SET_ADMIN_INFO, data);
+    return data;
+  } else {
+    commit(types.ADMIN_ERR_MSG, msg);
+  }
+}
+
+// 存入审核漫画数据
+export const setAuditMangaData = async ({commit}, mangaData) =>{
+  commit(types.SET_AUDIT_MANGA_DATA, mangaData);
+}

@@ -21,6 +21,7 @@ import {
   Table,
   Breadcrumb,
   Checkbox,
+  LocaleProvider,
   message
 } from 'ant-design-vue';
 Vue.component(Input.name, Input);
@@ -59,4 +60,5 @@ Vue.component(Breadcrumb.Item.name, Breadcrumb.Item);
 Vue.component(Table.name, Table);
 Vue.component(Checkbox.name, Checkbox);
 Vue.component(Checkbox.Group.name, Checkbox.Group);
+Vue.component(LocaleProvider.name, LocaleProvider);
 Vue.prototype.$message = message;

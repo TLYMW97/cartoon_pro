@@ -1,4 +1,5 @@
 import service from './http';
+import adminService from './adminHttp'
 import { userInfo } from '../store/getters';
 // 获取验证码
 export const code = () => {
@@ -192,6 +193,20 @@ export const deleteChapter = chapterId => {
 /**
  * 管理端端接口
  **/
+
+// 管理员登录
+export const adminLogin = reqBody => {
+  return adminService.post('/adminLogin', reqBody)
+}
+// 获取未审核漫画章节
 export const unAudit = param => {
-  return service.post('/unAudit', param);
+  return adminService.post('/admin/unAudit', param);
 };
+// 审核漫画或章节
+export const audit = data => {
+  return adminService.post('/admin/audit', data);
+}
+// 获取所有用户列表
+export const getUserList = data =>{
+  return adminService.post('/admin/userList',data);
+}

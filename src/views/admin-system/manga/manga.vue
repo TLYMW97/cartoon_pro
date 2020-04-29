@@ -1,8 +1,11 @@
 <template>
-  <div>
-    <a-table :columns="columns" :dataSource="data">
+  <div style="width: 100%;">
+    <a-table :columns="columns" :dataSource="data" :pagination="pagination">
+      <template slot="mangaStatus">
+        <a>未审核</a>
+      </template>
       <template
-        v-for="col in ['name', 'age', 'address']"
+        v-for="col in ['mangaName', 'mangaAuthor', 'mangaCreatetime','mangaDetail']"
         :slot="col"
         slot-scope="text, record"
       >
@@ -18,114 +21,103 @@
       </template>
       <template slot="operation" slot-scope="text, record">
         <div class="editable-row-operations">
-          <span v-if="record.editable">
-            <a @click="() => save(record.key)">Save</a>
-            <a-popconfirm
-              title="Sure to cancel?"
-              @confirm="() => cancel(record.key)"
-            >
-              <a>Cancel</a>
-            </a-popconfirm>
-          </span>
-          <span v-else>
-            <a @click="() => edit(record.key)">Edit</a>
-          </span>
+            <a @click="() => edit(record)">审核</a>
         </div>
       </template>
     </a-table>
+    <div style="margin-top: 30px;float: right;" id="components-pagination-demo-mini">
+      <a-locale-provider :locale="zhCN">
+        <a-pagination size="small" :total="dataTotal" showSizeChanger showQuickJumper @change="onPaginationChange" @showSizeChange="showSizeChange"/>
+      </a-locale-provider>
+    </div>
+    <div style="clear: both"></div>
   </div>
 </template>
 
 <script>
+import zhCN from "ant-design-vue/lib/locale-provider/zh_CN";
 const columns = [
   {
     title: '漫画名',
-    dataIndex: 'name',
-    width: '25%',
-    scopedSlots: { customRender: 'name' }
-  },
-  {
-    title: '章节编号',
-    dataIndex: 'age',
+    dataIndex: 'mangaName',
     width: '15%',
-    scopedSlots: { customRender: 'age' }
+    align:'center'
   },
   {
-    title: '章节名称',
-    dataIndex: 'address',
-    width: '40%',
-    scopedSlots: { customRender: 'address' }
+    title: '漫画作者',
+    dataIndex: 'mangaAuthor',
+    width: '15%',
+    align:'center'
   },
   {
-    title: '编辑',
+    title:'创建时间',
+    dataIndex:'mangaCreatetime',
+    width:'20%',
+    align:'center'
+
+  },
+  {
+    title: '漫画简介',
+    dataIndex: 'mangaDetail',
+    width: '30%',
+    align:'center'
+  },
+  {
+    title:'审核状态',
+    dataIndex:'mangaStatus',
+    width:'10%',
+    align:'center',
+    scopedSlots:{
+      customRender: 'mangaStatus'
+    }
+  },
+  {
+    title: '操作',
     dataIndex: 'operation',
+    width: '10%',
+    align:'center',
     scopedSlots: { customRender: 'operation' }
   }
 ];
 const data = [];
-for (let i = 0; i < 100; i++) {
-  data.push({
-    key: i.toString(),
-    name: `Edrward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`
-  });
-}
 export default {
   name: 'review-manga',
   data() {
     this.cacheData = data.map(item => ({ ...item }));
     return {
       data,
-      columns
+      zhCN,
+      columns,
+      dataTotal: 0,
+      pagination: false,
     };
   },
   methods: {
+    // 分页转跳
+    onPaginationChange(page,pageSize){
+      this.getUnAudit(page,pageSize);
+    },
+    // 每页数据条数变化
+    showSizeChange(current,size){
+      this.getUnAudit(current,size);
+    },
     // 获取未审核数据
-    getUnauditManga: async function() {
-      let res = await this.$api.getUnauditManga(0);
-      console.log(res);
-    },
-    handleChange(value, key, column) {
-      const newData = [...this.data];
-      const target = newData.filter(item => key === item.key)[0];
-      if (target) {
-        target[column] = value;
-        this.data = newData;
+    getUnAudit: async function(page=1,size=10) {
+      let res = await this.$api.unAudit({unAuditType:0,page:page,size:size});
+      if(res.data.data.list){
+        console.log(res.data.data.list);
+        this.data = res.data.data.list;
+        this.dataTotal = res.data.data.total;
       }
     },
-    edit(key) {
-      const newData = [...this.data];
-      const target = newData.filter(item => key === item.key)[0];
-      if (target) {
-        target.editable = true;
-        this.data = newData;
-      }
+    edit(data) {
+      console.log(data);
+
+      // this.$api.audit({auditType:0,mangaId:data.mangaId,mangaAudit:1,})
     },
-    save(key) {
-      const newData = [...this.data];
-      const target = newData.filter(item => key === item.key)[0];
-      if (target) {
-        delete target.editable;
-        this.data = newData;
-        this.cacheData = newData.map(item => ({ ...item }));
-      }
-    },
-    cancel(key) {
-      const newData = [...this.data];
-      const target = newData.filter(item => key === item.key)[0];
-      if (target) {
-        Object.assign(
-          target,
-          this.cacheData.filter(item => key === item.key)[0]
-        );
-        delete target.editable;
-        this.data = newData;
-      }
-    }
   },
   created() {
-    this.getUnauditManga();
+    this.getUnAudit();
   }
 };
 </script>

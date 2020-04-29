@@ -15,3 +15,5 @@ export const SET_CHAPTER_DATA = 'SET_CHAPTER_DATA';
 export const SET_TABLE_COLUMS = 'SET_TABLE_COLUMS';
 export const SET_TABLE_DATA = 'SET_TABLE_DATA';
 export const SET_TABLE_BY_EDIT = 'SET_TABLE_BY_EDIT';
+export const SET_ADMIN_INFO = 'SET_ADMIN_INFO';
+export const ADMIN_ERR_MSG = 'ADMIN_ERR_MSG';

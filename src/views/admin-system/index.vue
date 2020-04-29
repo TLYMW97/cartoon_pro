@@ -17,19 +17,28 @@
                             <span>数据统计</span>
                         </router-link>
                     </a-menu-item>
-                    <a-menu-item key="2">
-                        <router-link to="/adminindex/manga">
-                            <a-icon type="desktop" />
-                            <span>漫画审核</span>
-                        </router-link>
-                    </a-menu-item>
-                    <a-menu-item key="3">
+                    <a-sub-menu key="sub1">
+                        <span slot="title"><a-icon type="desktop"></a-icon><span>审核列表</span></span>
+                        <a-menu-item key="2">
+                            <router-link to="/adminindex/manga">
+                                <a-icon type="desktop" />
+                                <span>漫画审核</span>
+                            </router-link>
+                        </a-menu-item>
+                        <a-menu-item key="3">
+                            <router-link to="/adminindex/chapter">
+                                <a-icon type="desktop" />
+                                <span>章节审核</span>
+                            </router-link>
+                        </a-menu-item>
+                    </a-sub-menu>
+                    <a-menu-item key="4">
                         <router-link to="/adminindex/user">
                             <a-icon type="user" />
                             <span>用户管理</span>
                         </router-link>
                     </a-menu-item>
-                    <a-menu-item key="4">
+                    <a-menu-item key="5">
                         <router-link to="/adminindex/comments">
                             <a-icon type="team" />
                             <span>评论管理</span>

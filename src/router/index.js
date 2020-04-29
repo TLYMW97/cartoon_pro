@@ -180,7 +180,7 @@ const routes = [
   {
     path: '/adminindex',
     name: 'adminindex',
-    redirect: '/adminindex/dataStatistics',
+    redirect: '/adminlogin',
     meta: { hideHeader: true },
     component: () => import('../views/admin-system/index'),
     children: [
@@ -189,6 +189,12 @@ const routes = [
         name: 'manga',
         meta: { hideHeader: true },
         component: () => import('../views/admin-system/manga/manga')
+      },
+      {
+        path: 'chapter',
+        name:'chapter',
+        meta:{hideHeader: true},
+        component: () => import('../views/admin-system/chapter/chapter')
       },
       {
         path: 'comments',
@@ -210,7 +216,13 @@ const routes = [
         component: () => import('../views/admin-system/user/user')
       }
     ]
-  }
+  },
+  {
+    path:'/adminlogin',
+    name:'adminlogin',
+    meta: { hideHeader: true },
+    component: () => import('../views/admin-system/login/login')
+  },
   // {
   //   path: '/about',
   //   name: 'about',

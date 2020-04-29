@@ -1,5 +1,6 @@
 const sessionData = {
   user: JSON.parse(sessionStorage.getItem('user')),
+  admin:JSON.parse(sessionStorage.getItem('admin')),
   currentManga: JSON.parse(sessionStorage.getItem('curManga')),
   sections: JSON.parse(sessionStorage.getItem('sections')),
   currentSection: JSON.parse(sessionStorage.getItem('currentSection')),
@@ -18,6 +19,7 @@ const sessionData = {
 };
 const state = {
   user: sessionData.user || {},
+  admin: sessionData.admin || {},
   currentManga: sessionData.currentManga || {},
   sections: sessionData.sections || {},
   currentSection: sessionData.currentSection || '',

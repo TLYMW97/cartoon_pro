@@ -13,8 +13,22 @@ const mutations = {
     sessionStorage.setItem('user', JSON.stringify(user));
     state.user = user;
   },
+  [types.SET_ADMIN_INFO](state, admin){
+    let {admin: adminInfo} = state;
+    if(adminInfo.token) {
+      adminInfo.admin = admin;
+      sessionStorage.setItem('admin', JSON.stringify(adminInfo));
+      state.admin = adminInfo;
+      return;
+    }
+    sessionStorage.setItem('admin', JSON.stringify(admin));
+    state.admin = admin;
+  },
   [types.ERR_MSG](state, msg) {
     message.error(msg, 2);
+  },
+  [types.ADMIN_ERR_MSG](state, msg){
+    message.error(msg, 1);
   },
   [types.SET_CURRENT_MANGA](state, mangaData) {
     sessionStorage.setItem('curManga', JSON.stringify(mangaData));
