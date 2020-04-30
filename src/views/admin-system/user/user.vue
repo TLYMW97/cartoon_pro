@@ -1,26 +1,107 @@
 <template>
-    <div>user</div>
+    <div style="width: 100%;">
+        <a-table :columns="columns" :dataSource="data" :pagination="pagination">
+            <template slot="userStatus" slot-scope="text">
+                <a v-if="text===1">已启用</a>
+                <a v-else>已禁用</a>
+            </template>
+            <template slot="operation" slot-scope="text, record">
+                <div class="editable-row-operations">
+                    <a @click="() => edit(record)">管理用户</a>
+                </div>
+            </template>
+        </a-table>
+        <div style="margin-top: 30px;float: right;" id="components-pagination-demo-mini">
+            <a-locale-provider :locale="zhCN">
+                <a-pagination size="small" :total="dataTotal" showSizeChanger showQuickJumper @change="onPaginationChange" @showSizeChange="showSizeChange"/>
+            </a-locale-provider>
+        </div>
+        <div style="clear: both"></div>
+    </div>
 </template>
 
 <script>
+    import zhCN from "ant-design-vue/lib/locale-provider/zh_CN";
+    const columns = [
+        {
+            title: '用户账号',
+            dataIndex: 'userName',
+            width: '15%',
+            align:'center'
+        },
+        {
+            title: '用户名',
+            dataIndex: 'userNickname',
+            width: '15%',
+            align:'center'
+        },
+        {
+            title:'手机号',
+            dataIndex:'userPhone',
+            width:'20%',
+            align:'center'
+
+        },
+        {
+            title: '个人信息',
+            dataIndex: 'userVxId',
+            width: '30%',
+            align:'center'
+        },
+        {
+            title:'用户状态',
+            dataIndex:'userStatus',
+            width:'10%',
+            align:'center',
+            scopedSlots:{
+                customRender: 'userStatus'
+            }
+        },
+        {
+            title: '操作',
+            dataIndex: 'operation',
+            width: '10%',
+            align:'center',
+            scopedSlots: { customRender: 'operation' }
+        }
+    ];
+    const data = [];
     export default {
         name: "user",
         data() {
             return{
-                data: null,
-            }
+                data,
+                zhCN,
+                columns,
+                dataTotal: 0,
+                pagination: false,
+            };
         },
         created() {
             this.getUserData();
         },
         methods:{
-            getUserData(){
-                this.$api.getUserList({page:1,size:10}).then(res=>{
-                    console.log(res);
-                })
+            // 分页转跳
+            onPaginationChange(page,pageSize){
+                this.getUnAudit(page,pageSize);
+            },
+            // 每页数据条数变化
+            showSizeChange(current,size){
+                this.getUnAudit(current,size);
+            },
+            // 获取未审核数据
+            getUserData: async function(page=1,size=10) {
+                let res = await this.$api.getUserList({page:1,size:10});
+                if(res.data.data.list){
+                    this.data = res.data.data.list;
+                    this.dataTotal = res.data.data.total;
+                }
+            },
+            edit(){
+                console.log(1);
             },
         }
-    }
+    };
 </script>
 
 <style scoped>

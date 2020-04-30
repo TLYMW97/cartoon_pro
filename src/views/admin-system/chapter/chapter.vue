@@ -1,23 +1,8 @@
 <template>
     <div style="width: 100%;">
         <a-table :columns="columns" :dataSource="data" :pagination="pagination">
-            <template slot="mangaStatus">
+            <template slot="chapterStatus">
                 <a>未审核</a>
-            </template>
-            <template
-                    v-for="col in ['mangaName', 'mangaAuthor', 'mangaCreatetime','mangaDetail']"
-                    :slot="col"
-                    slot-scope="text, record"
-            >
-                <div :key="col">
-                    <a-input
-                            v-if="record.editable"
-                            style="margin: -5px 0"
-                            :value="text"
-                            @change="e => handleChange(e.target.value, record.key, col)"
-                    />
-                    <template v-else>{{ text }}</template>
-                </div>
             </template>
             <template slot="operation" slot-scope="text, record">
                 <div class="editable-row-operations">
@@ -36,39 +21,27 @@
 
 <script>
     import zhCN from "ant-design-vue/lib/locale-provider/zh_CN";
+    import {timeFormat} from '../../../utils/UTDtime';
     const columns = [
         {
-            title: '漫画名',
-            dataIndex: 'mangaName',
-            width: '15%',
-            align:'center'
-        },
-        {
-            title: '漫画作者',
-            dataIndex: 'mangaAuthor',
+            title: '章节名',
+            dataIndex: 'chapterTitle',
             width: '15%',
             align:'center'
         },
         {
             title:'创建时间',
-            dataIndex:'mangaCreatetime',
+            dataIndex:'chapterUpdatetime',
             width:'20%',
-            align:'center'
-
-        },
-        {
-            title: '漫画简介',
-            dataIndex: 'mangaDetail',
-            width: '30%',
-            align:'center'
+            align:'center',
         },
         {
             title:'审核状态',
-            dataIndex:'mangaStatus',
+            dataIndex:'chapterStatus',
             width:'10%',
             align:'center',
             scopedSlots:{
-                customRender: 'mangaStatus'
+                customRender: 'chapterStatus'
             }
         },
         {
@@ -106,7 +79,11 @@
                 let res = await this.$api.unAudit({unAuditType:1,page:page,size:size});
                 if(res.data.data.list){
                     console.log(res.data.data.list);
-                    this.data = res.data.data.list;
+                    this.data = res.data.data.list.map(index=>{
+                        index.key = index.chapterId;
+                        index.chapterUpdatetime = timeFormat(index.chapterUpdatetime);
+                        return index;
+                    });
                     this.dataTotal = res.data.data.total;
                 }
             },

@@ -4,21 +4,6 @@
       <template slot="mangaStatus">
         <a>未审核</a>
       </template>
-      <template
-        v-for="col in ['mangaName', 'mangaAuthor', 'mangaCreatetime','mangaDetail']"
-        :slot="col"
-        slot-scope="text, record"
-      >
-        <div :key="col">
-          <a-input
-            v-if="record.editable"
-            style="margin: -5px 0"
-            :value="text"
-            @change="e => handleChange(e.target.value, record.key, col)"
-          />
-          <template v-else>{{ text }}</template>
-        </div>
-      </template>
       <template slot="operation" slot-scope="text, record">
         <div class="editable-row-operations">
             <a @click="() => edit(record)">审核</a>
