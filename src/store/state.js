@@ -16,6 +16,8 @@ const sessionData = {
   tableData: JSON.parse(sessionStorage.getItem('tableData')),
   tableColums: JSON.parse(sessionStorage.getItem('tableColums')),
   tableRowData: JSON.parse(sessionStorage.getItem('tableRowData')),
+  auditMangaData: JSON.parse(sessionStorage.getItem('auditMangaData')),
+  auditChapterData: JSON.parse(sessionStorage.getItem('auditChapterData')),
 };
 const state = {
   user: sessionData.user || {},
@@ -35,5 +37,7 @@ const state = {
   tableData: sessionData.tableData || [],
   tableColums: sessionData.tableColums || [],
   tableRowData: sessionData.tableRowData || [],
+  auditMangaData: sessionData.auditMangaData || [],
+  auditChapterData: sessionData.auditChapterData || [],
 };
 export default state;

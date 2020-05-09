@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex';
 import zhCN from "ant-design-vue/lib/locale-provider/zh_CN";
 const columns = [
   {
@@ -96,10 +97,12 @@ export default {
       }
     },
     edit(data) {
-      console.log(data);
-
-      // this.$api.audit({auditType:0,mangaId:data.mangaId,mangaAudit:1,})
+        console.log(data);
+        this.setAuditMangaData(data);
+        this.$router.push('/adminindex/auditmanga')
+        // this.$api.audit({auditType:0,mangaId:data.mangaId,mangaAudit:1,})
     },
+    ...mapActions(['setAuditMangaData'])
   },
   created() {
     this.getUnAudit();

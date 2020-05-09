@@ -37,7 +37,6 @@
                 </div>
             </div>
             <div class="chart">
-                统计图表
             </div>
         </div>
     </div>

@@ -172,22 +172,6 @@ export default {
           this.$emit('next', 'publishImg');
           this.$router.push({path:'/publish/publishImg'});
         }
-        // if(this.getCreateMangaId.length !== 0){
-        //   console.log(1);
-        //   this.$emit('next', 'publishImg');
-        //   this.$router.push({path:'/publish/publishImg'});
-        // }else {
-        //   console.log(2);
-        //   let mangaId = await this.$api.addManga(mangaData);
-        //   console.log(mangaId);
-        //   if(mangaId.data.code === 50009){
-        //     console.log('存在');
-        //   } else {
-        //     this.setCreateMangaId(mangaId.data.data.mangaId);
-        //     this.$emit('next', 'publishImg');
-        //     this.$router.push({path:'/publish/publishImg'});
-        //   }
-        // }
       }
     },
     tags(tagData) {

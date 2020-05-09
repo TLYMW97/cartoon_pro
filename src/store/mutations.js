@@ -89,6 +89,14 @@ const mutations = {
   [types.SET_TABLE_BY_EDIT](state,tableRowData){
     state.tableRowData = tableRowData;
     sessionStorage.setItem('tableRowData', JSON.stringify(tableRowData));
+  },
+  [types.SET_AUDIT_MANGA_DATA](state,auditMangaData){
+    state.auditMangaData = auditMangaData;
+    sessionStorage.setItem('auditMangaData', JSON.stringify(auditMangaData));
+  },
+  [types.SET_AUDIT_CHAPTER_DATA](state, auditChapterData){
+    state.auditChapterData = auditChapterData;
+    sessionStorage.setItem('auditChapterData', JSON.stringify(auditChapterData));
   }
 };
 export default mutations;

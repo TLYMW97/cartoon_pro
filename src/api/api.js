@@ -210,3 +210,15 @@ export const audit = data => {
 export const getUserList = data =>{
   return adminService.post('/admin/userList',data);
 }
+// 停用用户
+export const stopUser = data => {
+  return adminService.post('/admin/stopUser',data);
+}
+// 启用用户
+export const activateUser = data => {
+  return adminService.post('/admin/activateUser',data);
+}
+// 管理端获取漫画章节图片
+export const findEpisodeByAdmin = data => {
+  return adminService.post('/findEpisodeByAuthor',data);
+}

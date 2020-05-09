@@ -191,10 +191,22 @@ const routes = [
         component: () => import('../views/admin-system/manga/manga')
       },
       {
+        path:'auditmanga',
+        name:'auditmanga',
+        meta:{hideHeader:true},
+        component:() => import('../views/admin-system/manga/auditManga')
+      },
+      {
         path: 'chapter',
         name:'chapter',
         meta:{hideHeader: true},
         component: () => import('../views/admin-system/chapter/chapter')
+      },
+      {
+        path: 'auditchapter',
+        name: 'auditchapter',
+        meta:{hideHeader:true},
+        component:() => import('../views/admin-system/chapter/auditChapter')
       },
       {
         path: 'comments',

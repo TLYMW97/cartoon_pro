@@ -164,6 +164,7 @@
         console.log(this.imgList);
         e.preventDefault();
         let theMangaId
+        console.log(this.getMangaByClick);
         if(this.getMangaByClick){
           theMangaId = this.getMangaByClick.mangaId;
         }else {

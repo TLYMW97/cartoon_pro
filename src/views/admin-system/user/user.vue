@@ -5,10 +5,9 @@
                 <a v-if="text===1">已启用</a>
                 <a v-else>已禁用</a>
             </template>
-            <template slot="operation" slot-scope="text, record">
-                <div class="editable-row-operations">
-                    <a @click="() => edit(record)">管理用户</a>
-                </div>
+            <template slot="operation" slot-scope="text,record">
+                <a @click="() => enable(record)">启用</a>
+                <a @click="() => prohibit(record)" style="color: red;margin-left: 5px;">禁用</a>
             </template>
         </a-table>
         <div style="margin-top: 30px;float: right;" id="components-pagination-demo-mini">
@@ -97,9 +96,19 @@
                     this.dataTotal = res.data.data.total;
                 }
             },
-            edit(){
-                console.log(1);
+            enable(data){
+                this.$api.activateUser({userId: data.userId}).then(res=>{
+                    console.log(res);
+                    this.getUserData();
+                })
             },
+            prohibit(data){
+                console.log(data);
+                this.$api.stopUser({userId: data.userId}).then(res=>{
+                    console.log(res);
+                    this.getUserData();
+                });
+            }
         }
     };
 </script>

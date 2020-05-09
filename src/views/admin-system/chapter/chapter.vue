@@ -22,6 +22,7 @@
 <script>
     import zhCN from "ant-design-vue/lib/locale-provider/zh_CN";
     import {timeFormat} from '../../../utils/UTDtime';
+    import {mapActions} from 'vuex';
     const columns = [
         {
             title: '章节名',
@@ -89,13 +90,15 @@
             },
             edit(data) {
                 console.log(data);
-
+                this.setAuditChapterData(data)
+                this.$router.push('/adminindex/auditchapter')
                 // this.$api.audit({auditType:0,mangaId:data.mangaId,mangaAudit:1,})
             },
+            ...mapActions(['setAuditChapterData'])
         },
         created() {
             this.getUnAudit();
-        }
+        },
     }
 </script>
 

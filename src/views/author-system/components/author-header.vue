@@ -9,7 +9,7 @@
             <div class="topnav">
                 <ul>
                     <li>
-                        <router-link to="/home">
+                        <router-link to="/home" @click.native="deleteMangaData">
                             <img src="http://css99tel.cdndm5.com/v201910292122/cartoonupload/images/icon_home_topnav.png" alt="首页">
                         </router-link>
                     </li>
@@ -40,8 +40,15 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
     export default {
-        name: "header"
+        name: "header",
+        methods:{
+            deleteMangaData(){
+                this.setMangaByClick(0);
+            },
+            ...mapActions(['setMangaByClick'])
+        },
     }
 </script>
 

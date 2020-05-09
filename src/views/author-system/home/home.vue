@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
+    import {mapActions,mapGetters} from 'vuex';
     import myCartoonList from '../components/my-cartoon-list'
     export default {
         name: "home",
@@ -20,15 +20,31 @@
         components:{
             myCartoonList,
         },
+        mounted(){
+            console.log(this.getMangaByClick);
+        },
         created(){
             this.deleteMangaByClick();
         },
         methods:{
             deleteMangaByClick(){
                 this.setMangaByClick(0);
+                console.log(this.getMangaByClick);
             },
             ...mapActions(['setMangaByClick'])
         },
+        computed:{
+            mangaByClick(){
+              return this.$store.state.mangaData;
+            },
+            ...mapGetters(['getMangaByClick'])
+        },
+        watch:{
+            '$store.state.mangaData'(val,oldVal){
+                console.log(val);
+                console.log(oldVal);
+            }
+        }
     };
 </script>
 

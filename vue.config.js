@@ -26,7 +26,9 @@ module.exports = {
       less: {
         modifyVars: {
           'primary-color': '#1890ff',
-          'link-color': '#1890ff'
+          'link-color': '#1890ff',
+          'success-color': '#52c41a', // 成功色
+          'warning-color': '#faad14', // 警告色
         },
         javascriptEnabled: true
       }

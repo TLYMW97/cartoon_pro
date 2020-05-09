@@ -102,6 +102,7 @@
             }
         },
         created() {
+            console.log(this.getMangaByClick);
         },
         mounted(){
         }

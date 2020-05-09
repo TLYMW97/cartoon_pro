@@ -16,3 +16,7 @@ export const getCreateMangaId = state => state.mangaId;
 export const getTableColums = state => state.tableColums;
 export const getTableData = state => state.tableData;
 export const getTableByEdit = state => state.tableRowData;
+// 获取审核漫画数据
+export const getAuditMangaData = state => state.auditMangaData;
+// 获取审核章节数据
+export const getAuditChapterData = state => state.auditChapterData;

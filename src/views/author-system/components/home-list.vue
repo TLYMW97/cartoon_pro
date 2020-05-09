@@ -2,7 +2,7 @@
     <div class="left-nav">
         <div class="home">
             <img src="http://css99tel.cdndm5.com/v201910292122/cartoonupload/images/icon_leftnav_home.png" alt="">
-            <router-link to="/home">首页</router-link>
+            <router-link to="/home" @click.native="deleteMangaData">首页</router-link>
         </div>
         <div class="admin-list">
             <ul>
@@ -57,6 +57,9 @@
                 console.log(data);
                 this.setMangaByClick(data);
                 this.$router.push("/homeedit");
+            },
+            deleteMangaData(){
+                this.setMangaByClick(0);
             },
             ...mapActions(['setMangaByClick','setTableByEdit'])
         },

@@ -150,3 +150,8 @@ export const adminLogin = async ({commit}, reqBody) =>{
 export const setAuditMangaData = async ({commit}, mangaData) =>{
   commit(types.SET_AUDIT_MANGA_DATA, mangaData);
 }
+
+// 存入章节数据
+export const setAuditChapterData = async ({commit}, chapterData) =>{
+  commit(types.SET_AUDIT_CHAPTER_DATA, chapterData);
+}
