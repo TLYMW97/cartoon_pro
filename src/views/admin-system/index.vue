@@ -58,7 +58,7 @@
                     </div>
                 </a-layout-content>
                 <a-layout-footer style="text-align: center;background: rgba(0,0,0, 0);">
-                    Ant Design ©2018 Created by Ant UED
+                    漫画管理平台 ©2020 Created by LWL
                 </a-layout-footer>
             </a-layout>
         </a-layout>
