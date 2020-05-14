@@ -1,13 +1,19 @@
+/* eslint-disable vue/no-unused-components */
 <template>
   <div class="personal">
     <div class="personal-nav">
       <div class="user">
-        <a-avatar :size="65" icon="user" />
+        <a-avatar :size="65" :src="userAvatar" icon="user" />
         <p class="user-nickname">{{ userInfo.user.user.userNickname }}</p>
       </div>
       <div class="nav-list">
-        <div class="nav">
-          我的书架
+        <div
+          class="nav"
+          v-for="nav of navs"
+          :key="nav.value"
+          @click="changeNav(nav.value)"
+        >
+          {{ nav.name }}
         </div>
       </div>
     </div>
@@ -15,7 +21,8 @@
       <component
         :readHis="userInfo.user.historyReads"
         :collect="userInfo.user.collect"
-        :is="'BookRack'"
+        :userInfo="userInfo"
+        :is="currentNav"
       />
     </div>
   </div>
@@ -24,12 +31,41 @@
 <script>
 import { mapGetters } from 'vuex';
 import BookRack from './components/bookrack';
+import Edit from './components/edit';
 export default {
   components: {
-    BookRack
+    BookRack,
+    // eslint-disable-next-line vue/no-unused-components
+    Edit
+  },
+  data() {
+    return {
+      navs: [
+        { name: '个人信息', value: 'Edit' },
+        { name: '我的书架', value: 'BookRack' }
+      ],
+      currentNav: 'Edit'
+    };
+  },
+  watch: {
+    userInfo(val) {
+      console.log('val :', val);
+    }
   },
   computed: {
+    userAvatar() {
+      if (this.userInfo.token) {
+        // console.log('this.userInfo :', this.userInfo);
+        return this.userInfo.user.user.attach.attachUrl;
+      }
+      return null;
+    },
     ...mapGetters(['userInfo'])
+  },
+  methods: {
+    changeNav(nav) {
+      this.currentNav = nav;
+    }
   }
 };
 </script>
@@ -60,6 +96,7 @@ export default {
       .nav {
         border-bottom: 1px solid #eaeaea;
         padding: 10px 0;
+        cursor: pointer;
       }
     }
   }

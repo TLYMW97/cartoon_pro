@@ -10,7 +10,11 @@
       ></cartoon-info>
     </div>
     <div class="result">
-      <cartoon-card v-for="cartoon of searchList" :key="cartoon.mangaId" :mangaData="cartoon" />
+      <cartoon-card
+        v-for="cartoon of searchList"
+        :key="cartoon.mangaId"
+        :mangaData="cartoon"
+      />
     </div>
   </div>
 </template>
@@ -26,7 +30,7 @@ export default {
   components: {
     SearchBar,
     cartoonCard,
-    cartoonInfo
+    cartoonInfo,
   },
   mixins: [mangaMixin],
   created() {
@@ -36,7 +40,7 @@ export default {
     searchList() {
       const lenght = this.searchResult.lenght;
       return this.searchResult.slice(1, lenght);
-    }
+    },
   },
   methods: {
     searchInit() {
@@ -44,8 +48,8 @@ export default {
       this.setCurManga(mangaFirst);
       this.checkCollcted(mangaFirst.mangaId);
       this.getDetail(mangaFirst.mangaId);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -58,6 +62,9 @@ export default {
 }
 .result {
   @include w1200(20px);
-  @include flex(space-around, null, wrap);
+  @include flex(null, null, wrap);
+  .card {
+    margin-right: 30px;
+  }
 }
 </style>

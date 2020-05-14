@@ -5,7 +5,7 @@
         <router-link
           :to="{
             path: '/detail',
-            query: { mangaId: this.currentManga.mangaId }
+            query: { mangaId: this.currentManga.mangaId },
           }"
         >
           <a-icon type="close-circle" style="margin-right: 10px" />退出阅读
@@ -17,7 +17,7 @@
         <router-link
           :to="{
             path: '/detail',
-            query: { mangaId: this.currentManga.mangaId }
+            query: { mangaId: this.currentManga.mangaId },
           }"
           >{{ this.currentManga.mangaName }}</router-link
         >
@@ -25,14 +25,14 @@
         <span>{{ this.$route.query.chapterName }}</span>
       </div>
       <div class="operate">
-        <a-button
+        <!-- <a-button
           class="feedback"
           @click="allSaw"
           type="link"
           style="color: #fff"
           >意见反馈</a-button
         >
-        <a-button class="collect" type="link">收藏</a-button>
+        <a-button class="collect" type="link">收藏</a-button> -->
       </div>
     </div>
     <div class="view-content">
@@ -45,7 +45,7 @@
             class="manga-name"
             :to="{
               path: '/detail',
-              query: { mangaId: this.currentManga.mangaId }
+              query: { mangaId: this.currentManga.mangaId },
             }"
             >{{ this.currentManga.mangaName }}</router-link
           >
@@ -63,7 +63,7 @@
           <img
             v-for="episode of episodes"
             :key="episode.episodeId"
-            :src="episode.episodeHref"
+            v-lazy="episode.episodeHref"
             alt
           />
         </div>
@@ -105,12 +105,12 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'cartoonView',
   computed: {
-    ...mapGetters(['currentManga', 'currentSection', 'sections'])
+    ...mapGetters(['currentManga', 'currentSection', 'sections']),
   },
   watch: {
     $route() {
       this.viewInit();
-    }
+    },
   },
   mounted() {
     window.addEventListener('scroll', this.watchScroll);
@@ -124,7 +124,7 @@ export default {
       timerTwo: null,
       payShow: false,
       qrySelf: {},
-      accountNum: 0
+      accountNum: 0,
     };
   },
   created() {
@@ -144,17 +144,17 @@ export default {
       }, 600);
     },
     getQrySelf() {
-      let res = this.$api.qrySelf().then(async res => {
+      let res = this.$api.qrySelf().then(async (res) => {
         const {
-          data: { data }
+          data: { data },
         } = res;
         this.qrySelf = data;
         const { accountId } = data.user;
         let accountRes = await this.$api.qryAccount(accountId);
         const {
           data: {
-            data: { accountNum }
-          }
+            data: { accountNum },
+          },
         } = accountRes;
         this.accountNum = accountNum;
       });
@@ -177,7 +177,7 @@ export default {
       const { chapterId, chapterName } = this.$route.query;
       const res = await this.$api.getEpisode(chapterId);
       const {
-        data: { data, code, msg }
+        data: { data, code, msg },
       } = res;
       if (code === 50031) {
         // this.$message.error('该内容为付费内容，请先购买');
@@ -198,14 +198,16 @@ export default {
         accountdSubject: this.currentManga.mangaName,
         accountdNum: this.currentManga.mangaPrice,
         accountId: this.qrySelf.user.accountId,
-        mangaId: this.currentManga.mangaId
+        mangaId: this.currentManga.mangaId,
       };
       let res = await this.$api.expenditure(manga);
       const {
-        data: { code }
+        data: { code, msg },
       } = res;
       if (code === 200) {
         this.viewInit();
+      } else if (code === 30004) {
+        this.$message.error(msg);
       }
     },
     getSections() {
@@ -252,11 +254,11 @@ export default {
     changeSection({ chapterName, chapterId }) {
       this.$router.push({
         path: '/cartoonview',
-        query: { chapterId, chapterName }
+        query: { chapterId, chapterName },
       });
     },
-    ...mapActions(['getNextSection', 'setCurSection'])
-  }
+    ...mapActions(['getNextSection', 'setCurSection']),
+  },
 };
 </script>
 

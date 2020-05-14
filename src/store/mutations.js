@@ -5,7 +5,8 @@ const mutations = {
   [types.SET_USER_INFO](state, user) {
     let { user: userInfo } = state;
     if (userInfo.token) {
-      userInfo.user = user;
+      let oldData = userInfo.user;
+      userInfo.user = { ...oldData, ...user };
       sessionStorage.setItem('user', JSON.stringify(userInfo));
       state.user = userInfo;
       return;

@@ -13,6 +13,10 @@ export const login = reqBody => {
 export const qrySelf = () => {
   return service.post('/qrySelf');
 };
+// 修改个人信息
+export const updateUser = userInfo => {
+  return service.post('/updateUser', userInfo);
+};
 // 注册
 export const register = reqBody => {
   return service.post('/register', reqBody);

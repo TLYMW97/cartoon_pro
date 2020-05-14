@@ -75,7 +75,6 @@ export default {
     },
     getHistoryRead: async function() {
       let res = await this.$api.qryHistory({ page: 1, size: 3 });
-      let qres = await this.$api.qrySelf();
       let {
         data: {
           data: { list }

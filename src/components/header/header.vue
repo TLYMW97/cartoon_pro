@@ -63,21 +63,21 @@ export default {
           id: 1,
           name: '历史',
           path: '/',
-          icon: 'icon-historyrecord'
+          icon: 'icon-historyrecord',
         },
-        {
-          id: 2,
-          name: '收藏',
-          path: '/',
-          icon: 'icon-shoucang'
-        },
+        // {
+        //   id: 2,
+        //   name: '收藏',
+        //   path: '/',
+        //   icon: 'icon-shoucang'
+        // },
         {
           id: 3,
           name: '充值',
           path: '/pay',
-          icon: 'icon-chongzhi'
-        }
-      ]
+          icon: 'icon-chongzhi',
+        },
+      ],
     };
   },
   computed: {
@@ -88,7 +88,7 @@ export default {
         return this.userInfo.user.user.attach.attachUrl;
       }
       return null;
-    }
+    },
   },
   components: { LiIcon },
   methods: {
@@ -101,8 +101,8 @@ export default {
         // this.$message.success('已登录');
         this.$router.push('/personal');
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
