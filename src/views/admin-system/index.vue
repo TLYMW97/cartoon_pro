@@ -38,12 +38,12 @@
                             <span>用户管理</span>
                         </router-link>
                     </a-menu-item>
-                    <a-menu-item key="5">
-                        <router-link to="/adminindex/comments">
-                            <a-icon type="team" />
-                            <span>评论管理</span>
-                        </router-link>
-                    </a-menu-item>
+                    <!--<a-menu-item key="5">-->
+                        <!--<router-link to="/adminindex/comments">-->
+                            <!--<a-icon type="team" />-->
+                            <!--<span>评论管理</span>-->
+                        <!--</router-link>-->
+                    <!--</a-menu-item>-->
                 </a-menu>
             </a-layout-sider>
             <a-layout class="bg">
@@ -53,7 +53,7 @@
                         <!--<a-breadcrumb-item>User</a-breadcrumb-item>-->
                         <!--<a-breadcrumb-item>Bill</a-breadcrumb-item>-->
                     </a-breadcrumb>
-                    <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
+                    <div :style="{ padding: '24px',  minHeight: '360px' }">
                         <router-view></router-view>
                     </div>
                 </a-layout-content>

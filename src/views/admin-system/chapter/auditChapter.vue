@@ -1,13 +1,13 @@
 <template>
-    <div style="width: 100;">
+    <div style="width: 100%;background: white;padding: 20px;">
         <p style="text-align: center">章节名称: {{chapterData.chapterTitle}}</p>
-        <ul style="display: flex; flex-wrap:wrap;">
+        <ul style="display: flex; flex-wrap:wrap;justify-content:space-between;">
             <li v-for="item of chapterImg" :key="item.episodeId">
-                <img style="width: 300px;margin: 10px;" :src="item.episodeHref" alt="">
+                <img style="width: 300px;" :src="item.episodeHref" alt="">
             </li>
         </ul>
         <div style="display: flex;justify-content:center;">
-            <a-button style="margin-right: 10px;" type="primary" @click="pass">通过</a-button>
+            <a-button type="primary" @click="pass">通过</a-button>
             <a-button type="danger" @click="unPass">不通过</a-button>。
         </div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%;">
+  <div style="width: 100%;background: white;padding: 20px;">
     <a-table :columns="columns" :dataSource="data" :pagination="pagination">
       <template slot="mangaStatus">
         <a>未审核</a>

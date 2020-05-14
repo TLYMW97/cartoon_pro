@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div style="width: 100%;background: white;padding: 20px;">
         <div class="info-bar">
             <div class="img-bar">
-                <img :src="cartoonData.episode[0].episodeHref" :alt="cartoonData.mangaName" width="100%" height="100%">
+                <img v-if="cartoonData.episode.length" :src="cartoonData.episode[0].episodeHref" :alt="cartoonData.mangaName" width="100%" height="100%">
             </div>
             <div class="right-bar">
                 <div class="info">
