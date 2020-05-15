@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 100%;">
+    <div style="width: 100%;background: white;padding: 20px;">
         <a-table :columns="columns" :dataSource="data" :pagination="pagination">
             <template slot="userStatus" slot-scope="text">
                 <a v-if="text===1">已启用</a>
